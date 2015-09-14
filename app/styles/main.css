@@ -1,0 +1,59 @@
+body{
+  overflow-x: hidden;
+}
+body .container {
+    min-width: 960px;
+    width: 100%;
+}
+
+.fixed{
+  position: fixed;
+}
+
+#navegator{
+  height: 100%;
+}
+
+.playlist-title{
+  margin-bottom: 15px;
+}
+
+#playlist{
+  min-height: 352px;
+}
+
+#playlist img {
+  width: 120px;
+}
+
+hr.small{
+  margin: 5px 0;
+}
+
+.playlist-infos span{
+  font-size: 9pt;
+}
+
+#videoCtrl{
+  position: absolute;
+  bottom: 0;
+  width: 88%;
+  text-align: center;
+}
+
+#search{
+  margin-top: 17px;
+}
+.search-modal .panel{
+  background: #F9F9F9;
+}
+.search-modal .hero-feature h4{
+  font-size: 16px;
+  word-break: break-word;
+}
+.search-modal .hero-feature img{
+  max-width: 120px;
+}
+.search-modal .form-control{
+  margin-bottom: 15px;
+}

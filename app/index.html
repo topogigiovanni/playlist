@@ -34,7 +34,7 @@
                     <div id="header">
                       <div class="col-md-3">
                         <!-- Title -->
-                        <h1>Easy Video</h1>
+                        <h1>Playlist</h1>
                       </div>
                       <div  class="col-md-9">
                         <div id="search" class="input-group" >
@@ -54,20 +54,11 @@
                       texto e imagem mostrando como utilizar pela primeira vez.
                       Compartilhe a idéia para que essa ferramenta seja sempre grátis!
                     </p>
-                     <button type="button" class="btn modal-btn btn-primary" data-toggle="modal" data-target=".search-modal">Large modal</button>
-
                   </div>
                   <div id="video" class="hide">
                   </div> 
                   <pre>{{currentVideo.iframeSrc}}</pre>
                   <iframe id="player1" ng-src="{{currentVideo.iframeSrc}}" src="" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                  <!-- <iframe id="player2" src="https://player.vimeo.com/video/76979871?api=1&player_id=player1" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> -->
-
-                  <div>
-                    <button>Play</button>
-                    <button>Pause</button>
-                    <p>Status: <span class="status">&hellip;</span></p>
-                  </div>
               </div>  
             </div>
             <!-- Blog Sidebar Widgets Column -->
@@ -98,7 +89,7 @@
                       <h5 class="playlist-title">Lista de reprodução:</h5>
                       <div id="playlist" ng-scrollbars ng-scrollbars-config="scrollbarConfig">
                         <ul  class="nav nav-pills nav-stacked">
-                          <li ng-repeat="item in videoList" class="vid-{{item.id}}"  >
+                          <li ng-class="{'active':item.id == currentVideo.id}" ng-repeat="item in videoList" ng-click="currentVideo.setVideo(item);" class="vid-{{item.id}}"  >
                             <a href="#">
                               <img ng-src="{{item.media.small}}" />
                               <small ng-bind="item.title">

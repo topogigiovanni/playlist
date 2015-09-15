@@ -113,7 +113,7 @@ app.factory('Player', function($rootScope, CurrentVideo, YoutubeCommand, VimeoCo
       vimeo: VimeoCommand,
       youtube: YoutubeCommand
     };
-    factory.isPlaying = true;
+    factory.isPlaying = false;
     factory.next = function(apply){
       var currentIndex = _.findIndex(videoList, {id:CurrentVideo.id});
       var nextIndex = currentIndex + 1;

@@ -126,19 +126,19 @@
                     <div class="" id="videoCtrl">
                       <ul ng-controller="VideoPlayerController" class="pagination pagination-sm">
                          <li>
-                            <a ng-click="Player.prev();" href="javascript:void(0)">
+                            <button class="btn btn-default" ng-disabled="!videoList.length || videoList[0].id == currentVideo.id" ng-click="Player.prev();" href="javascript:void(0)">
                               <i class="glyphicon glyphicon-backward"></i>
-                            </a>
+                            </button>
                         </li>
                         <li>
-                            <a  ng-click="Player.play();" href="javascript:void(0)">
+                            <button class="btn btn-default" ng-disabled="!videoList.length" ng-click="Player.play();" href="javascript:void(0)">
                               <i ng-class="Player.isPlaying ? 'glyphicon glyphicon-pause' : 'glyphicon glyphicon-play'" class="glyphicon glyphicon-play"></i>
-                            </a>
+                            </button>
                         </li>
                         <li>
-                            <a ng-click="Player.next();" href="javascript:void(0)">
+                            <button class="btn btn-default" ng-disabled="!videoList.length || videoList[videoList.length - 1].id == currentVideo.id" ng-click="Player.next();" href="javascript:void(0)">
                               <i class="glyphicon glyphicon-forward"></i>
-                            </a>
+                            </button>
                         </li>
                       </ul>
                   </div>

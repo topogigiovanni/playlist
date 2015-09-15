@@ -1,6 +1,7 @@
 app.controller('MainController', ['$scope','$rootScope','CurrentVideo', 'Search', function ($scope, $rootScope, CurrentVideo, Search) {
   console.log('CurrentVideo', CurrentVideo);
   $scope.currentVideo = CurrentVideo;
+  // deprecated
   $rootScope.$on('Main.ChangeCurrentVideo', function(ev, data){
     console.log('escotou Main.ChangeCurrentVideo', ev, data);
     $scope.currentVideo = data;
@@ -19,10 +20,13 @@ app.controller('MainController', ['$scope','$rootScope','CurrentVideo', 'Search'
     if($scope.searchTerm)
       Search.modal.open();
   };
+
+  $scope.videoList = videoList;
+
 }]);
 
 app.controller('VideoListController', ['$scope',function ($scope) {
-  $scope.videoList = videoList;
+  
   $scope.videoListDuration = function(){
     var durationSeconds = 0;
     $scope.videoList.forEach(function(el){

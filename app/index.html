@@ -31,10 +31,10 @@
               <div class="container">
                   <!-- Blog Post -->
                   <header>
-                    <div id="header">
+                    <div id="header" class="inline-block">
                       <div class="col-md-3">
                         <!-- Title -->
-                        <h1>Playlist</h1>
+                        <h1 id="logo">Playlist</h1>
                       </div>
                       <div  class="col-md-9">
                         <div id="search" class="input-group" >
@@ -49,16 +49,16 @@
                     </div>
                   </header>
                   <div class="clear clearfix"></div>
-                  <div class="intro">
+                  <pre class="hide">{{currentVideo.iframeSrc}}</pre>
+                  <div class="intro" ng-class="{hide: videoList.length}">
                     <p>
                       texto e imagem mostrando como utilizar pela primeira vez.
                       Compartilhe a idéia para que essa ferramenta seja sempre grátis!
                     </p>
                   </div>
-                  <div id="video" class="hide">
+                  <div id="video" class="hide" ng-class="{hide: !videoList.length}">
+                    <iframe id="player1" ng-src="{{currentVideo.iframeSrc}}" src=""  frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                   </div> 
-                  <pre>{{currentVideo.iframeSrc}}</pre>
-                  <iframe id="player1" ng-src="{{currentVideo.iframeSrc}}" src="" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
               </div>  
             </div>
             <!-- Blog Sidebar Widgets Column -->
@@ -86,37 +86,38 @@
                     </div>
                     <hr>
                     <div ng-controller="VideoListController" >
-                      <h5 class="playlist-title">Lista de reprodução:</h5>
+                      <h5 class="playlist-title" ng-cloak> Lista de reprodução ({{videoList.length}}):</h5>
                       <div id="playlist" ng-scrollbars ng-scrollbars-config="scrollbarConfig">
                         <ul  class="nav nav-pills nav-stacked">
                           <li ng-class="{'active':item.id == currentVideo.id}" ng-repeat="item in videoList" ng-click="currentVideo.setVideo(item);" class="vid-{{item.id}}"  >
                             <a href="#">
                               <img ng-src="{{item.media.small}}" />
-                              <small ng-bind="item.title">
+                              <small ng-cloak>
+                                {{item.title}}
+                                <span>
+                                <i class="glyphicon glyphicon-time"></i>&nbsp; {{item.duration.formatted}}
+                                </span>
                               </small>
-                              <br>
-                              <small >
-                              Tempo: {{item.duration.formatted}}
-                              </small>
+                              <div class="clear clearfix"></div>
                             </a>
                           </li>
                         </ul>
                       </div>
                       <hr class="small">
                       <div class="playlist-infos">
-                        <div  class="col-md-6">
-                          <span class="playlist-count" ng-bind="videoList.length"></span>
+                        <div  class="col-md-2">
+                          <!-- <span class="playlist-count" ng-bind="videoList.length"></span>
                           <span>
                               <ng-pluralize count="videoList.length"
                                 when="{'0': 'Vídeos',
                                      'one': 'Vídeo',
                                      'other': 'Vídeos'}">
                               </ng-pluralize>
-                          </span>
+                          </span> -->
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-10 text-right" ng-cloak>
                           <span>
-                            Tempo total:
+                            Tempo total: 
                             {{videoListDuration()}}
                           </span>
                         </div>

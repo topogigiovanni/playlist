@@ -33,7 +33,7 @@ app.factory('CurrentVideo', function($rootScope, $sce) {
         //console.log('video getApiInterface', data.instance.B.videoData.title);
 
         $playlist.mCustomScrollbar('scrollTo','.vid-'+factory.id);
-        $rootScope.$broadcast('CurrentVideo.Changed', {data: factory});
+        //$rootScope.$broadcast('CurrentVideo.Changed', {data: factory});
     
     };
     return factory;
@@ -269,7 +269,7 @@ app.factory('Search', function($rootScope, $http, YoutubeSearch, VimeoSearch) {
 
       // var video = new Video(url, cb);
 
-      $scope.$broadcast('Search.AddToVideoList', {url:url});
+      $rootScope.$broadcast('Search.AddToVideoList', {url:url});
     };
     //factory.doSearch =  _.throttle(doSearch, 5);
     factory.doSearch = doSearch;

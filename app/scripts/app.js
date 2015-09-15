@@ -88,7 +88,8 @@ helper.Date.secondsToStringFormatted = function(time){
     seconds = time - minutes * 60;
     return helper.Date.formatDecimal(hours)+':'+helper.Date.formatDecimal(minutes)+':'+helper.Date.formatDecimal(seconds);
   }else{
-    return '00:'+helper.Date.formatDecimal(minutes)+':'+helper.Date.formatDecimal(seconds);
+    return helper.Date.formatDecimal(minutes)+':'+helper.Date.formatDecimal(seconds);
+    //return '00:'+helper.Date.formatDecimal(minutes)+':'+helper.Date.formatDecimal(seconds);
   }
 
 };
@@ -377,4 +378,10 @@ app.config(function (ScrollBarsProvider) {
 $(window).load(function(){
   //$('.modal-btn').modal();
   $searchModal = $body.find('.search-modal');
+
+  var adjustIframeHeight = function(){
+    $('#'+PLAYER).height(screen.availHeight-$('#header').height()-100);
+  };
+  adjustIframeHeight();
+  $(window).on('resize', adjustIframeHeight);
 });

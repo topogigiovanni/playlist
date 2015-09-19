@@ -31,14 +31,26 @@ body {
   img {
     width: 120px;
   }
-  ul li small {
-    float: right;
-    width: 46%;
-    font-weight: bold;
-    span {
-      font-weight: normal;
-      display: block;
-      margin-top: 3px;
+  ul{
+    li{
+      small {
+        float: right;
+        width: 46%;
+        font-weight: bold;
+        margin-top: 15px;
+        span {
+          font-weight: normal;
+          display: block;
+          margin-top: 3px;
+        }
+      }
+    }
+    .remove {
+      position: absolute;
+      right: 10px;
+      top: 5px;
+      color: rgba(216, 0, 0, 0.63);
+      font-size: 14pt;
     }
   }
 }

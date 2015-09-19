@@ -64,7 +64,7 @@ app.factory('VimeoCommand', function() {
 
     var factory = {}; 
     factory.stop = function(){
-      player.api('stop');
+      player.api('unload');
     };
     factory.play = function(){
       player.api('play');
@@ -115,6 +115,9 @@ app.factory('Player', function($rootScope, CurrentVideo, YoutubeCommand, VimeoCo
       }
       //console.log('index of CurrentVideo', currentIndex);
       
+    };
+    factory.stop = function(){
+      _factories[CurrentVideo.origin].stop();
     };
     // remover
     // factory.changeToPlay = function(){

@@ -15,8 +15,6 @@ app.controller('VideoPlayerCtrl', ['$scope', '$rootScope', 'Player', 'CurrentVid
 
   $rootScope.$on('Player.Pause', function(ev, data){
     console.log('escotou Player.Pause', ev, data, Player);
-    
-
     //$scope.isPlaying = data.isPlaying;
     //angular.extend($scope, Player);
    // angular.extend($scope, {isPlaying: Player.isPlaying});
@@ -39,6 +37,11 @@ app.controller('VideoPlayerCtrl', ['$scope', '$rootScope', 'Player', 'CurrentVid
     if(data.hasOwnProperty('apply') && data.apply)
       $scope.$apply();
 
+  });
+
+  $rootScope.$on('Player.Stop', function(ev, data){
+    console.log('escotou Player.Stop', ev, data, Player);
+    $scope.Player.stop();
   });
 
 }]);

@@ -13,9 +13,9 @@ app.controller('VideoUploaderCtrl', ['$scope', '$rootScope', 'CurrentVideo', fun
   // coloca na playlist
   $scope.send = function(){
     if(!$scope.url){
-      // erro
+      // TODO apresenta erro na UI
       return;
-    }
+    };
     var url = $scope.url;
     //url = helper.Url.removeProtocol(url);
     // var video = new Video(url, callback);
@@ -42,13 +42,6 @@ app.controller('VideoUploaderCtrl', ['$scope', '$rootScope', 'CurrentVideo', fun
     };
     
     var video = new Video(url, callback);
-    
-    //angular.extend(currentVideo, videoList[videoList.length - 1] );
-    //currentVideo.iframeSrc = $sce.trustAsResourceUrl(currentVideo.iframeSrc);
-    //currentVideo.iframeSrc = $sce.getTrustedResourceUrl(currentVideo.iframeSrc);
-
-    //currentVideo = videoList[videoList.length - 1];
-    //$rootScope.$broadcast('Main.ChangeCurrentVideo', videoList[videoList.length - 1]);
   };
   //console.log('videoList',  $scope.videoList);
 

@@ -45,5 +45,35 @@ app.factory('CurrentVideo', function($rootScope, $sce) {
         //$rootScope.$broadcast('CurrentVideo.Changed', {data: factory});
     
     };
+    function reSetVideo(data){
+      console.log('reSetVideo', data);
+      var videoList = data.videoList;
+      var lastIndex = data.itemRemoved;
+      if(!data.isCurrent)
+        return;
+      
+      if(videoList[lastIndex]){
+        factory.setVideo(videoList[lastIndex]);
+        //console.debug('reSetVideo tem na mesma posição');
+      }else if(videoList[lastIndex+1]){
+        factory.setVideo(videoList[lastIndex+1]);
+        //console.debug('reSetVideo tem proximo');
+      }else if(videoList[lastIndex-1]){
+        factory.setVideo(videoList[lastIndex-1]);
+        //console.debug('reSetVideo tem proximo');
+      }else{
+        $rootScope.$broadcast('Player.Stop', {});
+        //console.debug('reSetVideo não tem mais item', factory);
+      }
+
+    };
+    $rootScope.$on('VideoList.Changed', function(ev, data){
+      console.log('on VideoList.Changed', data);
+      switch(data.type){
+        case 'removed':
+          reSetVideo(data.data);
+          break;
+      }
+    });
     return factory;
 });

@@ -89,20 +89,13 @@
                               </small>
                               <div class="clear clearfix"></div>
                             </a>
+                            <i ng-click="removeFromList($index);$event.stopPropagation();" title="Remover da lista" class="remove glyphicon glyphicon-remove"></i>
                           </li>
                         </ul>
                       </div>
                       <hr class="small">
                       <div class="playlist-infos">
                         <div  class="col-md-2">
-                          <!-- <span class="playlist-count" ng-bind="videoList.length"></span>
-                          <span>
-                              <ng-pluralize count="videoList.length"
-                                when="{'0': 'Vídeos',
-                                     'one': 'Vídeo',
-                                     'other': 'Vídeos'}">
-                              </ng-pluralize>
-                          </span> -->
                         </div>
                         <div class="col-md-10 text-right" ng-cloak>
                           <span>
@@ -208,8 +201,8 @@
     <script src="scripts/controllers/videouploader.js"></script>
     <script src="scripts/controllers/videoplayer.js"></script>
     <script src="scripts/controllers/search.js"></script>
-    <script src="scripts/services/currentvideo.js"></script>
     <script src="scripts/services/player.js"></script>
+    <script src="scripts/services/currentvideo.js"></script>
     <script src="scripts/services/search.js"></script>
     <!-- endbuild -->
 </body>

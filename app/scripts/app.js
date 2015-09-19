@@ -8,21 +8,10 @@
  *
  * Main module of the application.
  */
-'use strict';
-
-/**
- * @ngdoc overview
- * @name easylistApp
- * @description
- * # easylistApp
- *
- * Main module of the application.
- */
 var app = angular
           .module('playlistApp', [
             'ngScrollbars',
             'wu.masonry'
-            //,'ScrollBarsProvider'
           ]);
 var $injector = angular.injector(['ng']);
 var $body = $('body');
@@ -358,10 +347,6 @@ app.config(function (ScrollBarsProvider) {
       enable: false // enable scrolling buttons by default
     }
   };
-
-  // $rootScope.$on('CurrentVideo.Changed', function(e,a){
-  //     console.log('e a',e,a);
-  // });
 });
 
 $(window).load(function(){
@@ -374,7 +359,3 @@ $(window).load(function(){
   adjustIframeHeight();
   $(window).on('resize', adjustIframeHeight);
 });
-// angular
-//   .module('playlistApp', [
-//     'ngMessages'
-//   ]);

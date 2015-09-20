@@ -81,7 +81,7 @@
                         <ul data-as-sortable="board.dragControlListeners" ng-model="videoList" class="nav nav-pills nav-stacked">
                           <li ng-class="{'active':item.id == currentVideo.id}" ng-repeat="item in videoList" ng-click="currentVideo.setVideo(item);" class="playlist-item vid-{{item.id}}" data-as-sortable-item >
                             <a href="#">
-                              <img title="Arraste para rordenar" data-as-sortable-item-handle ng-src="{{item.media.small}}" />
+                              <img title="Arraste para reordenar" data-as-sortable-item-handle ng-src="{{item.media.small}}" />
                               <small ng-cloak>
                                 {{item.title}}
                                 <span>

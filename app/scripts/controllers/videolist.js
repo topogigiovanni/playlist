@@ -19,9 +19,9 @@ app.controller('VideoListCtrl', ['$scope',function ($scope) {
   };
 
   $scope.dragControlListeners = {
-    accept: function (sourceItemHandleScope, destSortableScope) {return true }, //override to determine drag is allowed or not. default is true.
-    itemMoved: function (e) { console.log('itemMoved',e); },
-    orderChanged: function(e) { console.log('orderChanged',e); },
+    // accept: function (sourceItemHandleScope, destSortableScope) {return true }, //override to determine drag is allowed or not. default is true.
+    // itemMoved: function (e) { console.log('itemMoved',e); },
+    // orderChanged: function(e) { console.log('orderChanged',e); },
     containment: '#playlist', //optional param.
     clone: false //optional param for clone feature.
   };

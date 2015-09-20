@@ -8,7 +8,6 @@
  * Controller of the playlistApp
  */
 app.controller('VideoListCtrl', ['$scope',function ($scope) {
-  
   $scope.videoListDuration = function(){
     var durationSeconds = 0;
     $scope.videoList.forEach(function(el){

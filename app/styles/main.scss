@@ -28,16 +28,14 @@ body {
 }
 #playlist {
   min-height: 352px;
-  img {
-    width: 120px;
-  }
+  
   ul{
-    li{
+    /*li{
       small {
         float: right;
         width: 46%;
         font-weight: bold;
-        margin-top: 15px;
+        margin-top: 0px;
         span {
           font-weight: normal;
           display: block;
@@ -48,11 +46,38 @@ body {
     .remove {
       position: absolute;
       right: 10px;
-      top: 5px;
+      bottom: 5px;
       color: rgba(216, 0, 0, 0.63);
       font-size: 14pt;
       cursor: pointer;
+      top: auto;
+    }*/
+  }
+}
+li.playlist-item{
+  img {
+    width: 110px; /*120px;*/
+  }
+  small {
+    float: right;
+    width: 46%;
+    font-weight: bold;
+    margin-top: 0px;
+    span {
+      font-weight: normal;
+      display: block;
+      margin-top: 3px;
     }
+  }
+  
+  .remove {
+    position: absolute;
+    right: 10px;
+    bottom: 5px;
+    color: rgba(216, 0, 0, 0.63);
+    font-size: 14pt;
+    cursor: pointer;
+    top: auto;
   }
 }
 #videoCtrl {

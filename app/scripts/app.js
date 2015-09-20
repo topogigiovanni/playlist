@@ -11,7 +11,8 @@
 var app = angular
           .module('playlistApp', [
             'ngScrollbars',
-            'wu.masonry'
+            'wu.masonry',
+            'as.sortable'
           ]);
 var $injector = angular.injector(['ng']);
 var $body = $('body');
@@ -321,7 +322,8 @@ app.config(function (ScrollBarsProvider) {
     scrollInertia: 0,
     axis: 'y',
     advanced: {
-      updateOnContentResize: true
+      updateOnContentResize: true,
+      releaseDraggableSelectors: "#playlist li img" 
     },
     scrollButtons: {
       scrollAmount: 'auto', // scroll amount when button pressed

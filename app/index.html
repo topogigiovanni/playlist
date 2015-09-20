@@ -10,6 +10,7 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootswatch-dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="bower_components/ng-sortable/dist/ng-sortable.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -77,10 +78,10 @@
                     <div ng-controller="VideoListCtrl" >
                       <h5 class="playlist-title" ng-cloak> Lista de reprodução ({{videoList.length}}):</h5>
                       <div id="playlist" ng-scrollbars ng-scrollbars-config="scrollbarConfig">
-                        <ul  class="nav nav-pills nav-stacked">
-                          <li ng-class="{'active':item.id == currentVideo.id}" ng-repeat="item in videoList" ng-click="currentVideo.setVideo(item);" class="vid-{{item.id}}"  >
+                        <ul data-as-sortable="board.dragControlListeners" ng-model="videoList" class="nav nav-pills nav-stacked">
+                          <li ng-class="{'active':item.id == currentVideo.id}" ng-repeat="item in videoList" ng-click="currentVideo.setVideo(item);" class="playlist-item vid-{{item.id}}" data-as-sortable-item >
                             <a href="#">
-                              <img ng-src="{{item.media.small}}" />
+                              <img title="Arraste para rordenar" data-as-sortable-item-handle ng-src="{{item.media.small}}" />
                               <small ng-cloak>
                                 {{item.title}}
                                 <span>
@@ -187,6 +188,7 @@
     <script src="bower_components/jquery-mousewheel/jquery.mousewheel.js"></script>
     <script src="bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.js"></script>
     <script src="bower_components/ng-scrollbars/dist/scrollbars.min.js"></script>
+    <script src="bower_components/ng-sortable/dist/ng-sortable.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>
     <!-- endbower -->
     <!-- endbuild -->

@@ -9,7 +9,7 @@
  */
 app.controller('VideoUploaderCtrl', ['$scope', '$rootScope', 'CurrentVideo', function ($scope, $rootScope, CurrentVideo, $sce) {
   // TODO zerar variável
-  $scope.url = "https://www.youtube.com/watch?v=OvorLhXaLNQ";
+  $scope.url = "https://www.youtube.com/watch?v=VH8tarypEM4";
   // coloca na playlist
   $scope.send = function(){
     if(!$scope.url){
@@ -46,14 +46,14 @@ app.controller('VideoUploaderCtrl', ['$scope', '$rootScope', 'CurrentVideo', fun
   //console.log('videoList',  $scope.videoList);
 
   $scope.$on('Search.AddToVideoList', function(ev, data){
-    console.log('on Search.AddToVideoList',data);
+    console.log('on Search.AddToVideoList', data);
     // V1
     // $scope.videoList.push(data.video);
     // $scope.$apply();
     $scope.url = data.url;
     $scope.send();
 
-    // apresentar msg de sucesso na UI
+    // TODO apresentar msg de sucesso na UI
   });
 
 }]);

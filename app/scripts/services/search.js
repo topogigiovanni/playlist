@@ -10,8 +10,8 @@
 app.factory('VimeoSearch', function($rootScope, $http) {
   var factory = {};
   factory.doSearch = function(term, callback){
-    if(factory.correntRequest && factory.correntRequest.readyState != 4 && factory.correntRequest.readyState != 2){
-      factory.correntRequest.abort();
+    if(factory.currentRequest && factory.currentRequest.readyState != 4 && factory.currentRequest.readyState != 2){
+      factory.currentRequest.abort();
     };
     var _callback = function(items, success){
       console.log('vimeo search callback', items);
@@ -32,18 +32,18 @@ app.factory('VimeoSearch', function($rootScope, $http) {
       }
       callback(list, success);
     };
-    factory.correntRequest = $.getJSON('https://api.vimeo.com/videos?query='+term+'&sort=relevant&videoEmbeddable=true&part=snippet,contentDetails&access_token='+KEYS['vimeo'], _callback);
+    factory.currentRequest = $.getJSON('https://api.vimeo.com/videos?query='+term+'&sort=relevant&videoEmbeddable=true&part=snippet,contentDetails&access_token='+KEYS['vimeo'], _callback);
   };
-  factory.correntRequest = null;
+  factory.currentRequest = null;
   return factory;
 });
 
 app.factory('YoutubeSearch', function($rootScope, $http) {
   var factory = {};
   factory.doSearch = function(term, callback){
-    console.log('doRequest Request!!!',factory.correntRequest);
-    if(factory.correntRequest && factory.correntRequest.readyState != 4 && factory.correntRequest.readyState != 2){
-      factory.correntRequest.abort();
+    console.log('doRequest Request!!!',factory.currentRequest);
+    if(factory.currentRequest && factory.currentRequest.readyState != 4 && factory.currentRequest.readyState != 2){
+      factory.currentRequest.abort();
     };
     var _callback = function(items, success){
       console.log('youtube search callback', items);
@@ -60,9 +60,9 @@ app.factory('YoutubeSearch', function($rootScope, $http) {
       callback(list, success);
     };
 
-    factory.correntRequest = $.getJSON('https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&videoEmbeddable=true&maxResults=20&q='+term+'&key='+KEYS['youtube'], _callback);
+    factory.currentRequest = $.getJSON('https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&videoEmbeddable=true&maxResults=20&q='+term+'&key='+KEYS['youtube'], _callback);
   };
-  factory.correntRequest = null;
+  factory.currentRequest = null;
   return factory;
 });
 
@@ -71,8 +71,13 @@ app.factory('Search', function($rootScope, $http, YoutubeSearch, VimeoSearch) {
     var termCached = '';
     var bulkResultItems = function(items, isSuccess){
       //console.log('bulkResultItems', items, isSuccess);
-      // receber items formatados
-      //factory.resultItems = items;
+      var videoListIdList = _.map(videoList, function(i){ return i.id; });
+      //console.debug('bulkResultItems videoListIdList', videoListIdList);
+      // filtra por itens já adicionados na playlist(videoList)
+      items = _.filter(items, function(item, index){
+        return !_.contains(videoListIdList, item.id);
+      }); 
+      // recebe items formatados do tipo SearchResultItem
       factory.resultItems = _.union(factory.resultItems, items);
       $rootScope.$broadcast('Search.ResultItems.Changed', {resultItems: factory.resultItems});
       //$rootScope.$apply();
@@ -91,16 +96,22 @@ app.factory('Search', function($rootScope, $http, YoutubeSearch, VimeoSearch) {
       };
       return;
     };
+    var _removeResultItem = function(index){
+      factory.resultItems.splice(index, 1);
+    };
     var addToVideoList = function(url){
       console.log(' addToVideoList url', url);
-      // V1
-      // var cb = function(r){
-      //   console.log('cb addToVideoList', video, r);
-      //   if(video.isValid)
-      //     $scope.$broadcast('Search.AddToVideoList', {video:video});
-      // }
-
+      /* V1
+      var cb = function(r){
+        console.log('cb addToVideoList', video, r);
+        if(video.isValid)
+          $scope.$broadcast('Search.AddToVideoList', {video:video});
+      }
       // var video = new Video(url, cb);
+      */
+
+      var index = _.findIndex(factory.resultItems, {url: url});
+      _removeResultItem(index);
 
       $rootScope.$broadcast('Search.AddToVideoList', {url:url});
     };

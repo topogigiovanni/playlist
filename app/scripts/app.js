@@ -309,28 +309,9 @@ function SearchResultItem(id, origin, title, image, url, duration){
   this.image = image;
   this.origin = origin;
   this.url = url;
-  // api youtube não suporte, teria q fazer 2 ajax
+  // api youtube não tem suporte, teria q fazer 2 ajax
   //this.duration = helper.Date.secondsToStringFormatted(duration);
 };
-
-
-// function onYouTubeIframeAPIReady(a,b,c,d) {
-//     // player = new YT.Player('ytplayer', {
-//     //   height: '390',
-//     //   width: '640',
-//     //   videoId: 'M7lc1UVf-VE'
-//     // });
-//     console.log('onyoutube iframe ready',a,b,c,d);
-// };
-
-// function onYouTubePlayerAPIReady(a,b,c,d) {
-//     // player = new YT.Player('ytplayer', {
-//     //   height: '390',
-//     //   width: '640',
-//     //   videoId: 'M7lc1UVf-VE'
-//     // });
-//     console.log('onyoutube ready',a,b,c,d);
-// };
 
 app.config(function (ScrollBarsProvider) {
   // scrollbar defaults

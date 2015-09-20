@@ -12,7 +12,8 @@ var app = angular
           .module('playlistApp', [
             'ngScrollbars',
             'wu.masonry',
-            'as.sortable'
+            'as.sortable',
+            'angular-images-loaded'
           ]);
 var $injector = angular.injector(['ng']);
 var $body = $('body');

@@ -19,4 +19,22 @@ app.controller('SearchCtrl', ['$scope', '$rootScope', 'Search', '$timeout',  fun
     });
   });
   $scope.addToVideoList = Search.addToVideoList;
+
+  $scope.imgLoadedEvents = {
+
+    always: function(instance) {
+      // Do stuff
+    },
+
+    done: function(instance) {
+      //console.log('imagesLoaded', instance);
+      angular.element(instance.elements[0]).removeClass('hide');
+    },
+
+    fail: function(instance) {
+      // Do stuff
+    }
+
+  };
+
 }]);

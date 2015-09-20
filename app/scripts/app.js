@@ -51,15 +51,11 @@ helper.Date.formatDecimal = function(n){
   if((n+'').length == 1){
     return '0'+n;
   }
-  return n;
+  return (n+'').substr(0, 2);
 };
 helper.Date.secondsToStringFormatted = function(time){
-  //console.log('secondsToStringFormatted', time);
   var minutes = Math.floor(time / 60);
   var seconds = time - minutes * 60;
-  //console.log('secondsToStringFormatted minutes', minutes);
-  //console.log('secondsToStringFormatted seconds', seconds);
-
   if(minutes > 60){
     var hours = Math.floor(time / 3600);
     seconds = time - hours * 3600;
@@ -70,7 +66,6 @@ helper.Date.secondsToStringFormatted = function(time){
     return helper.Date.formatDecimal(minutes)+':'+helper.Date.formatDecimal(seconds);
     //return '00:'+helper.Date.formatDecimal(minutes)+':'+helper.Date.formatDecimal(seconds);
   }
-
 };
 helper.Url = {};
 helper.Url.removeProtocol = function(url){
@@ -322,8 +317,8 @@ app.config(function (ScrollBarsProvider) {
     scrollInertia: 0,
     axis: 'y',
     advanced: {
-      updateOnContentResize: true,
-      releaseDraggableSelectors: "#playlist li img" 
+      updateOnContentResize: true
+      //,releaseDraggableSelectors: "#playlist li img" 
     },
     scrollButtons: {
       scrollAmount: 'auto', // scroll amount when button pressed

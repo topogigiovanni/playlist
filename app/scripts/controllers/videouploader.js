@@ -9,7 +9,7 @@
  */
 app.controller('VideoUploaderCtrl', ['$scope', '$rootScope', 'CurrentVideo', function ($scope, $rootScope, CurrentVideo, $sce) {
   // TODO zerar variável
-  $scope.url = "https://www.youtube.com/watch?v=mEfJu-zU9WY";
+  $scope.url = "https://www.youtube.com/watch?v=OvorLhXaLNQ";
   // coloca na playlist
   $scope.send = function(){
     if(!$scope.url){

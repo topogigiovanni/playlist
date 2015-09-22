@@ -65,17 +65,19 @@
                 <!-- Blog Search Well -->
                 <div id="navegator" class="well fixed">
                     <!-- /.input-group -->
-                    <h4>Adicionar Vídeo</h4>
-                    <div class="input-group" ng-controller="VideoUploaderCtrl">
-                        <input value="" placeholder="Cole aqui a URL do vídeo" ng-model="url" type="text" class="form-control">
-                        <span class="input-group-btn">
-                            <button ng-click="send()" class="btn btn-info" type="button">
-                                <span class="glyphicon glyphicon-plus"></span>
-                        </button>
-                        </span>
+                    <div id="videoUploader">
+                      <h4>Adicionar Vídeo</h4>
+                      <div class="input-group" ng-controller="VideoUploaderCtrl">
+                          <input value="" placeholder="Cole aqui a URL do vídeo" ng-model="url" type="text" class="form-control">
+                          <span class="input-group-btn">
+                              <button ng-click="send()" class="btn btn-info" type="button">
+                                  <span class="glyphicon glyphicon-plus"></span>
+                          </button>
+                          </span>
+                      </div>
+                      <hr>
                     </div>
-                    <hr>
-                    <div ng-controller="VideoListCtrl" >
+                    <div id="VideoList" ng-controller="VideoListCtrl" >
                       <h5 class="playlist-title" ng-cloak> Lista de reprodução ({{videoList.length}}):</h5>
                       <div id="playlist" ng-scrollbars ng-scrollbars-config="scrollbarConfig">
                         <ul data-as-sortable="board.dragControlListeners" ng-model="videoList" class="nav nav-pills nav-stacked">

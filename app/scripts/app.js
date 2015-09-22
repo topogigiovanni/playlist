@@ -331,10 +331,25 @@ app.config(function (ScrollBarsProvider) {
 $(window).load(function(){
   //$('.modal-btn').modal();
   $searchModal = $body.find('.search-modal');
-
-  var adjustIframeHeight = function(){
-    $('#'+PLAYER).height(screen.availHeight-$('#header').height()-100);
+  var $playlist = $('#playlist');
+  var $player = $('#'+PLAYER);
+  var availHeight = screen.availHeight;
+  var adjustPlayerHeight = function(){
+    var h = availHeight - $('#header').height() - 100;
+    $player.height(h);
   };
-  adjustIframeHeight();
-  $(window).on('resize', adjustIframeHeight);
+  var adjustPlaylistHeight = function(){
+    console.debug('adjustPlaylistHeight availHeight',availHeight, 'videoUploader videoCtrl', $('#videoUploader').height() , $('#videoCtrl').height() )
+    var h = availHeight - $('#videoUploader').height() - 110 - $('#videoCtrl').height() - 100;
+    $playlist.height(h);
+    //$('#VideoList').height(h);
+  };
+  var onResize = function(){
+    adjustPlayerHeight();
+    adjustPlaylistHeight();
+  };
+  //adjustIframeHeight();
+  onResize();
+  $(window).on('resize', onResize);
+
 });

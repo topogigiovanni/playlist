@@ -133,6 +133,9 @@
         <div class="modal search-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
           <div class="modal-dialog modal-lg">
             <div  class="modal-content panel">
+               <a title="Fechar" href="javascript:void(0)" ng-click="closeSearchModal();" class="search-modal-close">
+                <i class="glyphicon glyphicon-remove"></i>
+               </a>
                <input value="" ng-keyup="requestSearch()" ng-model="searchTerm" type="text" class="form-control" placeholder="Pesquisar vídeo no Youtube e Vimeo" />
                <div ng-controller="SearchCtrl" class="row content text-center">
                  <div masonry load-images="true" data-reload-on-show masonry-options="{isFitWidth: false, percentPosition: true, columnWidth: '.col-md-3',transitionDuration: '0.35s' }" class="result-wrapper">

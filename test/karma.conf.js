@@ -50,7 +50,9 @@ module.exports = function(config) {
       // endbower
       "app/scripts/**/*.js",
       "test/mock/**/*.js",
-      "test/spec/**/*.js"
+      "test/spec/**/*.js",
+      "https://f.vimeocdn.com/js/froogaloop2.min.js",
+      "https://www.youtube.com/iframe_api"
     ],
 
     // list of files / patterns to exclude

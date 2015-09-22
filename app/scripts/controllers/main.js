@@ -27,6 +27,9 @@ app.controller('MainCtrl', ['$scope','$rootScope','CurrentVideo', 'Search', func
     if($scope.searchTerm)
       Search.modal.open();
   };
+  $scope.closeSearchModal = function(){
+      Search.modal.close();
+  };
 
   // VideoList
   $scope.videoList = videoList;

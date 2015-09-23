@@ -36,11 +36,6 @@ app.factory('VimeoCommand', function() {
       player.addEvent('playProgress', onPlayProgress);
     });
 
-    // Call the API when a button is pressed
-    // $('button').bind('click', function() {
-    //   player.api($(this).text().toLowerCase());
-    // });
-
     function onPause(id) {
       console.log('paused');
       _isPlaying = false;
@@ -81,13 +76,33 @@ app.factory('Player', function($rootScope, CurrentVideo, YoutubeCommand, VimeoCo
       vimeo: VimeoCommand,
       youtube: YoutubeCommand
     };
+    var _replay = function(fromEnd){
+      if(fromEnd){
+        var videoLength = videoList.length - 1;
+        if(videoList[videoLength])
+          CurrentVideo.setVideo(videoList[videoLength], false);
+      }
+      else
+        if(videoList[0])
+          CurrentVideo.setVideo(videoList[0], false);
+    };
     factory.isPlaying = false;
+    factory.doRandom = false;
+    factory.setRandom = function(){
+      factory.doRandom = !factory.doRandom;
+    };
+    factory.doRepeat = false;
+    factory.setRepeat = function(){
+      factory.doRepeat = !factory.doRepeat;
+    };
     factory.next = function(apply){
       var currentIndex = _.findIndex(videoList, {id:CurrentVideo.id});
       var nextIndex = currentIndex + 1;
       console.log('next ', currentIndex, nextIndex, videoList[nextIndex], 'CurrentVideo', CurrentVideo, 'videoList',videoList);
       if(videoList[nextIndex]){
         CurrentVideo.setVideo(videoList[nextIndex], apply);
+      }else if(factory.doRepeat){
+        _replay();
       }
     };
     factory.prev = function(apply){
@@ -96,6 +111,8 @@ app.factory('Player', function($rootScope, CurrentVideo, YoutubeCommand, VimeoCo
       console.log('prev ', currentIndex, prevIndex, videoList[prevIndex]);
       if(videoList[prevIndex]){
         CurrentVideo.setVideo(videoList[prevIndex], apply);
+      }else if(factory.doRepeat){
+        _replay(true);
       }
     };
     factory.play = function(notChangePlayer){
@@ -119,13 +136,6 @@ app.factory('Player', function($rootScope, CurrentVideo, YoutubeCommand, VimeoCo
     factory.stop = function(){
       _factories[CurrentVideo.origin].stop();
     };
-    // remover
-    // factory.changeToPlay = function(){
-    //     this.isPlaying = true;
-    // };
-    // factory.changeToPause = function(){
-    //     this.isPlaying = false;
-    // };
     console.log('CurrentVideo', CurrentVideo);
     $body.on('PlayerStatePlay', function(){
       factory.isPlaying = true;

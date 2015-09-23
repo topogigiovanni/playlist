@@ -26,7 +26,7 @@ app.factory('CurrentVideo', function($rootScope, $sce) {
           //factory.instance = Player.Youtube.newInstance(data.id);
          
           Player.Youtube.instance = Player.Youtube.newInstance(data.id);
-        }
+        };
 
         // factory.instance = new YT.Player('player1', {
         //   videoId: data.id,

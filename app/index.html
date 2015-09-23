@@ -108,28 +108,39 @@
                         </div>
                       </div>
                     </div>
-                    <div class="" id="videoCtrl">
-                      <ul ng-controller="VideoPlayerCtrl" class="pagination pagination-sm">
-                         <li>
-                            <button class="btn btn-default" ng-disabled="!videoList.length || videoList[0].id == currentVideo.id" ng-click="Player.prev();" href="javascript:void(0)">
+                    <div ng-controller="VideoPlayerCtrl" class="" id="videoCtrl">
+                      <ul  class="pagination block pagination-sm">
+                        <li>
+                            <button class="btn btn-lg btn-default" ng-disabled="!Player.doRepeat && (!videoList.length || videoList[0].id == currentVideo.id)" ng-click="Player.prev();" href="javascript:void(0)">
                               <i class="glyphicon glyphicon-backward"></i>
                             </button>
                         </li>
                         <li>
-                            <button class="btn btn-default" ng-disabled="!videoList.length" ng-click="Player.play();" href="javascript:void(0)">
+                            <button class="btn btn-lg btn-default" ng-disabled="!videoList.length" ng-click="Player.play();" href="javascript:void(0)">
                               <i ng-class="Player.isPlaying ? 'glyphicon glyphicon-pause' : 'glyphicon glyphicon-play'" class="glyphicon glyphicon-play"></i>
                             </button>
                         </li>
                         <li>
-                            <button class="btn btn-default" ng-disabled="!videoList.length || videoList[videoList.length - 1].id == currentVideo.id" ng-click="Player.next();" href="javascript:void(0)">
+                            <button class="btn btn-lg btn-default" ng-disabled="!Player.doRepeat && (!videoList.length || videoList[videoList.length - 1].id == currentVideo.id)" ng-click="Player.next();" href="javascript:void(0)">
                               <i class="glyphicon glyphicon-forward"></i>
+                            </button>
+                        </li>
+                      </ul>
+                      <ul  class="pagination block pagination-sm">
+                        <li>
+                            <button ng-class="{active: Player.doRepeat}" data-toggle="tooltip" data-placement="top" title="Repetir lista" class="btn btn-xs btn-default" ng-disabled="!videoList.length" ng-click="Player.setRepeat()" href="javascript:void(0)">
+                              <i class="glyphicon glyphicon-repeat"></i>
+                            </button>
+                        </li>
+                        <li>
+                            <button ng-class="{active: Player.doRandom}" data-toggle="tooltip" data-placement="top" title="Ativar ordem aleatória" class="btn btn-xs btn-default" ng-disabled="!videoList.length" ng-click="Player.setRandom();" href="javascript:void(0)">
+                              <i class="glyphicon glyphicon-random"></i>
                             </button>
                         </li>
                       </ul>
                   </div>
                 </div>
             </div>
-
         </div>
         <!-- /.row -->
         <div class="modal search-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">

@@ -340,7 +340,7 @@ $(window).load(function(){
   };
   var adjustPlaylistHeight = function(){
     console.debug('adjustPlaylistHeight availHeight',availHeight, 'videoUploader videoCtrl', $('#videoUploader').height() , $('#videoCtrl').height() )
-    var h = availHeight - $('#videoUploader').height() - 110 - $('#videoCtrl').height() - 100;
+    var h = availHeight - $('#videoUploader').height() - 110 - $('#videoCtrl').height() - 110 /*100*/ ;
     $playlist.height(h);
     //$('#VideoList').height(h);
   };
@@ -352,4 +352,5 @@ $(window).load(function(){
   onResize();
   $(window).on('resize', onResize);
 
+  //$('[data-toggle="tooltip"]').tooltip();
 });

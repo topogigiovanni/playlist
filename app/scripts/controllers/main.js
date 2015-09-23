@@ -37,14 +37,25 @@ app.controller('MainCtrl', ['$scope','$rootScope','CurrentVideo', 'Search', func
   	var isCurrent = $scope.currentVideo.id == $scope.videoList[i].id;
   	console.log('removeFromList', i ,$scope.videoList, isCurrent);
   	$scope.videoList.splice(i, 1);
-	var msg = {
-		type: 'removed',
-		data: {
-			videoList: $scope.videoList,
-			itemRemoved: i,
-			isCurrent: isCurrent
-		}
-	};
+  	// var msg = {
+  	// 	type: 'removed',
+  	// 	data: {
+  	// 		videoList: $scope.videoList,
+  	// 		itemRemoved: i,
+  	// 		isCurrent: isCurrent
+  	// 	}
+  	// };
+    var msg = new BroadcastMessage('remove'
+                                    ,{
+                                     videoList: $scope.videoList,
+                                     itemRemoved: i,
+                                     isCurrent: isCurrent
+                                   });
   	$rootScope.$broadcast('VideoList.Changed', msg);
   };
+  $rootScope.$on('VideoList.Changed', function(ev, m){
+    if(m.type == "change"){
+      $scope.videoList = m.data.videoList;
+    }
+  });
 }]);

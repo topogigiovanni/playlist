@@ -89,6 +89,26 @@ app.factory('Player', function($rootScope, CurrentVideo, YoutubeCommand, VimeoCo
     factory.isPlaying = false;
     factory.doRandom = false;
     factory.setRandom = function(){
+      console.log('setRandom antes-',factory.doRandom,' depois-',!factory.doRandom );
+      // originalVideoList
+      if(!factory.doRandom){
+        // se clicar
+        originalVideoList = videoList;
+        videoList = _.shuffle(videoList);
+      }else{
+        // se desclicar
+        //videoList = originalVideoList;
+        // faz interssecção para evitar inserir itens já excluidos em modo random
+        var intersection = _.intersection(originalVideoList, videoList);
+        // faz união caso algum item tenha sido adicionado em modo random
+        videoList = _.union(intersection, videoList);
+      }
+      var msg = new BroadcastMessage('change'
+                                    ,{
+                                     videoList: videoList
+                                   });
+      $rootScope.$broadcast('VideoList.Changed', msg);
+      //$rootScope.$apply();
       factory.doRandom = !factory.doRandom;
     };
     factory.doRepeat = false;

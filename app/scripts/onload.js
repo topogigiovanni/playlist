@@ -31,12 +31,14 @@ $(window).load(function() {
 			showDrag = false,
 			timeout = -1;
 
-		$html.bind('dragenter', function() {
+		$html.bind('dragenter', function(e) {
+			e.preventDefault();
 			dropTarget.addClass('dragging');
 			showDrag = true;
 			//console.log('dragenter');
 		});
-		$html.bind('dragover', function() {
+		$html.bind('dragover', function(e) {
+			e.preventDefault();
 			showDrag = true;
 			//console.log('dragover');
 		});
@@ -51,6 +53,7 @@ $(window).load(function() {
 
 		});
 		$html.bind('dragleave', function(e) {
+			e.preventDefault();
 			showDrag = false;
 			clearTimeout(timeout);
 			timeout = setTimeout(function() {

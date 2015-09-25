@@ -183,29 +183,3 @@ app.config(function (ScrollBarsProvider) {
   };
 });
 
-$(window).load(function(){
-  //$('.modal-btn').modal();
-  $searchModal = $body.find('.search-modal');
-  var $playlist = $('#playlist');
-  var $player = $('#'+PLAYER);
-  var availHeight = screen.availHeight;
-  var adjustPlayerHeight = function(){
-    var h = availHeight - $('#header').height() - 100;
-    $player.height(h);
-  };
-  var adjustPlaylistHeight = function(){
-    //console.debug('adjustPlaylistHeight availHeight',availHeight, 'videoUploader videoCtrl', $('#videoUploader').height() , $('#videoCtrl').height() )
-    var h = availHeight - $('#videoUploader').height() - 110 - $('#videoCtrl').height() - 110 /*100*/ ;
-    $playlist.height(h);
-    //$('#VideoList').height(h);
-  };
-  var onResize = function(){
-    adjustPlayerHeight();
-    adjustPlaylistHeight();
-  };
-  //adjustIframeHeight();
-  onResize();
-  $(window).on('resize', onResize);
-
-  //$('[data-toggle="tooltip"]').tooltip();
-});

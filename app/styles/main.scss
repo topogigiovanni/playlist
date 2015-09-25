@@ -125,3 +125,16 @@ hr.small {
 .playlist-infos span {
   font-size: 9pt;
 }
+
+#dragContainer{
+  opacity: 0.6;
+  display: none;
+  width: 100%;
+  left: 0;
+  top:0;
+  position: fixed;
+  z-index: 3;
+  &.dragging{
+    /*display: block;*/
+  }
+}

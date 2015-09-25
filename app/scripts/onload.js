@@ -26,7 +26,7 @@ $(window).load(function() {
 	//$('[data-toggle="tooltip"]').tooltip();
 
 	var bindDropVideo = function() {
-		var dropTarget = $('body'),
+		var dropTarget = $('#dragContainer'),
 			$html = $('html'),
 			showDrag = false,
 			timeout = -1;
@@ -41,9 +41,14 @@ $(window).load(function() {
 			//console.log('dragover');
 		});
 		$html.bind('drop', function(e,a,b) {
+			//e = e.originalEvent;
+			e.preventDefault();
+			e.stopPropagation();
+
 			showDrag = false;
 			endDrag();
 			console.log('drop', e,a,b);
+
 		});
 		$html.bind('dragleave', function(e) {
 			showDrag = false;

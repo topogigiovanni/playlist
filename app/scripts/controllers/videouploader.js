@@ -8,8 +8,8 @@
  * Controller of the playlistApp
  */
 app.controller('VideoUploaderCtrl', ['$scope', '$rootScope', 'CurrentVideo', function ($scope, $rootScope, CurrentVideo, $sce) {
-  // TODO zerar variável
-  $scope.url = "https://www.youtube.com/watch?v=VH8tarypEM4";
+  $scope.url = "";
+  //$scope.url = "https://www.youtube.com/watch?v=VH8tarypEM4";
   // coloca na playlist
   $scope.send = function(){
     if(!$scope.url){

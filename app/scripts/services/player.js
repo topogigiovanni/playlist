@@ -45,7 +45,6 @@ app.factory('VimeoCommand', function() {
     function onFinish(id) {
       _isPlaying = false;
       console.log('vimeo finish', id);
-      status.text('finished');
       $body.trigger('PlayerStateChangeNext');
     }
 

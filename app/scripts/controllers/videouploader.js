@@ -44,16 +44,25 @@ app.controller('VideoUploaderCtrl', ['$scope', '$rootScope', 'CurrentVideo', fun
     var video = new Video(url, callback);
   };
   //console.log('videoList',  $scope.videoList);
-
-  $scope.$on('Search.AddToVideoList', function(ev, data){
+  var addToVideoList = function(data){
+    $scope.url = (data && data.url) ? data.url : '';
+    $scope.send();
+    // TODO apresentar msg de sucesso na UI
+  };
+  $rootScope.$on('Search.AddToVideoList', function(ev, data){
     console.log('on Search.AddToVideoList', data);
     // V1
     // $scope.videoList.push(data.video);
     // $scope.$apply();
-    $scope.url = data.url;
-    $scope.send();
+   
+    // $scope.url = data.url;
+    // $scope.send();
+    addToVideoList(data);
+  });
 
-    // TODO apresentar msg de sucesso na UI
+  $body.on('AddToVideoList', function(e, data){
+    console.log('$body.on', e, data);
+    addToVideoList(data);
   });
 
 }]);

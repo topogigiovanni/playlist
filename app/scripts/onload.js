@@ -42,14 +42,18 @@ $(window).load(function() {
 			showDrag = true;
 			//console.log('dragover');
 		});
-		$html.bind('drop', function(e,a,b) {
+		$html.bind('drop', function(e) {
 			//e = e.originalEvent;
 			e.preventDefault();
-			e.stopPropagation();
-
 			showDrag = false;
 			endDrag();
-			console.log('drop', e,a,b);
+			console.log('e.originalEventdrop', e);
+			var link = e.originalEvent.dataTransfer.getData('Text');
+			
+			if(link){
+				console.log('drop link', link);
+				$body.trigger('AddToVideoList', {url: link});
+			};
 
 		});
 		$html.bind('dragleave', function(e) {

@@ -54,6 +54,17 @@
                       texto e imagem mostrando como utilizar pela primeira vez.
                       Compartilhe a idéia para que essa ferramenta seja sempre grátis!
                     </p>
+                    <p>{{User.name}}</p>
+                    <div class="vermelho" id="status">status</div>
+                    <div
+                      class="fb-like"
+                      data-share="true"
+                      data-width="450"
+                      data-show-faces="true">
+                    </div>
+                    <br><br><br><br>
+                    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+</fb:login-button>
                   </div>
                   <div id="video" class="hide" ng-class="{hide: !videoList.length}">
                     <iframe id="player1" ng-src="{{currentVideo.iframeSrc}}" src=""  frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
@@ -217,6 +228,15 @@
 
     <script src="https://f.vimeocdn.com/js/froogaloop2.min.js"></script>
     <script src="https://www.youtube.com/iframe_api"></script>
+    <script type="text/javascript">
+        (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
@@ -230,6 +250,7 @@
     <script src="scripts/services/player.js"></script>
     <script src="scripts/services/currentvideo.js"></script>
     <script src="scripts/services/search.js"></script>
+    <script src="scripts/services/user.js"></script>
     <!-- endbuild -->
 </body>
 </html>

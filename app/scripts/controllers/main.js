@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the playlistApp
  */
-app.controller('MainCtrl', ['$scope','$rootScope','CurrentVideo', 'Search', function ($scope, $rootScope, CurrentVideo, Search) {
+app.controller('MainCtrl', ['$scope','$rootScope','CurrentVideo', 'Search', 'User', function ($scope, $rootScope, CurrentVideo, Search, User) {
   
   // CurrentVideo
   console.log('CurrentVideo', CurrentVideo);
@@ -58,4 +58,5 @@ app.controller('MainCtrl', ['$scope','$rootScope','CurrentVideo', 'Search', func
       $scope.videoList = m.data.videoList;
     }
   });
+  $scope.User = User;
 }]);

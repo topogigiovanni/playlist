@@ -37,5 +37,8 @@
   },
   "scripts": {
     "test": "grunt test"
+  },
+  "dependencies": {
+    "mongodb": "^2.0.43"
   }
 }

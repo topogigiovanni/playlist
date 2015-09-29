@@ -1,4 +1,4 @@
-// Generated on 2015-09-29 using generator-angular 0.12.1
+// Generated on 2015-09-18 using generator-angular 0.12.1
 'use strict';
 
 // # Globbing
@@ -21,7 +21,7 @@ module.exports = function (grunt) {
 
   // Configurable paths for the application
   var appConfig = {
-    app: require('./bower.json').appPath || 'public',
+    app: require('./bower.json').appPath || 'app',
     dist: 'dist'
   };
 
@@ -49,9 +49,9 @@ module.exports = function (grunt) {
         tasks: ['newer:jshint:test', 'karma']
       },
       sass: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        tasks: ['sass:server', 'autoprefixer']
-      },
+		files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
+		tasks: ['sass:server', 'autoprefixer']
+	  },
       gruntfile: {
         files: ['Gruntfile.js']
       },
@@ -86,8 +86,8 @@ module.exports = function (grunt) {
                 connect.static('./bower_components')
               ),
               connect().use(
-                '/piblic/styles',
-                connect.static('./public/styles')
+                '/app/styles',
+                connect.static('./app/styles')
               ),
               connect.static(appConfig.app)
             ];
@@ -212,7 +212,7 @@ module.exports = function (grunt) {
     // Compiles Sass to CSS and generates necessary files if requested
     sass: {
         options: {
-            loadPaths: [
+            includePaths: [
                 'bower_components'
             ]
         },
@@ -352,7 +352,7 @@ module.exports = function (grunt) {
     ngtemplates: {
       dist: {
         options: {
-          module: 'angularTstApp',
+          module: 'playlistApp',
           htmlmin: '<%= htmlmin.dist.options %>',
           usemin: 'scripts/scripts.js'
         },
@@ -395,14 +395,15 @@ module.exports = function (grunt) {
             '.htaccess',
             '*.html',
             'images/{,*/}*.{webp}',
-            'styles/fonts/{,*/}*.*'
+            'styles/fonts/{,*/}*.*'            
           ]
         }, {
           expand: true,
           cwd: '.tmp/images',
           dest: '<%= yeoman.dist %>/images',
           src: ['generated/*']
-        }, {
+        },
+         {
           expand: true,
           cwd: 'bower_components/bootstrap/dist',
           src: 'fonts/*',
@@ -419,20 +420,20 @@ module.exports = function (grunt) {
 
     // Run some tasks in parallel to speed up the build process
     concurrent: {
-      server: [
-        'sass:server',
-        'copy:styles'
-      ],
-      test: [
-        'copy:styles'
-      ],
-      dist: [
-        'sass',
-        'copy:styles',
-        'imagemin',
-        'svgmin'
-      ]
-    },
+	  server: [
+		'sass:server',
+		'copy:styles'
+	  ],
+	  test: [
+		'copy:styles'
+	  ],
+	  dist: [
+		'sass',
+		'copy:styles',
+		'imagemin',
+		'svgmin'
+	  ]
+	},
 
     // Test settings
     karma: {

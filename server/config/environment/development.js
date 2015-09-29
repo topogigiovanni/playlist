@@ -5,8 +5,8 @@
 module.exports = {
   // MongoDB connection options
   mongo: {
-    uri: 'mongodb://localhost/Playlist'
+    uri: 'mongodb://localhost/angularfullstack-dev'
   },
 
-  //seedDB: true
+  seedDB: true
 };

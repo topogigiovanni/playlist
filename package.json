@@ -29,16 +29,37 @@
     "jshint-stylish": "^1.0.0",
     "karma-jasmine": "*",
     "karma-phantomjs-launcher": "*",
-    "time-grunt": "^1.0.0"
+    "time-grunt": "^1.0.0",
+
+    "grunt-express-server": "~0.4.17"
   },
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "grunt test"
+    "start": "node server/app.js",
+    "test": "grunt test",
+    "update-webdriver": "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update"
   },
   "dependencies": {
     "grunt-sass": "^1.0.0",
-    "mongodb": "^2.0.43"
+    "express": "~4.9.0",
+    "morgan": "~1.0.0",
+    "body-parser": "~1.5.0",
+    "method-override": "~1.0.0",
+    "serve-favicon": "~2.0.1",
+    "cookie-parser": "~1.0.1",
+    "express-session": "~1.0.2",
+    "errorhandler": "~1.0.0",
+    "compression": "~1.0.1",
+    "lodash": "~2.4.1",
+    "ejs": "~0.8.4",
+    "mongoose": "~4.0.3",
+    "jsonwebtoken": "^5.0.0",
+    "express-jwt": "^3.0.0",
+    "passport": "~0.2.0",
+    "passport-local": "~0.1.6",
+    "composable-middleware": "^0.3.0",
+    "connect-mongo": "^0.8.1"
   }
 }

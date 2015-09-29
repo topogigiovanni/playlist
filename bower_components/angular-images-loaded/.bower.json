@@ -1,0 +1,25 @@
+{
+  "name": "angular-images-loaded",
+  "version": "0.0.8",
+  "description": "Super simple Angular directive to wrap imagesLoaded plugin",
+  "main": "angular-images-loaded.js",
+  "ignore": [
+    "*",
+    "!angular-images-loaded.js",
+    "!README.md"
+  ],
+  "dependencies": {
+    "angular": "~1.2.0",
+    "imagesloaded": "~3.1.5"
+  },
+  "homepage": "https://github.com/homerjam/angular-images-loaded",
+  "_release": "0.0.8",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.0.8",
+    "commit": "cb74e7954f6aad0969fa80567e624aaf223a1048"
+  },
+  "_source": "git://github.com/homerjam/angular-images-loaded.git",
+  "_target": "~0.0.8",
+  "_originalSource": "angular-images-loaded"
+}

@@ -267,11 +267,47 @@ module.exports = function (grunt) {
             }
           }
       },
+
+      target: {
+        src: '<%= yeoman.client %>/index.html',
+        ignorePath: '<%= yeoman.client %>/',
+        exclude: [/bootstrap-sass-official/, /bootstrap.js/, '/json3/', '/es5-shim/']
+      },
+
       sass: {
         src: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         ignorePath: /(\.\.\/){1,2}bower_components\//
       }
     },
+
+    // Renames files for browser caching purposes
+    // filerev: {
+    //   dist: {
+    //     src: [
+    //       '<%= yeoman.dist %>/public/{,*/}*.js',
+    //       '<%= yeoman.dist %>/public/{,*/}*.css',
+
+    //       '<%= yeoman.dist %>/public/scripts/{,*/}*.js',
+    //       '<%= yeoman.dist %>/public/styles/{,*/}*.css',
+    //       '<%= yeoman.dist %>/public/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+    //       '<%= yeoman.dist %>/public/styles/fonts/*'
+    //     ]
+    //   }
+    // },
+    // Renames files for browser caching purposes
+    rev: {
+      dist: {
+        files: {
+          src: [
+            '<%= yeoman.dist %>/public/{,*/}*.js',
+            '<%= yeoman.dist %>/public/{,*/}*.css',
+            '<%= yeoman.dist %>/public/assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+            '<%= yeoman.dist %>/public/assets/fonts/*'
+          ]
+        }
+      }
+    },
+
 
     env: {
       test: {
@@ -310,34 +346,29 @@ module.exports = function (grunt) {
         }
     },
 
-    // Renames files for browser caching purposes
-    filerev: {
-      dist: {
-        src: [
-          '<%= yeoman.dist %>/public/scripts/{,*/}*.js',
-          '<%= yeoman.dist %>/public/styles/{,*/}*.css',
-          '<%= yeoman.dist %>/public/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-          '<%= yeoman.dist %>/public/styles/fonts/*'
-        ]
-      }
-    },
-
     // Reads HTML for usemin blocks to enable smart builds that automatically
     // concat, minify and revision files. Creates configurations in memory so
     // additional tasks can operate on them
+    // useminPrepare: {
+    //   html: '<%= yeoman.app %>/index.html',
+    //   options: {
+    //     dest: '<%= yeoman.dist %>/public',
+    //     flow: {
+    //       html: {
+    //         steps: {
+    //           js: ['concat', 'uglifyjs'],
+    //           css: ['cssmin']
+    //         },
+    //         post: {}
+    //       }
+    //     }
+    //   }
+    // },
+
     useminPrepare: {
-      html: '<%= yeoman.app %>/index.html',
+      html: ['<%= yeoman.app %>/index.html'],
       options: {
-        dest: '<%= yeoman.dist %>/public',
-        flow: {
-          html: {
-            steps: {
-              js: ['concat', 'uglifyjs'],
-              css: ['cssmin']
-            },
-            post: {}
-          }
-        }
+        dest: '<%= yeoman.dist %>/public'
       }
     },
 
@@ -348,7 +379,7 @@ module.exports = function (grunt) {
       js: ['<%= yeoman.dist %>/public/scripts/{,*/}*.js'],
       options: {
         assetsDirs: [
-          '<%= yeoman.dist %>',
+          '<%= yeoman.dist %>/public',
           '<%= yeoman.dist %>/public/images',
           '<%= yeoman.dist %>/public/styles'
         ],
@@ -416,9 +447,9 @@ module.exports = function (grunt) {
         },
         files: [{
           expand: true,
-          cwd: '<%= yeoman.dist %>',
+          cwd: '<%= yeoman.dist %>/public',
           src: ['*.html'],
-          dest: '<%= yeoman.dist %>'
+          dest: '<%= yeoman.dist %>/public'
         }]
       }
     },
@@ -426,7 +457,7 @@ module.exports = function (grunt) {
     ngtemplates: {
       dist: {
         options: {
-          module: 'angularTstApp',
+          module: 'playlistApp',
           htmlmin: '<%= htmlmin.dist.options %>',
           usemin: 'scripts/scripts.js'
         },
@@ -469,7 +500,11 @@ module.exports = function (grunt) {
             '.htaccess',
             '*.html',
             '<%= yeoman.app %>/images/{,*/}*.{webp}',
-            '<%= yeoman.app %>/styles/fonts/{,*/}*.*'
+            '<%= yeoman.app %>/styles/fonts/{,*/}*.*',
+            'assets/images/{,*/}*.{webp}',
+            'assets/fonts/**/*',
+            'fonts/**/*',
+            'styles/fonts/{,*/}*.*' 
           ]
         }, {
           expand: true,
@@ -478,10 +513,10 @@ module.exports = function (grunt) {
           src: ['generated/*']
         }, {
           expand: true,
-          cwd: '<%= yeoman.app %>/bower_components/bootstrap/dist',
+          cwd: 'bower_components/bootstrap/dist',
           src: 'fonts/*',
-          dest: '<%= yeoman.dist %>/public/fonts'
-        },{
+          dest: '<%= yeoman.dist %>/public'
+        }, {
           expand: true,
           dest: '<%= yeoman.dist %>',
           src: [
@@ -598,9 +633,9 @@ module.exports = function (grunt) {
     'cdnify',
     'cssmin',
     'uglify',
-    'filerev',
-    'usemin',
-    'htmlmin'
+    'rev',
+    'usemin'
+    ,'htmlmin'
   ]);
 
   grunt.registerTask('default', [

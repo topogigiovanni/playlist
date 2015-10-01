@@ -8,7 +8,15 @@
  * Service in the playlistApp.
  */
 
-app.service('FacebookUser', function ($rootScope) {
+app.service('UserModel', function () {	
+	this.name = '';
+	this.email = '';
+	this.password = '';
+	this.provider = '';
+	this.providerId = '';
+});
+
+app.service('FacebookUser', function ($rootScope, UserModel) {
 	var self = this;
 	// autoload
 	self.init = function() {
@@ -69,6 +77,9 @@ app.service('FacebookUser', function ($rootScope) {
 			console.log('response', response);
 			document.getElementById('status').innerHTML =
 				'Thanks for logging in, ' + response.name + '!';
+			response = _.extend(UserModel, response);
+			response.provider = 'facebook';
+			response.providerId = response.id;
 			$rootScope.$broadcast('User.Provider.Ready', response);
 		});
 	};
@@ -76,7 +87,7 @@ app.service('FacebookUser', function ($rootScope) {
 
 });
 
-app.service('User', function ($rootScope, FacebookUser) {
+app.service('User', function ($rootScope, FacebookUser, $resource) {
 	var self = this;
 	// autoload
 	var init = function() {
@@ -85,28 +96,88 @@ app.service('User', function ($rootScope, FacebookUser) {
 	};
 	init();
 
-	var _syncData = function(data){
-		$.ajax({
-			url:'http://localhost:8000/createUser',
-			data: data,
-			type: 'POST'
-		})
-		.success(function(r){
-			console.log('User _syncData success', r)
-		})
-		.error(function(e){
-			console.error('User _syncData error',e);
-		});
-	};
+	var resource = $resource('/api/users/:id/:controller', {
+						id: '@_id'
+					}, {
+						changePassword: {
+							method: 'PUT',
+							params: {
+								controller: 'password'
+							}
+						},
+						get: {
+							method: 'GET',
+							params: {
+								id: 'me'
+							}
+						}
+					});
+
+	// var _syncData = function(data){
+	// 	$.ajax({
+	// 		url:'api/users',
+	// 		data: data,
+	// 		type: 'POST'
+	// 	})
+	// 	.success(function(r){
+	// 		console.log('User _syncData success', r)
+	// 	})
+	// 	.error(function(e){
+	// 		console.error('User _syncData error',e);
+	// 	});
+	// };
 
 	$rootScope.$on('User.Provider.Ready', function(e, args){
 		console.log('Listen User.Provider.Ready', e, args);
 		self.name = args.name;
+		self.email = args.email;
+		self.provider = args.provider;
+		self.providerId = args.providerId
 		$rootScope.$apply();
-		_syncData({email: self.email});
+		//_syncData({email: self.email});
+		console.debug('self',self);
+		resource.save({
+          name: self.name,
+          email: self.email,
+          password: 'dsaddqwd',
+          provider: self.provider,
+          providerId: self.providerId
+        },function(resp){
+        	console.log('resouce user save success', resp);
+        },function(err){
+        	console.log('resouce user save error', err);
+        })
+        .$promise
+        .then( function(a,b,c, d) {
+        	console.log('user savee!!', a,b,c,d);
+          // Account created, redirect to home
+          //$location.path('/');
+        })
+        .catch( function(err) {
+        	err = err.data;
+        	// if(err.errors.length){
+        	// 	alert(err.errors[0].message);
+        	// }
+			angular.forEach(err.errors, function(error, field) {
+				console.log('save catch field=',field,'err=', error);
+				//$scope.errors[field] = error.message;
+				alert(error.message);
+			});
+
+          // exemplo !
+          // $scope.errors = {};
+          // // Update validity of form fields that match the mongoose errors
+          // angular.forEach(err.errors, function(error, field) {
+          //   form[field].$setValidity('mongoose', false);
+          //   $scope.errors[field] = error.message;
+          // });
+        });
+		
 	});
 
 	self.isLogged = false;
 	self.name = 'Nome do usuário';
+	self.email = '';
+	self.password = '';
 	return self;
 });

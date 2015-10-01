@@ -24,9 +24,13 @@ exports.index = function(req, res) {
  * Creates a new user
  */
 exports.create = function (req, res, next) {
+  // console.log('req', req.body);
+  // res.json({ req: 'req' });
+  // return;
   var newUser = new User(req.body);
   newUser.provider = 'local';
   newUser.role = 'user';
+  console.log('providerId', newUser.providerId);
   newUser.save(function(err, user) {
     if (err) return validationError(res, err);
     var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });

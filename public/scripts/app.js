@@ -8,8 +8,11 @@
  *
  * Main module of the application.
  */
+ 
 var app = angular
           .module('playlistApp', [
+            'ngResource',
+            'ngCookies',
             'ngScrollbars',
             'wu.masonry',
             'as.sortable',

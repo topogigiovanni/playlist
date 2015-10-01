@@ -46,6 +46,8 @@ module.exports = function(config) {
       'public/bower_components/ng-scrollbars/dist/scrollbars.min.js',
       'public/bower_components/ng-sortable/dist/ng-sortable.js',
       'public/bower_components/underscore/underscore.js',
+      'public/bower_components/angular-resource/angular-resource.js',
+      'public/bower_components/angular-cookies/angular-cookies.js',
       'public/bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "public/scripts/**/*.js",

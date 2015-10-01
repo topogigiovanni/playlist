@@ -1,4 +1,10 @@
-﻿$jq = jQuery.noConflict();
+﻿//https://developer.chrome.com/extensions/content_scripts#host-page-communication
+//http://stackoverflow.com/questions/11752341/chrome-extension-communication-between-content-script-and-background-html
+//https://developer.chrome.com/extensions/messaging
+//http://stackoverflow.com/questions/11431337/sending-message-to-chrome-extension-from-a-web-page
+//https://metabroadcast.com/blog/script-communication-in-a-chrome-extension
+
+$jq = jQuery.noConflict();
 //var terms = ['bbb', 'Novela', 'praia', 'pessoas', 'pessoa'];
 var terms = '';
 var $player = $jq('#player');

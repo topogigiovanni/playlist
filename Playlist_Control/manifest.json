@@ -8,7 +8,7 @@
   "content_scripts": [
     {
       "matches": ["*://*.playlist.ws/*"],
-      "js": ["jquery.js", "background.js"],
+      "js": ["jquery.js", "content.js"],
 	  "run_at" : "document_start"
     }
   ],

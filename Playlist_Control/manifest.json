@@ -14,7 +14,7 @@
   ],
   "author": "GWeb TI",
   "permissions": [
-     "storage" , "tabs"
+     "storage" , "tabs", "*://*.playlist.ws/*"
   ],
   "browser_action": {
     "default_icon": "icon.png",

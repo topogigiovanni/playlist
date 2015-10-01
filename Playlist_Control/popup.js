@@ -77,4 +77,20 @@ $(document).ready(function(){
 	});
 		
 })
-$(document).foundation();
+//$(document).foundation();
+
+// teste!!!!!!!
+
+function click(e) {
+  chrome.tabs.executeScript(null,
+      //{code:"document.body.style.backgroundColor='" + e.target.id + "'"});
+		{code:"alert(232)"});
+  //window.close();
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  var divs = document.querySelectorAll('div');
+  for (var i = 0; i < divs.length; i++) {
+    divs[i].addEventListener('click', click);
+  }
+});

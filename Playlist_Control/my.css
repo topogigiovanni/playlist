@@ -1,0 +1,50 @@
+.delet-tag{
+	color:#fff;
+	padding-left:10px;
+}
+.logo{
+	height: 43px;
+	width: 168px;
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+.top-panel ul li a{
+	font-size:9.5pt;
+}
+#form{
+	margin-bottom:0;
+}
+#terms li{
+	margin-top:4px;
+}
+#clear{
+	color:#F04124;
+}
+.terms-box.panel  p{
+	margin-bottom:4px;
+	font-weight:bold;
+	font-size:10pt;
+}
+.terms-box.panel {
+	padding:5px;
+}
+body{
+background-image: -webkit-gradient(
+	linear,
+	left top,
+	left bottom,
+	color-stop(0.77, #F7F8FA),
+	color-stop(1, #FAFCFF),
+	color-stop(1, #FFFFFF),
+	color-stop(1, #FFFFFF),
+	color-stop(1, #FFFFFF),
+	color-stop(1, #FFFFFF),
+	color-stop(1, #FFFFFF)
+);
+background-image: -o-linear-gradient(bottom, #F7F8FA 77%, #FAFCFF 100%, #FFFFFF 100%, #FFFFFF 100%, #FFFFFF 100%, #FFFFFF 100%, #FFFFFF 100%);
+background-image: -moz-linear-gradient(bottom, #F7F8FA 77%, #FAFCFF 100%, #FFFFFF 100%, #FFFFFF 100%, #FFFFFF 100%, #FFFFFF 100%, #FFFFFF 100%);
+background-image: -webkit-linear-gradient(bottom, #F7F8FA 77%, #FAFCFF 100%, #FFFFFF 100%, #FFFFFF 100%, #FFFFFF 100%, #FFFFFF 100%, #FFFFFF 100%);
+background-image: -ms-linear-gradient(bottom, #F7F8FA 77%, #FAFCFF 100%, #FFFFFF 100%, #FFFFFF 100%, #FFFFFF 100%, #FFFFFF 100%, #FFFFFF 100%);
+background-image: linear-gradient(to bottom, #F7F8FA 77%, #FAFCFF 100%, #FFFFFF 100%, #FFFFFF 100%, #FFFFFF 100%, #FFFFFF 100%, #FFFFFF 100%);
+}

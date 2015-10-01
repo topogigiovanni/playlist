@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+  <head>
+    <title>FeedBlock Configuração</title>
+    <style>
+      body {
+        min-width: 230px;
+        overflow-x: hidden;
+      }
+
+      img {
+        margin: 5px;
+        border: 2px solid black;
+        vertical-align: middle;
+        width: 75px;
+        height: 75px;
+      }
+    </style>
+	<link rel="stylesheet" href="foundation.min.css" />
+	<link rel="stylesheet" href="my.css" />
+    <!--
+      - JavaScript and HTML must be in separate files: see our Content Security
+      - Policy documentation[1] for details and explanation.
+      -
+      - [1]: http://developer.chrome.com/extensions/contentSecurityPolicy.html
+     -->
+	<script src="jquery.js"></script>
+	<script src="foundation.min.js"></script>
+    <script src="popup.js"></script>
+  </head>
+  <body>
+	<div class="row">
+		 <form  name="formulario" method="post" id="form">
+			 <div class="row">
+				<div class="small-12 columns">
+						<h4>Grooveshark Control<h4>
+				</div>
+				<div class="music small-12 columns">
+					
+				</div>
+				<div class="clearfix"></div>
+				<br>
+				<div class="small-12 left columns">
+					<button id="prev" class="button radius tiny "><</button>
+					<button id="play" class="button radius tiny ">Play</button>
+					<button id="next" class="button radius tiny ">></button>
+				</div>		
+			</div>
+		 </form>
+	 </div>
+  </body>
+</html>
+

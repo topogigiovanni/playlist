@@ -9,7 +9,7 @@
     {
       "matches": ["*://*.playlist.ws/*"],
       "js": ["jquery.js", "content.js"],
-	  "run_at" : "document_start"
+	    "run_at" : "document_start"
     }
   ],
   "author": "GWeb TI",

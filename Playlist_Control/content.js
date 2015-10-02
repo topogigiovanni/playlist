@@ -3,6 +3,7 @@
 //https://developer.chrome.com/extensions/messaging
 //http://stackoverflow.com/questions/11431337/sending-message-to-chrome-extension-from-a-web-page
 //https://metabroadcast.com/blog/script-communication-in-a-chrome-extension
+//https://developer.chrome.com/extensions/tabs
 
 $jq = jQuery.noConflict();
 //var terms = ['bbb', 'Novela', 'praia', 'pessoas', 'pessoa'];
@@ -14,6 +15,13 @@ var tagName = '';
 var _debug = true;
 var val = '';
 
+chrome.extension.onRequest.addListener(function(request, sender, sendResponse){
+    console.log('addListener', request);
+    if(request.action)
+{
+    alert('The response is : ' + request.action);
+}
+});
 
 
 if($player && $host.indexOf('playlist.ws') != -1){
@@ -49,7 +57,7 @@ function syncPlayerStatus(){
 
 	//var bgWindowObject = chrome.extension.getBackgroundPage();
 
-	console.log('bgWindowObject', bgWindowObject);
+	//console.log('bgWindowObject', bgWindowObject);
 	// var command = {};
 	// var img_playing = $player.find('#now-playing-image');
 	// if(img_playing.hasClass('hide')){
@@ -69,8 +77,8 @@ function objBlock(num){
 }
 
 
-$jq(document).ready(function(){
-	$jq('body').on('changeVal', function(){
+$jq(document).ready(function() {
+	$jq('body').on('changeVal', function() {
 		switch (val) {
 			case 'prev':
 				document.getElementById('play-prev').click();
@@ -84,8 +92,26 @@ $jq(document).ready(function(){
 		}
 		syncPlayerStatus();
 	});
-	console.log('ready');
 	
-})
+	console.log('ready');
 
+	function startExtension() {
+		console.log('Starting Extension');
+	}
+
+	function stopExtension() {
+		console.log('Stopping Extension');
+	}
+
+	function onRequest(request, sender, sendResponse) {
+		if (request.action == 'start')
+			startExtension()
+		else if (request.action == 'stop')
+			stopExtension()
+		sendResponse({});
+	}
+
+	chrome.extension.onMessage.addListener(onRequest);
+
+})
 

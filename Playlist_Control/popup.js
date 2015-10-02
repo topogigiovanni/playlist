@@ -69,9 +69,9 @@ $(document).ready(function(){
 	$prev.click(function(){
 		sendCommand('prev');
 	});
-	$play.click(function(){
-		sendCommand('play');
-	});
+	// $play.click(function(){
+	// 	sendCommand('play');
+	// });
 	$next.click(function(){
 		sendCommand('next');
 	});
@@ -80,17 +80,38 @@ $(document).ready(function(){
 //$(document).foundation();
 
 // teste!!!!!!!
+var tabs = [];
+chrome.tabs.query({url:"*://*.playlist.ws/*"}, function (t){
+	console.log('result query', t);
+	//tabs.push(tab);
+	tabs = t;
+});
 
 function click(e) {
-  chrome.tabs.executeScript(null,
-      //{code:"document.body.style.backgroundColor='" + e.target.id + "'"});
-		{code:"alert(232)"});
+  // chrome.tabs.executeScript(null,
+  //     //{code:"document.body.style.backgroundColor='" + e.target.id + "'"});
+		// {code: e});
   //window.close();
+
+  //chrome.extension.sendRequest({ action: "WhatYouWant"});
+
+  tabs.forEach(function(t){
+  		console.log('foreach', t,t.id)
+  		chrome.tabs.executeScript(t.id,{code: e});
+
+  		chrome.tabs.sendMessage(t.id, {action:'start'}, function(response) {
+	    console.log('Start action sent');
+	});
+  });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  var divs = document.querySelectorAll('div');
-  for (var i = 0; i < divs.length; i++) {
-    divs[i].addEventListener('click', click);
-  }
+  // var divs = document.querySelectorAll('div');
+  // for (var i = 0; i < divs.length; i++) {
+  //   divs[i].addEventListener('click', click);
+  // }
+  	$play = $('#play');
+  	$play.click(function(){
+		click("console.log('rodoou')");
+	});
 });

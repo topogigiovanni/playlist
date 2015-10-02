@@ -1,4 +1,6 @@
+$fa-font-path:"../bower_components/font-awesome/fonts";
 // bower:scss
+@import "../bower_components/font-awesome/scss/font-awesome.scss";
 // endbower
 
 @import 'g';
@@ -28,6 +30,12 @@ body {
 }
 .playlist-title {
   margin-bottom: 15px;
+}
+.logged-info-box{
+  margin-top:20px;
+  a{
+    color:#000;
+  }
 }
 #playlist {
   /*min-height: 352px;*/
@@ -90,8 +98,8 @@ li.playlist-item{
   width: 88%;
   text-align: center;
 }
-#search {
-  margin-top: 17px;
+.main-nav {
+  margin: 17px 0;
 }
 .search-modal {
   .panel {

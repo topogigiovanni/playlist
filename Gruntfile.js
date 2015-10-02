@@ -276,7 +276,7 @@ module.exports = function (grunt) {
 
       sass: {
         src: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        ignorePath: /(\.\.\/){1,2}bower_components\//
+        //ignorePath: /(\.\.\/){1,2}bower_components\//
       }
     },
 
@@ -516,7 +516,7 @@ module.exports = function (grunt) {
           cwd: 'bower_components/bootstrap/dist',
           src: 'fonts/*',
           dest: '<%= yeoman.dist %>/public'
-        }, {
+        },{
           expand: true,
           dest: '<%= yeoman.dist %>',
           src: [

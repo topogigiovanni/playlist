@@ -18,6 +18,7 @@ app.service('UserModel', function () {
 
 app.service('FacebookUser', function ($rootScope, UserModel) {
 	var self = this;
+	var SCOPES = 'public_profile,email';
 	// autoload
 	self.init = function() {
 		window.fbAsyncInit = function() {
@@ -84,7 +85,32 @@ app.service('FacebookUser', function ($rootScope, UserModel) {
 		});
 	};
 	self.init();
+	self.auth = function(){
+		FB.login(function(response) {
 
+	        if (response.authResponse) {
+	            console.log('Welcome!  Fetching your information.... ');
+	            
+	            console.log(response); // dump complete info
+	            _getAPIData();
+	            
+	          //   access_token = response.authResponse.accessToken; //get access token
+	          //   user_id = response.authResponse.userID; //get FB UID
+
+	          //   FB.api('/me', function(response) {
+	          //       user_email = response.email; //get user email
+	          // // you can store this data into your database             
+	          //   });
+
+	        } else {
+	            //user hit cancel button
+	            console.log('User cancelled login or did not fully authorize.');
+
+	        }
+	    }, {
+	        scope: SCOPES
+	    });
+	};
 });
 
 app.service('User', function ($rootScope, FacebookUser, $resource) {
@@ -132,7 +158,10 @@ app.service('User', function ($rootScope, FacebookUser, $resource) {
 		self.name = args.name;
 		self.email = args.email;
 		self.provider = args.provider;
-		self.providerId = args.providerId
+		self.providerId = args.providerId;
+
+		self.isLogged = true;
+
 		$rootScope.$apply();
 		//_syncData({email: self.email});
 		console.debug('self',self);
@@ -161,7 +190,7 @@ app.service('User', function ($rootScope, FacebookUser, $resource) {
 			angular.forEach(err.errors, function(error, field) {
 				console.log('save catch field=',field,'err=', error);
 				//$scope.errors[field] = error.message;
-				alert(error.message);
+				//alert(error.message);
 			});
 
           // exemplo !
@@ -174,6 +203,13 @@ app.service('User', function ($rootScope, FacebookUser, $resource) {
         });
 		
 	});
+	self.authProvider = function(providerName){
+		switch(providerName){
+			case 'facebook':
+				FacebookUser.auth();
+				break;
+		}
+	};
 
 	self.isLogged = false;
 	self.name = 'Nome do usuário';

@@ -11,12 +11,14 @@
  
 var app = angular
           .module('playlistApp', [
+            'ngSanitize',
             'ngResource',
             'ngCookies',
             'ngScrollbars',
             'wu.masonry',
             'as.sortable',
-            'angular-images-loaded'
+            'angular-images-loaded',
+            'ui.bootstrap'
           ]);
 var $injector = angular.injector(['ng']);
 var $body = $('body');

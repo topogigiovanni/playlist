@@ -37,13 +37,6 @@ module.exports = function (grunt) {
   // Define the configuration for all the tasks
   grunt.initConfig({
     // custom G
-    verbosity: {
-      // Default 
-      build: {
-        // options: { mode: 'hidden' }, 
-        tasks: ['copy']
-      },
-    },
 
     // Project settings
     yeoman: appConfig,
@@ -524,7 +517,12 @@ module.exports = function (grunt) {
           src: ['generated/*']
         }, {
           expand: true,
-          cwd: 'bower_components/bootstrap/dist',
+          cwd: '<%= yeoman.app %>/bower_components/bootstrap/dist',
+          src: 'fonts/*',
+          dest: '<%= yeoman.dist %>/public'
+        },{
+          expand: true,
+          cwd: '<%= yeoman.app %>/bower_components/font-awesome',
           src: 'fonts/*',
           dest: '<%= yeoman.dist %>/public'
         },{
@@ -614,6 +612,8 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'env:all',
+      /* custom */
+      /* end custom */
       'wiredep',
       'concurrent:server',
       'autoprefixer:server',

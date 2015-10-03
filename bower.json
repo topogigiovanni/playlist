@@ -37,6 +37,12 @@
         "item.js",
         "outlayer.js"
       ]
+    },
+    "font-awesome": {
+      "main": [
+        "./css/font-awesome.css",
+        "./fonts/*"
+      ]
     }
   },
   "devDependencies": {

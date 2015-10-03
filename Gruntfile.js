@@ -15,6 +15,8 @@ module.exports = function (grunt) {
     localConfig = {};
   }
 
+  //grunt.loadNpmTasks('grunt-verbosity');
+
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
@@ -34,6 +36,14 @@ module.exports = function (grunt) {
 
   // Define the configuration for all the tasks
   grunt.initConfig({
+    // custom G
+    verbosity: {
+      // Default 
+      build: {
+        // options: { mode: 'hidden' }, 
+        tasks: ['copy']
+      },
+    },
 
     // Project settings
     yeoman: appConfig,
@@ -280,34 +290,35 @@ module.exports = function (grunt) {
       }
     },
 
-    // Renames files for browser caching purposes
-    // filerev: {
+    // rev: {
     //   dist: {
-    //     src: [
-    //       '<%= yeoman.dist %>/public/{,*/}*.js',
-    //       '<%= yeoman.dist %>/public/{,*/}*.css',
-
-    //       '<%= yeoman.dist %>/public/scripts/{,*/}*.js',
-    //       '<%= yeoman.dist %>/public/styles/{,*/}*.css',
-    //       '<%= yeoman.dist %>/public/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-    //       '<%= yeoman.dist %>/public/styles/fonts/*'
-    //     ]
+    //     files: {
+    //       src: [
+    //         '<%= yeoman.dist %>/public/{,*/}*.js',
+    //         '<%= yeoman.dist %>/public/{,*/}*.css',
+    //         '<%= yeoman.dist %>/public/assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+    //         '<%= yeoman.dist %>/public/assets/fonts/*'
+    //       ]
+    //     }
     //   }
     // },
+
     // Renames files for browser caching purposes
-    rev: {
+    filerev: {
       dist: {
-        files: {
-          src: [
-            '<%= yeoman.dist %>/public/{,*/}*.js',
-            '<%= yeoman.dist %>/public/{,*/}*.css',
-            '<%= yeoman.dist %>/public/assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-            '<%= yeoman.dist %>/public/assets/fonts/*'
-          ]
-        }
+        src: [
+          '<%= yeoman.dist %>/public/{,*/}*.js',
+          '<%= yeoman.dist %>/public/{,*/}*.css',
+
+          '<%= yeoman.dist %>/public/scripts/{,*/}*.js',
+          '<%= yeoman.dist %>/public/styles/{,*/}*.css',
+          '<%= yeoman.dist %>/public/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+          '<%= yeoman.dist %>/public/styles/fonts/*'
+        ]
       }
     },
-
+    // Renames files for browser caching purposes
+    
 
     env: {
       test: {
@@ -552,6 +563,7 @@ module.exports = function (grunt) {
           logConcurrentOutput: true
         }
       },
+      
       dist: [
         'sass',
         'copy:styles',
@@ -588,7 +600,15 @@ module.exports = function (grunt) {
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
-      return grunt.task.run(['build', 'env:all', 'env:prod', 'express:prod', 'wait', 'open', 'express-keepalive']);
+      return grunt.task.run([
+        'build', 
+        'env:all', 
+        'env:prod', 
+        'express:prod', 
+        'wait', 
+        'open', 
+        'express-keepalive'
+        ]);
     }
 
     grunt.task.run([
@@ -628,12 +648,14 @@ module.exports = function (grunt) {
     'autoprefixer',
     'ngtemplates',
     'concat',
-    'ngAnnotate',
-    'copy:dist',
+     'ngAnnotate'
+
+     ,'copy:dist',
     'cdnify',
     'cssmin',
     'uglify',
-    'rev',
+    'filerev',
+    //'rev',
     'usemin'
     ,'htmlmin'
   ]);

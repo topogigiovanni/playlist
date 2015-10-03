@@ -17,22 +17,23 @@
     "grunt-contrib-jshint": "^0.11.0",
     "grunt-contrib-uglify": "^0.7.0",
     "grunt-contrib-watch": "^0.6.1",
+    "grunt-express-server": "~0.4.17",
     "grunt-filerev": "^2.1.2",
     "grunt-google-cdn": "^0.4.3",
     "grunt-karma": "*",
     "grunt-newer": "^1.1.0",
     "grunt-ng-annotate": "^0.9.2",
+    "grunt-open": "~0.2.3",
     "grunt-svgmin": "^2.0.0",
     "grunt-usemin": "^3.0.0",
+    "grunt-verbosity": "^0.2.2",
     "grunt-wiredep": "^2.0.0",
     "jit-grunt": "^0.9.1",
     "jshint-stylish": "^1.0.0",
     "karma-jasmine": "*",
     "karma-phantomjs-launcher": "*",
-    "time-grunt": "^1.0.0",
-    "grunt-express-server": "~0.4.17",
-    "grunt-open": "~0.2.3",
-    "open": "~0.0.4"
+    "open": "~0.0.4",
+    "time-grunt": "^1.0.0"
   },
   "engines": {
     "node": ">=0.10.0"

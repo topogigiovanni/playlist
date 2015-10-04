@@ -8,5 +8,5 @@ module.exports = {
     uri: 'mongodb://localhost/Playlist-dev'
   },
 
-  seedDB: true
+  seedDB: false
 };

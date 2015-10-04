@@ -16,6 +16,7 @@ app.service('UserModel', function () {
 	this.providerId = '';
 });
 
+// Facebook Provider
 app.service('FacebookUser', function ($rootScope, UserModel) {
 	var self = this;
 	var SCOPES = 'public_profile,email';
@@ -85,7 +86,7 @@ app.service('FacebookUser', function ($rootScope, UserModel) {
 		});
 	};
 	self.init();
-	self.auth = function(){
+	self.authenticate = function(callback){
 		FB.login(function(response) {
 
 	        if (response.authResponse) {
@@ -107,21 +108,15 @@ app.service('FacebookUser', function ($rootScope, UserModel) {
 	            console.log('User cancelled login or did not fully authorize.');
 
 	        }
+	        callback(response);
 	    }, {
 	        scope: SCOPES
 	    });
 	};
 });
 
-app.service('User', function ($rootScope, FacebookUser, $resource) {
+app.service('User', function ($rootScope, $http, $cookieStore, FacebookUser, $resource) {
 	var self = this;
-	// autoload
-	var init = function() {
-		console.log('User service initialized');
-		FacebookUser.init();
-	};
-	init();
-
 	var resource = $resource('/api/users/:id/:controller', {
 						id: '@_id'
 					}, {
@@ -138,20 +133,13 @@ app.service('User', function ($rootScope, FacebookUser, $resource) {
 							}
 						}
 					});
-
-	// var _syncData = function(data){
-	// 	$.ajax({
-	// 		url:'api/users',
-	// 		data: data,
-	// 		type: 'POST'
-	// 	})
-	// 	.success(function(r){
-	// 		console.log('User _syncData success', r)
-	// 	})
-	// 	.error(function(e){
-	// 		console.error('User _syncData error',e);
-	// 	});
-	// };
+	// autoload
+	var init = function() {
+		console.log('User service initialized');
+		FacebookUser.init();
+		console.log('on init resouce.get()',resource.get());
+	};
+	init();
 
 	$rootScope.$on('User.Provider.Ready', function(e, args){
 		console.log('Listen User.Provider.Ready', e, args);
@@ -203,17 +191,137 @@ app.service('User', function ($rootScope, FacebookUser, $resource) {
         });
 		
 	});
-	self.authProvider = function(providerName){
+	self.auth = function(user, onThen, onCatch){
+		onThen = onThen || angular.noop;
+		onCatch = onCatch || angular.noop;
+		$http.post('/auth/local', {
+          email: user.email,
+          password: user.password
+        }).
+        success(function(data) {
+          $cookieStore.put('token', data.token);
+          //currentUser = User.get();
+          //deferred.resolve(data);
+          return onThen(data);
+        }).
+        error(function(err) {
+          //this.logout();
+          //deferred.reject(err);
+          return onCatch(err);
+        }.bind(this));
+
+		// resource.login({
+  //         email: user.email,
+  //         password: user.password
+  //       })
+  //       .then( function(r) {
+  //        	console.log('User auth then', r);
+  //       	onThen(r);
+  //       })
+  //       .catch( function(err) {
+  //         //$scope.errors.other = err.message;
+  //         console.log('User auth catch', err);
+  //       	onCatch(err);
+  //       });
+	};
+	self.authProvider = function(providerName, callback){
+		callback = callback || angular.noop;
+		console.log('User authProvider', providerName);
 		switch(providerName){
 			case 'facebook':
-				FacebookUser.auth();
+				FacebookUser.authenticate(callback);
 				break;
 		}
 	};
+	self.register = function(user, onThen, onCatch){
+		console.log('User register', user);
+		onThen = onThen || angular.noop;
+		onCatch = onCatch || angular.noop;
+		resource.save({
+          name: user.name,
+          email: user.email,
+          password: user.password,
+          provider: '',
+          providerId: ''
+        },function(resp){
+        	$cookieStore.put('token', resp.token);
+        	console.log('resouce user save success', resp);
+        	console.log('resouce.get()',resource.get());
+        },function(err){
+        	console.log('resouce user save error', err);
+        })
+        .$promise
+        .then( function(r) {
+        	console.log('user savee!!', r);
+          // Account created, redirect to home
+          //$location.path('/');
+          onThen(r);
+        })
+        .catch( function(err) {
+        	err = err.data;
+        	// if(err.errors.length){
+        	// 	alert(err.errors[0].message);
+        	// }
+			angular.forEach(err.errors, function(error, field) {
+				console.log('save catch field=',field,'err=', error);
+				//$scope.errors[field] = error.message;
+				//alert(error.message);
+			});
+			onCatch(err);
+
+          // exemplo !
+          // $scope.errors = {};
+          // // Update validity of form fields that match the mongoose errors
+          // angular.forEach(err.errors, function(error, field) {
+          //   form[field].$setValidity('mongoose', false);
+          //   $scope.errors[field] = error.message;
+          // });
+        });
+	};
 
 	self.isLogged = false;
-	self.name = 'Nome do usuário';
+	self.name = '';
 	self.email = '';
 	self.password = '';
 	return self;
 });
+
+app.factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {
+    return {
+      // Add authorization token to headers
+      request: function (config) {
+      	console.debug('authInterceptor request', config);
+        config.headers = config.headers || {};
+        if ($cookieStore.get('token')) {
+          config.headers.Authorization = 'Bearer ' + $cookieStore.get('token');
+        }
+        return config;
+      },
+
+      // Intercept 401s and redirect you to login
+      responseError: function(response) {
+      	console.debug('authInterceptor responseError', response);
+        if(response.status === 401) {
+          $location.path('/login');
+          // remove any stale tokens
+          $cookieStore.remove('token');
+          return $q.reject(response);
+        }
+        else {
+          return $q.reject(response);
+        }
+      }
+    };
+  })
+
+  .run(function ($rootScope, $location) {
+    // Redirect to login if route requires auth and you're not logged in
+    $rootScope.$on('$routeChangeStart', function (event, next) {
+      // Auth.isLoggedInAsync(function(loggedIn) {
+      //   if (next.authenticate && !loggedIn) {
+      //     event.preventDefault();
+      //     $location.path('/login');
+      //   }
+      // });
+    });
+  });

@@ -170,7 +170,7 @@ Player.Youtube.OnPlayerStateChange = function(e){
 };
 Player.Vimeo = {};
 
-app.config(function (ScrollBarsProvider) {
+app.config(function ($httpProvider, ScrollBarsProvider) {
   // scrollbar defaults
   ScrollBarsProvider.defaults = {
     autoHideScrollbar: false,
@@ -186,6 +186,8 @@ app.config(function (ScrollBarsProvider) {
       enable: false // enable scrolling buttons by default
     }
   };
+
+  $httpProvider.interceptors.push('authInterceptor');
 });
 
 function unLogfb(){

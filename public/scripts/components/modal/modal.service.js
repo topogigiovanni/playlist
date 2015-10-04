@@ -29,13 +29,18 @@ app.factory('Modal', function($rootScope, $modal) {
     });
   }
 
+  function openModalExtended(data){
+    var data = data || {};
+    return $modal.open(data);
+  }
+
   // Public API here
   return {
 
     /* Simple open */
     open: openModal,
 
-    openExtended: $modal.open,
+    openExtended: openModalExtended,
 
     /* Confirmation modals */
     confirm: {

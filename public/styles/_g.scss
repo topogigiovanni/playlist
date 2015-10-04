@@ -13,6 +13,9 @@
 .bold{
   font-weight: bold;
 }
+.margin-auto{
+  margin:0 auto;
+}
 .no-margin{
   margin:0;
 }
@@ -33,7 +36,7 @@
   text-indent: -999999px;
 }
 .full{
-  max-width: 100%;
+  width: 100%;
 }
 .no-height{
   height: 0;

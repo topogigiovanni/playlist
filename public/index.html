@@ -56,9 +56,15 @@
                           <div class="logged-info-box" ng-if="User.isLogged">
                             Olá {{User.name}}.
                             &nbsp;&nbsp; 
-                            <a href="#">
-                            <i class="fa fa-gear"></i>
-                            </a>
+                            <div class="btn-group" dropdown>
+                              <button class="btn no-decoration btn-link btn-xs dropdown-toggle" dropdown-toggle ng-disabled="disabled" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-gear"></i>
+                                <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li><a ng-click="User.logout();" href="#">Sair</a></li>
+                              </ul>
+                            </div>
                           </div>
                         </nav>
                       </div>
@@ -71,7 +77,6 @@
                       texto e imagem mostrando como utilizar pela primeira vez.
                       Compartilhe a idéia para que essa ferramenta seja sempre grátis!
                     </p>
-                    <p>{{User.name}}</p>
                     <div class="vermelho" id="status">status</div>
                     <div
                       class="fb-like"

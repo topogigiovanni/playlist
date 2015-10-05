@@ -9,17 +9,19 @@
  */
 
 app.service('UserModel', function () {	
+	this._id = null;
 	this.name = '';
 	this.email = '';
 	this.password = '';
 	this.provider = '';
 	this.providerId = '';
+	this.__v = null;
 });
 
 // Facebook Provider
 app.service('FacebookUser', function ($rootScope, UserModel) {
 	var self = this;
-	var SCOPES = 'public_profile,email';
+	var SCOPE = 'public_profile,email';
 	// autoload
 	self.init = function() {
 		window.fbAsyncInit = function() {
@@ -31,61 +33,74 @@ app.service('FacebookUser', function ($rootScope, UserModel) {
 				version: 'v2.4',
 				oauth: true
 			});
-			console.log('fbAsyncInit', FB);
-
-			// Now that we've initialized the JavaScript SDK, we call 
-			// FB.getLoginStatus().  This function gets the state of the
-			// person visiting this page and can return one of three states to
-			// the callback you provide.  They can be:
-			//
-			// 1. Logged into your app ('connected')
-			// 2. Logged into Facebook, but not your app ('not_authorized')
-			// 3. Not logged into Facebook and can't tell if they are logged into
-			//    your app or not.
-			//
-			// These three cases are handled in the callback function.
-
-			FB.getLoginStatus(function(response) {
-				console.log('getLoginStatus', response);
-				// The response object is returned with a status field that lets the
-				// app know the current login status of the person.
-				// Full docs on the response object can be found in the documentation
-				// for FB.getLoginStatus().
-				if (response.status === 'connected') {
-					// Logged into your app and Facebook.
-					_getAPIData();
-					return;
-				} else if (response.status === 'not_authorized') {
-					// The person is logged into Facebook, but not your app.
-					document.getElementById('status').innerHTML = 'Please log ' +
-						'into this app.';
-				} else {
-					// The person is not logged into Facebook, so we're not sure if
-					// they are logged into this app or not.
-					document.getElementById('status').innerHTML = 'Please log ' +
-						'into Facebook.';
-				}
-				//$rootScope.$broadcast('User.Provider.Ready', response);
-			});
-
+			$rootScope.$broadcast('User.Provider.Facebook.Ready', {});
 		};
 
 	};
 	// Here we run a very simple test of the Graph API after login is
 	// successful.  See statusChangeCallback() for when this call is made.
-	var _getAPIData = function() {
+	var _getAPIData = function(isNew) {
 		console.log('Welcome!  Fetching your information.... ');
 		FB.api('/me?fields=email,name', function(response) {
-			console.log('response', response);
+			console.log('Facebook  _getAPIData response', response);
 			document.getElementById('status').innerHTML =
 				'Thanks for logging in, ' + response.name + '!';
 			response = _.extend(UserModel, response);
 			response.provider = 'facebook';
 			response.providerId = response.id;
-			$rootScope.$broadcast('User.Provider.Ready', response);
+			var msg = {
+				isNew: isNew,
+				data: response
+			}
+			$rootScope.$broadcast('User.Provider.Ready', msg);
 		});
 	};
 	self.init();
+
+	var _checkLoginSatus = function(callback){
+		callback = callback || angular.noop;
+		// Now that we've initialized the JavaScript SDK, we call 
+		// FB.getLoginStatus().  This function gets the state of the
+		// person visiting this page and can return one of three states to
+		// the callback you provide.  They can be:
+		//
+		// 1. Logged into your app ('connected')
+		// 2. Logged into Facebook, but not your app ('not_authorized')
+		// 3. Not logged into Facebook and can't tell if they are logged into
+		//    your app or not.
+		//
+		// These three cases are handled in the callback function.
+
+		FB.getLoginStatus(function(response) {
+			console.log('getLoginStatus', response);
+			callback(response);
+		});
+	};
+
+	self.register = function(cb){
+		var cb = function(response){
+			// The response object is returned with a status field that lets the
+			// app know the current login status of the person.
+			// Full docs on the response object can be found in the documentation
+			// for FB.getLoginStatus().
+			if (response.status === 'connected') {
+				// Logged into your app and Facebook.
+				_getAPIData(true);
+				return;
+			} else if (response.status === 'not_authorized') {
+				// The person is logged into Facebook, but not your app.
+				document.getElementById('status').innerHTML = 'Please log ' +
+					'into this app.';
+			} else {
+				// The person is not logged into Facebook, so we're not sure if
+				// they are logged into this app or not.
+				document.getElementById('status').innerHTML = 'Please log ' +
+					'into Facebook.';
+			}
+			callback(response);
+		};
+		_checkLoginSatus(cb);
+	}
 	self.authenticate = function(callback){
 		FB.login(function(response) {
 
@@ -93,7 +108,7 @@ app.service('FacebookUser', function ($rootScope, UserModel) {
 	            console.log('Welcome!  Fetching your information.... ');
 	            
 	            console.log(response); // dump complete info
-	            _getAPIData();
+	            _getAPIData(false);
 	            
 	          //   access_token = response.authResponse.accessToken; //get access token
 	          //   user_id = response.authResponse.userID; //get FB UID
@@ -110,12 +125,12 @@ app.service('FacebookUser', function ($rootScope, UserModel) {
 	        }
 	        callback(response);
 	    }, {
-	        scope: SCOPES
+	        scope: SCOPE
 	    });
 	};
 });
 
-app.service('User', function ($rootScope, $http, $cookieStore, FacebookUser, $resource) {
+app.service('User', function ($rootScope, $http, $cookieStore, $resource, FacebookUser, UserModel) {
 	var self = this;
 	var resource = $resource('/api/users/:id/:controller', {
 						id: '@_id'
@@ -135,60 +150,95 @@ app.service('User', function ($rootScope, $http, $cookieStore, FacebookUser, $re
 					});
 	// autoload
 	var init = function() {
-		console.log('User service initialized');
+		console.log('User service initialized', $cookieStore.get('token'));
 		FacebookUser.init();
-		console.log('on init resouce.get()',resource.get());
+		var checkProviders = function(){
+			// TODO implementar
+			// $rootScope.$on('User.Provider.Facebook.Ready', function(){
+			// 	console.log('on User.Provider.Facebook.Ready');
+			// 	FacebookUser.checkLoginSatus();
+			// });
+		};
+		if($cookieStore.get('token')){
+			// get auth/local user data
+			resource.get()
+					.$promise
+			        .then( function(r) {
+			        	if(r && r._id){
+							self.isLogged = true;
+							angular.extend(self, r);
+						}else{
+							checkProviders();
+						}
+						console.log('on init resouce.get()', r, 'self', self, r._id);
+						
+			        })
+			        .catch( function(err) {
+			        	console.log('on init resouce.get() error', err);
+			        	checkProviders();
+					});
+			
+		}else{
+			checkProviders();
+		}
 	};
 	init();
 
 	$rootScope.$on('User.Provider.Ready', function(e, args){
 		console.log('Listen User.Provider.Ready', e, args);
-		self.name = args.name;
-		self.email = args.email;
-		self.provider = args.provider;
-		self.providerId = args.providerId;
-
+		if(!args.data) return;
+		var data = args.data;
+		self.name = data.name;
+		self.email = data.email;
+		self.provider = data.provider;
+		self.providerId = data.providerId;
 		self.isLogged = true;
+		// TODO ver como resgatar no token no exemplo do angualr
 
+		// TODO ver se angular.extend nao substitui apply
 		$rootScope.$apply();
+
 		//_syncData({email: self.email});
 		console.debug('self',self);
-		resource.save({
-          name: self.name,
-          email: self.email,
-          password: 'dsaddqwd',
-          provider: self.provider,
-          providerId: self.providerId
-        },function(resp){
-        	console.log('resouce user save success', resp);
-        },function(err){
-        	console.log('resouce user save error', err);
-        })
-        .$promise
-        .then( function(a,b,c, d) {
-        	console.log('user savee!!', a,b,c,d);
-          // Account created, redirect to home
-          //$location.path('/');
-        })
-        .catch( function(err) {
-        	err = err.data;
-        	// if(err.errors.length){
-        	// 	alert(err.errors[0].message);
-        	// }
-			angular.forEach(err.errors, function(error, field) {
-				console.log('save catch field=',field,'err=', error);
-				//$scope.errors[field] = error.message;
-				//alert(error.message);
-			});
+		if(args.isNew){
+			//self.register = function(user, onThen, onCatch){
+			resource.save({
+	          name: self.name,
+	          email: self.email,
+	          password: self.name+self.providerId,//'dsaddqwd',
+	          provider: self.provider,
+	          providerId: self.providerId
+	        },function(resp){
+	        	console.log('resouce user save success', resp);
+	        },function(err){
+	        	console.log('resouce user save error', err);
+	        })
+	        .$promise
+	        .then( function(a,b,c, d) {
+	        	console.log('user savee!!', a,b,c,d);
+	          // Account created, redirect to home
+	          //$location.path('/');
+	        })
+	        .catch( function(err) {
+	        	err = err.data;
+	        	// if(err.errors.length){
+	        	// 	alert(err.errors[0].message);
+	        	// }
+				angular.forEach(err.errors, function(error, field) {
+					console.log('save catch field=',field,'err=', error);
+					//$scope.errors[field] = error.message;
+					//alert(error.message);
+				});
 
-          // exemplo !
-          // $scope.errors = {};
-          // // Update validity of form fields that match the mongoose errors
-          // angular.forEach(err.errors, function(error, field) {
-          //   form[field].$setValidity('mongoose', false);
-          //   $scope.errors[field] = error.message;
-          // });
-        });
+	          // exemplo !
+	          // $scope.errors = {};
+	          // // Update validity of form fields that match the mongoose errors
+	          // angular.forEach(err.errors, function(error, field) {
+	          //   form[field].$setValidity('mongoose', false);
+	          //   $scope.errors[field] = error.message;
+	          // });
+	        });
+    	};
 		
 	});
 	self.auth = function(user, onThen, onCatch){
@@ -199,30 +249,38 @@ app.service('User', function ($rootScope, $http, $cookieStore, FacebookUser, $re
           password: user.password
         }).
         success(function(data) {
-          $cookieStore.put('token', data.token);
-          //currentUser = User.get();
-          //deferred.resolve(data);
-          return onThen(data);
+        	if(data && data.token){
+        		$cookieStore.put('token', data.token);
+        		resource.get()
+						.$promise
+				        .then( function(r) {
+				        	if(r && r._id){
+								self.isLogged = true;
+								angular.extend(self, r);
+							}
+							console.log('User auth get currentUser', r, 'self', self, r._id);
+							onThen(r);
+				        })
+				        .catch( function(err) {
+				        	console.log('User auth get currentUser error', err);
+				        	onCatch(err);
+						});
+
+				// var currentUser = resource.get();
+				// self.isLogged = true;
+				// console.log('User auth get currentUser', currentUser);
+				// angular.extend(self, currentUser);
+				// return onThen(data);
+        	}else{
+        		return onCatch(data);
+        	}
+			
         }).
         error(function(err) {
-          //this.logout();
-          //deferred.reject(err);
-          return onCatch(err);
-        }.bind(this));
-
-		// resource.login({
-  //         email: user.email,
-  //         password: user.password
-  //       })
-  //       .then( function(r) {
-  //        	console.log('User auth then', r);
-  //       	onThen(r);
-  //       })
-  //       .catch( function(err) {
-  //         //$scope.errors.other = err.message;
-  //         console.log('User auth catch', err);
-  //       	onCatch(err);
-  //       });
+			//this.logout();
+			//deferred.reject(err);
+			return onCatch(err);
+		}.bind(this));
 	};
 	self.authProvider = function(providerName, callback){
 		callback = callback || angular.noop;
@@ -278,6 +336,20 @@ app.service('User', function ($rootScope, $http, $cookieStore, FacebookUser, $re
           // });
         });
 	};
+	self.registerProvider = function(providerName, callback){
+		callback = callback || angular.noop;
+		console.log('User registerProvider providerName', providerName);
+		switch(providerName){
+			case 'facebook':
+				FacebookUser.register(callback);
+				break;
+		}
+	};
+	self.logout = function(){
+		$cookieStore.remove('token');
+		self.isLogged = false;
+        angular.extend(self, UserModel);
+	}
 
 	self.isLogged = false;
 	self.name = '';

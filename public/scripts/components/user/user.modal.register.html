@@ -36,7 +36,7 @@
 						<input type="password" ng-model="userRegister.password" name="password" required class="form-control" placeholder="Senha" aria-describedby="basic-addon1" mongoose-error>
 					</div>
 					<p class="help-block"
-             ng-show="(form.password.$error.minlength || form.password.$error.required) && submitted.register">Sua senha deve ter no mínimo 3 caracteres.</p>
+             		ng-show="(form.password.$error.minlength || form.password.$error.required) && submitted.register">Sua senha deve ter no mínimo 3 caracteres.</p>
 					<p class="help-block" ng-show="form.password.$error.mongoose">{{ errors.password }}</p>
 					<br>
 					<div class="input-group right">

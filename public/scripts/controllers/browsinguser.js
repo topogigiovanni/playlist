@@ -57,7 +57,15 @@ app.controller('BrowsingUserCtrl', function ($scope, $http, Modal, User, UserMod
 					$scope.errors[field] = error.message;
 				});
 	    	}
-	    }
+	    },
+	    registerProvider: {
+    		success: function(d){
+	    		console.log('callback authProvider success', d, modal);
+		    	if(modal)
+		    		modal.close();
+		    },
+		    error: function(){}
+    	},
     };
     var openModal = function(templateUrl){
     	$scope.errors = {};
@@ -103,6 +111,9 @@ app.controller('BrowsingUserCtrl', function ($scope, $http, Modal, User, UserMod
     	 if(form.$valid){
     	 	User.register($scope.userRegister, callback.register.success, callback.register.error);
     	 };
+    };
+    $scope.registrerProvide = function(providerName){
+    	User.registerProvider(providerName, callback.registerProvider.success);
     };
 
 });

@@ -22,6 +22,9 @@ $(window).load(function() {
 	//adjustIframeHeight();
 	onResize();
 	$(window).on('resize', onResize);
+	$body.on('Screen.Resize', function(){
+		setTimeout(onResize, 140);
+	});
 
 	//$('[data-toggle="tooltip"]').tooltip();
 

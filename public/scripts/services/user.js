@@ -239,6 +239,9 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
 	          // });
 	        });
     	};
+
+    	// dispara evento de ajuste de tela;
+    	$body.trigger('Screen.Resize');
 		
 	});
 	self.auth = function(user, onThen, onCatch){
@@ -274,6 +277,9 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
         	}else{
         		return onCatch(data);
         	}
+
+        	// dispara evento de ajuste de tela;
+    		$body.trigger('Screen.Resize');
 			
         }).
         error(function(err) {
@@ -313,6 +319,10 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
         	console.log('user savee!!', r);
           // Account created, redirect to home
           //$location.path('/');
+
+          // dispara evento de ajuste de tela;
+    	  $body.trigger('Screen.Resize');
+
           onThen(r);
         })
         .catch( function(err) {
@@ -326,14 +336,6 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
 				//alert(error.message);
 			});
 			onCatch(err);
-
-          // exemplo !
-          // $scope.errors = {};
-          // // Update validity of form fields that match the mongoose errors
-          // angular.forEach(err.errors, function(error, field) {
-          //   form[field].$setValidity('mongoose', false);
-          //   $scope.errors[field] = error.message;
-          // });
         });
 	};
 	self.registerProvider = function(providerName, callback){
@@ -349,12 +351,14 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
 		$cookieStore.remove('token');
 		self.isLogged = false;
         angular.extend(self, UserModel);
+        $body.trigger('Screen.Resize');
 	}
 
 	self.isLogged = false;
 	self.name = '';
 	self.email = '';
 	self.password = '';
+	self.playlists = [];
 	return self;
 });
 

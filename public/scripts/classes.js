@@ -1,3 +1,9 @@
+function Playlist(){
+  this._id = null;
+  this.title = "";
+  this.videos = [];  
+};
+
 function VimeoVideo(url, callback){
   var id = null;
   if(!!~url.indexOf('vimeo')){

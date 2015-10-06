@@ -25,6 +25,34 @@ body {
 }
 #navegator {
   height: 100%;
+  .playlist-nav-manage{
+    .right{
+      float:right;
+    }
+    .left{
+      float:left;
+    }
+    a{
+      color:#000;
+      text-decoration:none;
+    }
+    .create-user{
+      float: left;
+      width: 58%;
+      
+      input{
+        height: 23px;
+      }
+    }
+    .playlist-name{
+      .dropdown-menu{
+        .fa{
+          float:right;
+          margin-top:2px;
+        }
+      }
+    }
+  }
 }
 .playlist-title {
   margin-bottom: 15px;

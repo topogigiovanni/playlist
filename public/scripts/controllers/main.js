@@ -31,6 +31,7 @@ app.controller('MainCtrl', ['$scope','$rootScope','CurrentVideo', 'Search', 'Use
       Search.modal.close();
   };
 
+  $scope.currentPlaylist = currentPlaylist;
   // VideoList
   $scope.videoList = videoList;
   $scope.removeFromList = function(i){

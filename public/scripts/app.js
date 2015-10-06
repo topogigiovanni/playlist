@@ -24,6 +24,8 @@ var $injector = angular.injector(['ng']);
 var $body = $('body');
 var $playlist = $body.find('#playlist');
 var $searchModal = $body.find('.search-modal');
+
+var currentPlaylist = {};
 // TODO resgatar lista do Storage
 var originalVideoList = [];
 var videoList = []; //originalVideoList; 

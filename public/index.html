@@ -108,6 +108,49 @@
                           </button>
                           </span>
                       </div>
+                      <br>
+                      <div ng-cloak ng-if="User.isLogged" class="full playlist-nav-manage" ng-controller="PlaylistManagerCtrl">
+                        <div class="btn-group right" dropdown>
+                          <button  class="btn no-decoration btn-primary  btn-xs dropdown-toggle" dropdown-toggle ng-disabled="disabled" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Minhas Playlists ({{User.playlists.length}})
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li ng-if="!User.playlists.length">
+                              <a href="#" ng-click="toggleShowCreateForm();">Criar nova Playlist</a>
+                            </li>
+                            <li ng-class="{'active':currentPlaylist.title == p.title}" ng-repeat="p in User.playlists">
+                              <a href="#" ng-click="setCurrentPlaylist(p);" >{{p.title}}</a>
+                            </li>
+                          </ul>
+                        </div>
+                        <button class="left btn no-decoration btn-info btn-xs dropdown-toggle" ng-click="toggleShowCreateForm()"><i class="fa fa-plus"></i> Playlist</button>
+                          <div class="clearfix clear"></div>
+                          <br> 
+                          <form name="form" ng-submit="save(form);" ng-hide="!showCreateForm" class="create-user" novalidate>
+                            <div class="input-group">
+                              <input ng-model="playlistTitle" class="form-control title" name="playlistTitle"
+                              placeholder="Título da Playlist" type="text" />
+                            </div>
+                          </form>
+                          <div ng-if="User.playlists.length > 0 && !showCreateForm" class="playlist-name btn-group left" dropdown>
+                            <a class="btn no-decoration btn-link-classic  btn-xs dropdown-toggle" dropdown-toggle ng-disabled="disabled" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <em ng-bind="currentPlaylist.title"></em>
+                              <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                              <li>
+                              <a href="#"> 
+                                <span class="text-right">Deletar</span>
+                                <i class="fa fa-trash-o text-left"></i>
+                              </a>
+                              <div class="clearfix clear"></div>
+                              </li>
+                            </ul>
+                          </div>                     
+                          <button ng-click="save();" class="right btn no-decoration btn-success btn-xs dropdown-toggle">Salvar Playlist</button>
+                          <div class="clearfix clear"></div>
+                      </div>
                       <hr>
                     </div>
                     <div id="VideoList" ng-controller="VideoListCtrl" >
@@ -281,6 +324,7 @@
     <script src="scripts/controllers/search.js"></script>
     
     <script src="scripts/controllers/browsinguser.js"></script>
+    <script src="scripts/controllers/playlistmanager.js"></script>
     <!-- endbuild -->
 </body>
 </html>

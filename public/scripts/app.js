@@ -25,7 +25,7 @@ var $body = $('body');
 var $playlist = $body.find('#playlist');
 var $searchModal = $body.find('.search-modal');
 
-var currentPlaylist = {};
+var currentPlaylist = new Playlist();
 // TODO resgatar lista do Storage
 var originalVideoList = [];
 var videoList = []; //originalVideoList; 

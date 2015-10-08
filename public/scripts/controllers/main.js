@@ -34,6 +34,7 @@ app.controller('MainCtrl', ['$scope','$rootScope','CurrentVideo', 'Search', 'Use
   $scope.currentPlaylist = currentPlaylist;
   // VideoList
   $scope.videoList = videoList;
+  
   $scope.removeFromList = function(i){
   	var isCurrent = $scope.currentVideo.id == $scope.videoList[i].id;
   	console.log('removeFromList', i ,$scope.videoList, isCurrent);

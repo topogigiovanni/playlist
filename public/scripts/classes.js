@@ -39,7 +39,7 @@ function YoutubeVideo(url, callback){
     small: 'http://img.youtube.com/vi/'+id+'/default.jpg',
     big: 'http://img.youtube.com/vi/'+id+'/maxresdefault.jpg'
   };
-  this.iframeSrc = 'http://www.youtube.com/embed/'+id+'?enablejsapi=1&autoplay=1&version=3&controls=2&rel=0&modestbranding=1&disablekb=1&fs=1&iv_load_policy=3';
+  this.iframeSrc = !isProxyRestricted ? 'http://www.youtube.com/embed/'+id+'?enablejsapi=1&autoplay=1&version=3&controls=2&rel=0&modestbranding=1&disablekb=1&fs=1&iv_load_policy=3' : 'http://gwebti.com/tst_proxy/proxy.php?id='+id;
   // var instance = new YT.Player('player1', {
   //   videoId: id,
   //   events: {

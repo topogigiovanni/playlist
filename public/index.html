@@ -254,6 +254,14 @@
     <!-- /.container -->
 
     <script>
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
        !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
        (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
        r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
@@ -261,6 +269,12 @@
 
        ga('create', 'UA-67833430-2', 'auto');
        ga('send', 'pageview');
+
+       var isProxyRestricted = false;
+       function setProxyRestricted(){
+          isProxyRestricted = true;
+          $.getScript('http://gwebti.com/tst_proxy/proxy.php?url='+encodeURIComponent('https://www.youtube.com/iframe_api'));
+       };
     </script>
 
     <!-- build:js({public,node_modules}) scripts/vendor.js -->
@@ -297,16 +311,7 @@
     <!-- endbuild -->
 
     <script src="https://f.vimeocdn.com/js/froogaloop2.min.js"></script>
-    <script src="https://www.youtube.com/iframe_api"></script>
-    <script type="text/javascript">
-        (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    </script>
+    <script onError="setProxyRestricted();" src="https://www.youtube.com/iframe_api"></script>
 
     <!-- build:js({.tmp,public}) scripts/scripts.js -->
     <script src="scripts/classes.js"></script>

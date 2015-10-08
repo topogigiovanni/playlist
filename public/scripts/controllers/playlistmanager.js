@@ -8,7 +8,7 @@
  * Controller of the playlistApp
  */
 
-app.controller('PlaylistManagerCtrl', function ($scope, CurrentVideo) {
+app.controller('PlaylistManagerCtrl', function ($scope, CurrentVideo, User) {
     $scope.showCreateForm = false;
     $scope.toggleShowCreateForm = function(){
     	$scope.showCreateForm = !$scope.showCreateForm; 
@@ -24,6 +24,7 @@ app.controller('PlaylistManagerCtrl', function ($scope, CurrentVideo) {
     	if($scope.showCreateForm){
     		// é novo registro
     		var playlist = new Playlist();
+    		playlist._id = $scope.User.playlists.length+1;
 	    	playlist.title = $scope.playlistTitle || "Nova Playlist";
 	    	playlist.videos = _.clone(videoList);
 	    	console.log('Save playlist', playlist);
@@ -32,10 +33,16 @@ app.controller('PlaylistManagerCtrl', function ($scope, CurrentVideo) {
 	    	$scope.showCreateForm = false;
 	    	$scope.currentPlaylist = _.clone(playlist);
 
+	    	var mock = {title:'fixo test hard',videos:[]};
 	    	// TODO salvar no banco
+	    	$scope.User.createPlaylist({playlist:mock});
 
     	}else{
     		// é edição
+    		var index = _.findIndex($scope.User.playlists,{_id: $scope.currentPlaylist._id});
+    		console.log('index save',index);
+    		//$scope.User.playlists[index] = $scope.videoList;
+    		angular.copy($scope.videoList,$scope.User.playlists[index].videos);
     	};
     };
     

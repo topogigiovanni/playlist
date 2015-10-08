@@ -1,7 +1,7 @@
 'use strict';
 
 var express = require('express');
-var controller = require('./user.controller');
+var controller = require('./playlist.controller');
 var config = require('../../config/environment');
 var auth = require('../../auth/auth.service');
 
@@ -12,7 +12,6 @@ router.delete('/:id', auth.hasRole('admin'), controller.destroy);
 router.get('/me', auth.isAuthenticated(), controller.me);
 router.put('/:id/password', auth.isAuthenticated(), controller.changePassword);
 router.get('/:id', auth.isAuthenticated(), controller.show);
-router.post('/', controller.create);
-router.post('/:id/playlist', auth.isAuthenticated(), controller.savePlaylist);
+router.post('/', auth.isAuthenticated(), controller.create);
 
 module.exports = router;

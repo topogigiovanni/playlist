@@ -1,6 +1,6 @@
 'use strict';
 
-var User = require('./user.model');
+var Playlist = require('./playlist.model');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
@@ -27,14 +27,12 @@ exports.create = function (req, res, next) {
   // console.log('req', req.body);
   // res.json({ req: 'req' });
   // return;
-  var newUser = new User(req.body);
-  newUser.provider = 'local';
-  newUser.role = 'user';
-  console.log('providerId', newUser.providerId);
-  newUser.save(function(err, user) {
+  var newPlaylist = new Playlist(req.body);
+  console.log('newPlaylist', newPlaylist.videos);
+  newPlaylist.save(function(err, playlist) {
     if (err) return validationError(res, err);
-    var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
-    res.json({ token: token, _id: user._id });
+    //var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
+    res.json({ playlist: playlist });
   });
 };
 
@@ -80,29 +78,6 @@ exports.changePassword = function(req, res, next) {
     } else {
       res.status(403).send('Forbidden');
     }
-  });
-};
-
-exports.savePlaylist = function(req, res, next){
-  var userId = req.user._id;
-  User.findById(userId, function (err, user) {
-    if (err) return next(err);
-    var playlist = req.body.playlist;
-    console.log(playlist);
-    user.playlists.push(playlist);
-    user.save(function(err) {
-      if (err) return validationError(res, err);
-      res.status(200).send('OK');
-    });
-    // if(user.authenticate(oldPass)) {
-    //   user.password = newPass;
-    //   user.save(function(err) {
-    //     if (err) return validationError(res, err);
-    //     res.status(200).send('OK');
-    //   });
-    // } else {
-    //   res.status(403).send('Forbidden');
-    // }
   });
 };
 

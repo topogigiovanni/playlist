@@ -141,6 +141,12 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
 								controller: 'password'
 							}
 						},
+						createPlaylist: {
+							method: 'POST',
+							params: {
+								controller: 'playlist'
+							}
+						},
 						get: {
 							method: 'GET',
 							params: {
@@ -218,6 +224,8 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
 	        	console.log('user savee!!', a,b,c,d);
 	          // Account created, redirect to home
 	          //$location.path('/');
+
+	          // TODO setar ID
 	        })
 	        .catch( function(err) {
 	        	err = err.data;
@@ -239,6 +247,8 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
 	          // });
 	        });
     	};
+    	// TODO
+    	// ELSE BUSCAR ID do USUARIO
 
     	// dispara evento de ajuste de tela;
     	$body.trigger('Screen.Resize');
@@ -309,6 +319,7 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
           providerId: ''
         },function(resp){
         	$cookieStore.put('token', resp.token);
+        	self._id = resp._id;
         	console.log('resouce user save success', resp);
         	console.log('resouce.get()',resource.get());
         },function(err){
@@ -352,8 +363,38 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
 		self.isLogged = false;
         angular.extend(self, UserModel);
         $body.trigger('Screen.Resize');
-	}
+	};
 
+	self.createPlaylist = function(playlist){
+		resource.createPlaylist({
+			id: self._id,
+			playlist: playlist
+		})
+		.$promise
+        .then( function(r) {
+        	console.log('user savee!!', r);
+          // Account created, redirect to home
+          //$location.path('/');
+
+          // dispara evento de ajuste de tela;
+    	  $body.trigger('Screen.Resize');
+
+          onThen(r);
+        })
+        .catch( function(err) {
+        	err = err.data;
+        	// if(err.errors.length){
+        	// 	alert(err.errors[0].message);
+        	// }
+			angular.forEach(err.errors, function(error, field) {
+				console.log('save catch field=',field,'err=', error);
+				//$scope.errors[field] = error.message;
+				//alert(error.message);
+			});
+			onCatch(err);
+        });
+	};
+	self._id = null;
 	self.isLogged = false;
 	self.name = '';
 	self.email = '';

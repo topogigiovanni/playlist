@@ -33,9 +33,8 @@ app.controller('PlaylistManagerCtrl', function ($scope, CurrentVideo, User) {
 	    	$scope.showCreateForm = false;
 	    	$scope.currentPlaylist = _.clone(playlist);
 
-	    	var mock = {title:'fixo test hard',videos:[]};
 	    	// TODO salvar no banco
-	    	$scope.User.createPlaylist({playlist:mock});
+	    	$scope.User.savePlaylist({playlist:playlist});
 
     	}else{
     		// é edição
@@ -43,6 +42,9 @@ app.controller('PlaylistManagerCtrl', function ($scope, CurrentVideo, User) {
     		console.log('index save',index);
     		//$scope.User.playlists[index] = $scope.videoList;
     		angular.copy($scope.videoList,$scope.User.playlists[index].videos);
+    		
+    		// TODO
+    		$scope.User.savePlaylist({playlist:$scope.User.playlists[index], index:index});
     	};
     };
     

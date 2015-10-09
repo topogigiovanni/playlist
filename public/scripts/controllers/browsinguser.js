@@ -13,8 +13,9 @@ app.controller('BrowsingUserCtrl', function ($scope, $http, Modal, User, UserMod
     var form;
     var callback = {
     	auth: {
-    		success: function(d){
-	    		console.log('callback auth success', d);
+    		success: function(r){
+	    		console.log('callback auth success', r);
+	    		$scope.User._id = (r && r._id) ? r._id : null;
 		    	if(modal)
 		    		modal.close();
 		    },
@@ -32,8 +33,9 @@ app.controller('BrowsingUserCtrl', function ($scope, $http, Modal, User, UserMod
 		    }
     	},
     	authProvider: {
-    		success: function(d){
-	    		console.log('callback authProvider success', d, modal);
+    		success: function(r){
+	    		console.log('callback authProvider success', r, modal);
+		    	$scope.User._id = (r && r._id) ? r._id : null;
 		    	if(modal)
 		    		modal.close();
 		    },
@@ -44,6 +46,7 @@ app.controller('BrowsingUserCtrl', function ($scope, $http, Modal, User, UserMod
 	    		console.debug('callback register success', r, 'resolved', r.$resolved);
 	    		if(r.$resolved){
 	    			$scope.User.isLogged = true;
+	    			$scope.User._id = (r && r._id) ? r._id : null;
 	    			angular.extend($scope.User, $scope.userRegister);
 	    			if(modal)
 		    			modal.close();

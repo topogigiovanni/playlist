@@ -3,6 +3,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var crypto = require('crypto');
+var Playlist = require('./user.playlist.model');
 
 var UserSchema = new Schema({
   name: String,
@@ -15,8 +16,9 @@ var UserSchema = new Schema({
   provider: String,
   providerId: String,
   salt: String,
-  playlists: [Schema.Types.Mixed]
-});
+  playlists: [Schema.Types.Mixed]});
+
+
 
 /**
  * Virtuals
@@ -142,3 +144,4 @@ UserSchema.methods = {
 };
 
 module.exports = mongoose.model('User', UserSchema);
+//module.exports = mongoose.model('Playlist', PlaylistSchema);

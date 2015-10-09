@@ -1,6 +1,7 @@
 'use strict';
 
 var User = require('./user.model');
+var Playlist = require('./user.playlist.model');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
@@ -85,15 +86,27 @@ exports.changePassword = function(req, res, next) {
 
 exports.savePlaylist = function(req, res, next){
   var userId = req.user._id;
+  var isNew = !req.body.index;
+  console.log('isNew',isNew, 'index', req.body.index);
   User.findById(userId, function (err, user) {
     if (err) return next(err);
     var playlist = req.body.playlist;
     console.log(playlist);
-    user.playlists.push(playlist);
-    user.save(function(err) {
-      if (err) return validationError(res, err);
-      res.status(200).send('OK');
-    });
+    playlist = new Playlist(playlist);
+    if(isNew){
+      user.playlists.push(playlist);
+      user.save(function(err) {
+        if (err) return validationError(res, err);
+        res.status(200).send('OK');
+      });
+    }else if(req.body.index){
+      user.playlists[Number(req.body.index)] = playlist;
+      user.save(function(err) {
+        if (err) return validationError(res, err);
+        res.status(200).send('OK');
+      });
+    }
+    
     // if(user.authenticate(oldPass)) {
     //   user.password = newPass;
     //   user.save(function(err) {

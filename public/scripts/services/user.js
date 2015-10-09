@@ -141,12 +141,18 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
 								controller: 'password'
 							}
 						},
-						createPlaylist: {
+						savePlaylist: {
 							method: 'POST',
 							params: {
 								controller: 'playlist'
 							}
 						},
+						// savePlaylist: {
+						// 	method: 'PUT',
+						// 	params: {
+						// 		controller: 'playlist'
+						// 	}
+						// },
 						get: {
 							method: 'GET',
 							params: {
@@ -268,6 +274,7 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
 						.$promise
 				        .then( function(r) {
 				        	if(r && r._id){
+				        		console.debug('entruu if auth')
 								self.isLogged = true;
 								angular.extend(self, r);
 							}
@@ -330,7 +337,8 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
         	console.log('user savee!!', r);
           // Account created, redirect to home
           //$location.path('/');
-
+          if(r && r._id)
+          	self._id = r._id;
           // dispara evento de ajuste de tela;
     	  $body.trigger('Screen.Resize');
 
@@ -364,15 +372,19 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
         angular.extend(self, UserModel);
         $body.trigger('Screen.Resize');
 	};
-
-	self.createPlaylist = function(playlist){
-		resource.createPlaylist({
-			id: self._id,
-			playlist: playlist
-		})
+	self.savePlaylist = function(data, onThen, onCatch){
+		onThen = onThen || angular.noop;
+		onCatch = onCatch || angular.noop;
+		console.log('User savePlaylist ,self',self);
+		resource.savePlaylist(
+			{
+				id: self._id
+			},
+			data
+		)
 		.$promise
         .then( function(r) {
-        	console.log('user savee!!', r);
+        	console.log('create playlist savee!!', r);
           // Account created, redirect to home
           //$location.path('/');
 
@@ -394,6 +406,8 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
 			onCatch(err);
         });
 	};
+
+
 	self._id = null;
 	self.isLogged = false;
 	self.name = '';

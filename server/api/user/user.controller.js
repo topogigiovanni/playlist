@@ -88,35 +88,62 @@ exports.savePlaylist = function(req, res, next){
   var userId = req.user._id;
   var isNew = !req.body.index;
   console.log('isNew',isNew, 'index', req.body.index);
-  User.findById(userId, function (err, user) {
-    if (err) return next(err);
-    var playlist = req.body.playlist;
-    console.log(playlist);
-    playlist = new Playlist(playlist);
-    if(isNew){
+  var playlist = req.body.playlist;
+  console.log(playlist);
+  if(isNew){
+    User.findById(userId, function(err, user) {
+      if (err) return next(err);
+
       user.playlists.push(playlist);
       user.save(function(err) {
         if (err) return validationError(res, err);
         res.status(200).send('OK');
       });
-    }else if(req.body.index){
-      user.playlists[Number(req.body.index)] = playlist;
-      user.save(function(err) {
-        if (err) return validationError(res, err);
-        res.status(200).send('OK');
-      });
-    }
-    
-    // if(user.authenticate(oldPass)) {
-    //   user.password = newPass;
-    //   user.save(function(err) {
-    //     if (err) return validationError(res, err);
-    //     res.status(200).send('OK');
-    //   });
-    // } else {
-    //   res.status(403).send('Forbidden');
-    // }
-  });
+   
+    });
+  }else if(req.body.index){
+    User.update(
+      { 
+        _id: userId,
+        'playlists._id': Number(req.body.index)
+       }, 
+      { $set: { 
+          'playlists.$': playlist
+      }}, function (err, numAffected) {  }
+    );
+  };
+  
+  // DEU CERTO !!!
+  // User.update(
+  //     { 
+  //       _id: userId,
+  //       'playlists._id': Number(req.body.index)
+  //      }, 
+  //     { $set: { 
+  //         'playlists.$': playlist
+  //     }}, function (err, numAffected) {  }
+  // );
+
+  // OLD WAY !!!
+  // User.findById(userId, function (err, user) {
+  //   if (err) return next(err);
+  //   console.log(playlist);
+  //   //playlist = new Playlist(playlist);
+  //   if(isNew){
+  //     user.playlists.push(playlist);
+  //     user.save(function(err) {
+  //       if (err) return validationError(res, err);
+  //       res.status(200).send('OK');
+  //     });
+  //   }else if(req.body.index){
+  //     user.playlists[Number(req.body.index)] = playlist;
+  //     user.save(function(err) {
+  //       if (err) return validationError(res, err);
+  //       res.status(200).send('OK');
+  //     });
+  //   }
+
+  // });
 };
 
 /**

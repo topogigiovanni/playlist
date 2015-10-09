@@ -44,7 +44,7 @@ app.controller('PlaylistManagerCtrl', function ($scope, CurrentVideo, User) {
     		angular.copy($scope.videoList,$scope.User.playlists[index].videos);
     		
     		// TODO
-    		$scope.User.savePlaylist({playlist:$scope.User.playlists[index], index:index});
+    		$scope.User.savePlaylist({playlist:$scope.User.playlists[index], index:$scope.User.playlists[index]._id});
     	};
     };
     

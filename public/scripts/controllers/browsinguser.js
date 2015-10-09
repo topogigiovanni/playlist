@@ -45,9 +45,9 @@ app.controller('BrowsingUserCtrl', function ($scope, $http, Modal, User, UserMod
 	    	success: function(r){
 	    		console.debug('callback register success', r, 'resolved', r.$resolved);
 	    		if(r.$resolved){
+	    			angular.extend($scope.User, $scope.userRegister);
 	    			$scope.User.isLogged = true;
 	    			$scope.User._id = (r && r._id) ? r._id : null;
-	    			angular.extend($scope.User, $scope.userRegister);
 	    			if(modal)
 		    			modal.close();
 	    		}

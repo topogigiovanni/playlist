@@ -147,12 +147,12 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
 								controller: 'playlist'
 							}
 						},
-						// savePlaylist: {
-						// 	method: 'PUT',
-						// 	params: {
-						// 		controller: 'playlist'
-						// 	}
-						// },
+						deletePlaylist: {
+							method: 'POST',
+							params: {
+								controller: 'deletePlaylist'
+							}
+						},
 						get: {
 							method: 'GET',
 							params: {
@@ -335,14 +335,16 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
         .$promise
         .then( function(r) {
         	console.log('user savee!!', r);
-          // Account created, redirect to home
-          //$location.path('/');
-          if(r && r._id)
-          	self._id = r._id;
-          // dispara evento de ajuste de tela;
-    	  $body.trigger('Screen.Resize');
+          	// Account created, redirect to home
+          	//$location.path('/');
+        	if(r && r._id){
+        		//self._id = r._id;
+        		//angular.copy(r._id, self._id);
+       		};
+          	// dispara evento de ajuste de tela;
+    	  	$body.trigger('Screen.Resize');
 
-          onThen(r);
+          	onThen(r);
         })
         .catch( function(err) {
         	err = err.data;
@@ -406,14 +408,41 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
 			onCatch(err);
         });
 	};
+	self.deletePlaylist = function(data, onThen, onCatch){
+		onThen = onThen || angular.noop;
+		onCatch = onCatch || angular.noop;
+		console.log('User deletePlaylist ,data',data);
+		resource.deletePlaylist(
+			{
+				id: self._id
+			},
+			data
+		)
+		.$promise
+        .then( function(r) {
+        	console.log('deletePlaylist ok!!', r);
+          // Account created, redirect to home
+          //$location.path('/');
 
+          // dispara evento de ajuste de tela;
+    	  $body.trigger('Screen.Resize');
 
+          onThen(r);
+        })
+        .catch( function(err) {
+        	console.log('deletePlaylist catch err',err);
+			onCatch(err);
+        });
+	};
+
+	//Propriedades
 	self._id = null;
 	self.isLogged = false;
 	self.name = '';
 	self.email = '';
 	self.password = '';
 	self.playlists = [];
+
 	return self;
 });
 

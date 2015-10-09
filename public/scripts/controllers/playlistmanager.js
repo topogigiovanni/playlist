@@ -9,6 +9,7 @@
  */
 
 app.controller('PlaylistManagerCtrl', function ($scope, CurrentVideo, User) {
+    /* UI */
     $scope.showCreateForm = false;
     $scope.toggleShowCreateForm = function(){
     	$scope.showCreateForm = !$scope.showCreateForm; 
@@ -19,12 +20,15 @@ app.controller('PlaylistManagerCtrl', function ($scope, CurrentVideo, User) {
     	}
     };
     $scope.playlistTitle = "";
+    /* */
+
+    /* Methods */
     $scope.save = function(form){
     	console.debug('save',$scope.playlistTitle,'form',form);
     	if($scope.showCreateForm){
     		// é novo registro
     		var playlist = new Playlist();
-    		playlist._id = $scope.User.playlists.length+1;
+    		playlist._id = _.now(); //$scope.User.playlists.length+1;
 	    	playlist.title = $scope.playlistTitle || "Nova Playlist";
 	    	playlist.videos = _.clone(videoList);
 	    	console.log('Save playlist', playlist);
@@ -47,7 +51,6 @@ app.controller('PlaylistManagerCtrl', function ($scope, CurrentVideo, User) {
     		$scope.User.savePlaylist({playlist:$scope.User.playlists[index], index:$scope.User.playlists[index]._id});
     	};
     };
-    
     $scope.setCurrentPlaylist = function(playlist){
     	console.log('setCurrentPlaylist',playlist);
     	angular.copy(playlist,$scope.currentPlaylist);
@@ -58,4 +61,14 @@ app.controller('PlaylistManagerCtrl', function ($scope, CurrentVideo, User) {
     		CurrentVideo.setVideo(playlist.videos[0]);
     	};
     };
+    $scope.delete = function(){
+    	var index = _.findIndex($scope.User.playlists,{_id: $scope.currentPlaylist._id});
+    	$scope.User.playlists.splice(index, 1);
+    	$scope.User.deletePlaylist({index:index});
+    	
+    	//angular.copy(playlist,$scope.currentPlaylist);
+    	$scope.currentPlaylist = {};
+    };
+    /* */
+
 });

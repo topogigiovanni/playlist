@@ -14,5 +14,6 @@ router.put('/:id/password', auth.isAuthenticated(), controller.changePassword);
 router.get('/:id', auth.isAuthenticated(), controller.show);
 router.post('/', controller.create);
 router.post('/:id/playlist', auth.isAuthenticated(), controller.savePlaylist);
+router.post('/:id/deletePlaylist', auth.isAuthenticated(), controller.destroyPlaylist);
 
 module.exports = router;

@@ -1,7 +1,6 @@
 'use strict';
 
 var User = require('./user.model');
-var Playlist = require('./user.playlist.model');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
@@ -144,6 +143,20 @@ exports.savePlaylist = function(req, res, next){
   //   }
 
   // });
+};
+
+exports.destroyPlaylist = function (req, res, next) {
+  var userId = req.params.id;
+
+  User.findById(userId, function (err, user) {
+    if (err) return next(err);
+    if (!user) return res.status(401).send('Unauthorized');
+    user.playlists.splice(Number(req.body.index), 1);
+    user.save(function(err) {
+      if (err) return validationError(res, err);
+      res.status(200).send('OK');
+    });
+  });
 };
 
 /**

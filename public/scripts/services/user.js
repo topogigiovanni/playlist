@@ -372,6 +372,7 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
 		$cookieStore.remove('token');
 		self.isLogged = false;
         angular.extend(self, UserModel);
+        self.playlists = [];
         $body.trigger('Screen.Resize');
 	};
 	self.savePlaylist = function(data, onThen, onCatch){

@@ -11,7 +11,11 @@
 app.controller('PlaylistManagerCtrl', function ($scope, CurrentVideo, User) {
     /* UI */
     $scope.showCreateForm = false;
+    $scope.isEdit = false;
     $scope.toggleShowCreateForm = function(){
+    	// se estiver em modo edição não faz nada
+    	if($scope.isEdit) return;
+
     	$scope.showCreateForm = !$scope.showCreateForm; 
     	if($scope.showCreateForm){
     		_.delay((function(){
@@ -23,9 +27,14 @@ app.controller('PlaylistManagerCtrl', function ($scope, CurrentVideo, User) {
     /* */
 
     /* Methods */
+    $scope.edit = function(){
+    	$scope.isEdit = true;
+    	$scope.showCreateForm = true;
+    	$scope.playlistTitle = $scope.currentPlaylist.title;
+    };
     $scope.save = function(form){
     	console.debug('save',$scope.playlistTitle,'form',form);
-    	if($scope.showCreateForm){
+    	if($scope.showCreateForm && !$scope.isEdit){
     		// é novo registro
     		var playlist = new Playlist();
     		playlist._id = _.now(); //$scope.User.playlists.length+1;
@@ -43,6 +52,14 @@ app.controller('PlaylistManagerCtrl', function ($scope, CurrentVideo, User) {
     	}else{
     		// é edição
     		var index = _.findIndex($scope.User.playlists,{_id: $scope.currentPlaylist._id});
+    		// se for ação de renomear
+    		if($scope.isEdit){
+    			$scope.currentPlaylist.title = $scope.User.playlists[index].title = $scope.playlistTitle;
+    			$scope.playlistTitle = "";
+    			$scope.isEdit = false;
+    			$scope.showCreateForm = false;
+    		};
+    		
     		console.log('index save',index);
     		//$scope.User.playlists[index] = $scope.videoList;
     		angular.copy($scope.videoList,$scope.User.playlists[index].videos);

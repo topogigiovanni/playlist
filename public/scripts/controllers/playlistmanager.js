@@ -24,9 +24,8 @@ app.controller('PlaylistManagerCtrl', function ($scope, CurrentVideo, User) {
     	}
     };
     $scope.showManagerButtons = function(){
-    	console.log('showManagerButtons', !!$scope.currentPlaylist._id, 'current',$scope.currentPlaylist);
     	return !!$scope.currentPlaylist._id;
-    }
+    };
     $scope.playlistTitle = "";
     /* */
 

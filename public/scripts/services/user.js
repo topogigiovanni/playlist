@@ -130,7 +130,7 @@ app.service('FacebookUser', function ($rootScope, UserModel) {
 	};
 });
 
-app.service('User', function ($rootScope, $http, $cookieStore, $resource, FacebookUser, UserModel) {
+app.service('User', function ($rootScope, $http, $cookies, $resource, FacebookUser, UserModel) {
 	var self = this;
 	var resource = $resource('/api/users/:id/:controller', {
 						id: '@_id'
@@ -162,7 +162,7 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
 					});
 	// autoload
 	var init = function() {
-		console.log('User service initialized', $cookieStore.get('token'));
+		console.log('User service initialized', $cookies.get('token'));
 		FacebookUser.init();
 		var checkProviders = function(){
 			// TODO implementar
@@ -171,7 +171,7 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
 			// 	FacebookUser.checkLoginSatus();
 			// });
 		};
-		if($cookieStore.get('token')){
+		if($cookies.get('token')){
 			// get auth/local user data
 			resource.get()
 					.$promise
@@ -195,6 +195,15 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
 		}
 	};
 	init();
+
+	var setTokenCookie = function(token){
+		console.log('setTokenCookie',token);
+		var expireDate = new Date();
+  		expireDate.setDate(expireDate.getDate() + 1);
+		$cookies.put('token', token, {expires: expireDate});
+		// TODO
+		//helper.cookie.set('token', token, 20);
+	};
 
 	$rootScope.$on('User.Provider.Ready', function(e, args){
 		console.log('Listen User.Provider.Ready', e, args);
@@ -228,8 +237,6 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
 	        .$promise
 	        .then( function(a,b,c, d) {
 	        	console.log('user savee!!', a,b,c,d);
-	          // Account created, redirect to home
-	          //$location.path('/');
 
 	          // TODO setar ID
 	        })
@@ -269,7 +276,8 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
         }).
         success(function(data) {
         	if(data && data.token){
-        		$cookieStore.put('token', data.token);
+        		//$cookies.put('token', data.token);
+        		setTokenCookie(data.token);
         		resource.get()
 						.$promise
 				        .then( function(r) {
@@ -325,7 +333,8 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
           provider: '',
           providerId: ''
         },function(resp){
-        	$cookieStore.put('token', resp.token);
+        	//$cookies.put('token', resp.token);
+        	setTokenCookie(resp.token);
         	self._id = resp._id;
         	console.log('resouce user save success', resp);
         	console.log('resouce.get()',resource.get());
@@ -369,7 +378,7 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
 		}
 	};
 	self.logout = function(){
-		$cookieStore.remove('token');
+		$cookies.remove('token');
 		self.isLogged = false;
         angular.extend(self, UserModel);
         self.playlists = [];
@@ -447,14 +456,14 @@ app.service('User', function ($rootScope, $http, $cookieStore, $resource, Facebo
 	return self;
 });
 
-app.factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {
+app.factory('authInterceptor', function ($rootScope, $q, $cookies, $location) {
     return {
       // Add authorization token to headers
       request: function (config) {
       	console.debug('authInterceptor request', config);
         config.headers = config.headers || {};
-        if ($cookieStore.get('token')) {
-          config.headers.Authorization = 'Bearer ' + $cookieStore.get('token');
+        if ($cookies.get('token')) {
+          config.headers.Authorization = 'Bearer ' + $cookies.get('token');
         }
         return config;
       },
@@ -465,7 +474,7 @@ app.factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location
         if(response.status === 401) {
           $location.path('/login');
           // remove any stale tokens
-          $cookieStore.remove('token');
+          $cookies.remove('token');
           return $q.reject(response);
         }
         else {

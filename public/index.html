@@ -133,7 +133,7 @@
                               placeholder="Título da Playlist" type="text" />
                             </div>
                           </form>
-                          <div ng-if="User.playlists.length > 0 && !showCreateForm" class="playlist-name btn-group left" dropdown>
+                          <div ng-if="showManagerButtons()" class="playlist-name btn-group left" dropdown>
                             <a class="btn no-decoration btn-link-classic  btn-xs dropdown-toggle" dropdown-toggle ng-disabled="disabled" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               <em ng-bind="currentPlaylist.title"></em>
                               <span class="caret"></span>
@@ -155,13 +155,17 @@
                               </li>
                             </ul>
                           </div>                     
-                          <button ng-click="save();" class="right btn no-decoration btn-success btn-xs dropdown-toggle">Salvar Playlist</button>
+                          <button ng-if="showManagerButtons()" ng-click="save();" class="right btn no-decoration btn-success btn-xs dropdown-toggle">Salvar Playlist</button>
                           <div class="clearfix clear"></div>
                       </div>
                       <hr>
                     </div>
                     <div id="VideoList" ng-controller="VideoListCtrl" >
-                      <h5 class="playlist-title" ng-cloak> Lista de reprodução ({{videoList.length}}):</h5>
+                      <h5 class="playlist-title" ng-cloak> 
+                        Lista de reprodução ({{videoList.length}}):
+                        <a ng-if="!!currentPlaylist._id"
+                        ng-click="clearVideoList()"  class="clean-playlist-button" href="javascript:void(0);">Limpar Playlist</a>
+                      </h5>
                       <div id="playlist" ng-scrollbars ng-scrollbars-config="scrollbarConfig">
                         <ul data-as-sortable="board.dragControlListeners" ng-model="videoList" class="nav nav-pills nav-stacked">
                           <li ng-class="{'active':item.id == currentVideo.id}" ng-repeat="item in videoList" ng-click="currentVideo.setVideo(item);" class="playlist-item vid-{{item.id}}" data-as-sortable-item >

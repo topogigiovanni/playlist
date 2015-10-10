@@ -68,6 +68,14 @@ app.factory('CurrentVideo', function($rootScope, $sce) {
     };
     $rootScope.$on('VideoList.Changed', function(ev, data){
       console.log('on VideoList.Changed', data);
+      // switch(data.type){
+      //   case 'remove':
+      //     reSetVideo(data.data);
+      //     break;
+      //   case 'removeAll':
+      //     reSetVideo(data.data);
+      //     break;
+      // }
       if(data.type == 'remove'){
         reSetVideo(data.data);
       }

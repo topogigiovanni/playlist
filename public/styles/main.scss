@@ -39,7 +39,7 @@ body {
     .create-user{
       float: left;
       width: 58%;
-      
+
       input{
         height: 23px;
       }
@@ -158,6 +158,11 @@ hr.small {
 }
 .playlist-infos span {
   font-size: 9pt;
+}
+
+.clean-playlist-button{
+  font-size: 9pt;
+  float:right;
 }
 
 #dragContainer{

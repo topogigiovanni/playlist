@@ -133,7 +133,7 @@
                               placeholder="Título da Playlist" type="text" />
                             </div>
                           </form>
-                          <div ng-if="showManagerButtons()" class="playlist-name btn-group left" dropdown>
+                          <div ng-if="showManagerButtons() && !showCreateForm" class="playlist-name btn-group left" dropdown>
                             <a class="btn no-decoration btn-link-classic  btn-xs dropdown-toggle" dropdown-toggle ng-disabled="disabled" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               <em ng-bind="currentPlaylist.title"></em>
                               <span class="caret"></span>

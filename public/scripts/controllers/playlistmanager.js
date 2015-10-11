@@ -80,6 +80,8 @@ app.controller('PlaylistManagerCtrl', function ($scope, CurrentVideo, User) {
     		console.log('main',playlist.videos[0],'$scope.currentVideo',$scope.currentVideo);
     		CurrentVideo.setVideo(playlist.videos[0]);
     	};
+    	// dispara evento de ajuste de tela;
+    	$body.trigger('Screen.Resize');
     };
     $scope.delete = function(){
     	var index = _.findIndex($scope.User.playlists,{_id: $scope.currentPlaylist._id});

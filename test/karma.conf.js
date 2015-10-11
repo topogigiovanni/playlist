@@ -52,7 +52,9 @@ module.exports = function(config) {
       'public/bower_components/angular-sanitize/angular-sanitize.js',
       'public/bower_components/angular-mocks/angular-mocks.js',
       // endbower
+      "public/scripts/classes.js",
       "public/scripts/**/*.js",
+      "public/scripts/*.js",
       "test/mock/**/*.js",
       "test/spec/**/*.js",
       "https://f.vimeocdn.com/js/froogaloop2.min.js",

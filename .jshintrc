@@ -16,6 +16,7 @@
     "app": true,
     "$body": true,
     "Player": true,
+    "Playlist": true,
     "angular": false,
     "KEYS": true,
     "PLAYER": true,

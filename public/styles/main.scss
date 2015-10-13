@@ -23,6 +23,20 @@ body {
 .fixed {
   position: fixed;
 }
+.intro{
+  .drop-place{
+    border: 5px dotted #666;
+    font-size: 25pt;
+    padding: 200px 82px;
+    margin: 13px 0px;
+    line-height: 45px;
+    text-align:center;
+
+    i{
+      font-size:30pt;
+    }
+  }
+}
 #navegator {
   height: 100%;
   .playlist-nav-manage{

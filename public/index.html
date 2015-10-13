@@ -73,20 +73,12 @@
                   <div class="clear clearfix"></div>
                   <pre class="hide">{{currentVideo.iframeSrc}}</pre>
                   <div class="intro" ng-class="{hide: videoList.length}">
-                    <p>
-                      texto e imagem mostrando como utilizar pela primeira vez.
-                      Compartilhe a idéia para que essa ferramenta seja sempre grátis!
+                    <p class="drop-place">
+                      <i class="glyphicon glyphicon-download-alt"></i><br>
+                      Arraste aqui
+                      para adicionar a Playlist
                     </p>
-                    <div class="vermelho" id="status">status</div>
-                    <div
-                      class="fb-like"
-                      data-share="true"
-                      data-width="450"
-                      data-show-faces="true">
-                    </div>
-                    <br><br><br><br>
-                    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-</fb:login-button>
+                    
                   </div>
                   <div id="video" class="hide" ng-class="{hide: !videoList.length}">
                     <iframe id="player1" ng-src="{{currentVideo.iframeSrc}}" src=""  frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>

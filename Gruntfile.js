@@ -508,7 +508,8 @@ module.exports = function (grunt) {
             'assets/images/{,*/}*.{webp}',
             'assets/fonts/**/*',
             'fonts/**/*',
-            'styles/fonts/{,*/}*.*' 
+            'styles/fonts/{,*/}*.*',    
+            'scripts/components/{,*/}*.*'  // inserir html dos components
           ]
         }, {
           expand: true,

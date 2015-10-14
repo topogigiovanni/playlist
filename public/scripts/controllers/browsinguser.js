@@ -39,6 +39,7 @@ app.controller('BrowsingUserCtrl', function ($scope, $http, Modal, User, UserMod
 		    	if(modal)
 		    		modal.close();
 		    },
+		    //not user
 		    error: function(){}
     	},
 	    register: {
@@ -67,6 +68,7 @@ app.controller('BrowsingUserCtrl', function ($scope, $http, Modal, User, UserMod
 		    	if(modal)
 		    		modal.close();
 		    },
+		    //not used
 		    error: function(){}
     	},
     };

@@ -92,7 +92,7 @@ app.service('FacebookUser', function ($rootScope, UserModel) {
 		});
 	};
 
-	self.register = function(cb){
+	self.register = function(callback){
 		var cb = function(response){
 			// The response object is returned with a status field that lets the
 			// app know the current login status of the person.
@@ -101,7 +101,6 @@ app.service('FacebookUser', function ($rootScope, UserModel) {
 			if (response.status === 'connected') {
 				// Logged into your app and Facebook.
 				_getAPIData(true);
-				return;
 			}
 			//  else if (response.status === 'not_authorized') {
 			// 	// The person is logged into Facebook, but not your app.
@@ -114,6 +113,8 @@ app.service('FacebookUser', function ($rootScope, UserModel) {
 			// 	// 	'into Facebook.';
 			// }
 			callback(response);
+			return;
+			
 		};
 		_checkLoginSatus(cb);
 	};
@@ -256,8 +257,8 @@ app.service('User', function ($rootScope, $http, $cookies, $resource, FacebookUs
 	        	console.log('user savee!!', r);
 	          // TODO setar ID
 	          self._id = r._id;
-	          setTokenCookie(r._token);
-	          $rootScope.$apply();
+	          setTokenCookie(r.token);
+	          //$rootScope.$apply();
 	        })
 	        .catch( function(err) {
 	        	err = err.data;

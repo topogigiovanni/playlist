@@ -5,7 +5,8 @@
 module.exports = {
   // MongoDB connection options
   mongo: {
-    uri: 'mongodb://localhost/Playlist-dev'
+    uri: 'mongodb://localhost/Playlist'
+	//uri: 'mongodb://localhost/Playlist-dev'
   },
 
   seedDB: false

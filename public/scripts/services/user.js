@@ -24,17 +24,34 @@ app.service('FacebookUser', function ($rootScope, UserModel) {
 	var SCOPE = 'public_profile,email';
 	// autoload
 	self.init = function() {
-		window.fbAsyncInit = function() {
-			FB.init({
-				appId: '1500768470237803',
-				cookie: true, // enable cookies to allow the server to access 
-				// the session
-				xfbml: true, // parse social plugins on this page
-				version: 'v2.4',
-				oauth: true
-			});
-			$rootScope.$broadcast('User.Provider.Facebook.Ready', {});
-		};
+		//window.fbAsyncInit = function() {
+			// FB.init({
+			// 	appId: '1500768470237803',
+			// 	cookie: true, // enable cookies to allow the server to access 
+			// 	// the session
+			// 	xfbml: true, // parse social plugins on this page
+			// 	version: 'v2.4',
+			// 	oauth: true
+			// });
+		// 	FB.init({
+		//       appId      : '1500768470237803',
+		//       xfbml      : true,
+		//       version    : 'v2.5'
+		//     });
+		// 	$rootScope.$broadcast('User.Provider.Facebook.Ready', {});
+		// 
+		//};
+
+		FB.init({
+			appId: '1500768470237803',
+			cookie: true, // enable cookies to allow the server to access 
+			// the session
+			xfbml: true, // parse social plugins on this page
+			version: 'v2.4',
+			oauth: true
+		});
+		$rootScope.$broadcast('User.Provider.Facebook.Ready', {});
+		
 
 	};
 	// Here we run a very simple test of the Graph API after login is
@@ -43,15 +60,13 @@ app.service('FacebookUser', function ($rootScope, UserModel) {
 		console.log('Welcome!  Fetching your information.... ');
 		FB.api('/me?fields=email,name', function(response) {
 			console.log('Facebook  _getAPIData response', response);
-			document.getElementById('status').innerHTML =
-				'Thanks for logging in, ' + response.name + '!';
 			response = _.extend(UserModel, response);
 			response.provider = 'facebook';
 			response.providerId = response.id;
 			var msg = {
 				isNew: isNew,
 				data: response
-			}
+			};
 			$rootScope.$broadcast('User.Provider.Ready', msg);
 		});
 	};
@@ -87,20 +102,22 @@ app.service('FacebookUser', function ($rootScope, UserModel) {
 				// Logged into your app and Facebook.
 				_getAPIData(true);
 				return;
-			} else if (response.status === 'not_authorized') {
-				// The person is logged into Facebook, but not your app.
-				document.getElementById('status').innerHTML = 'Please log ' +
-					'into this app.';
-			} else {
-				// The person is not logged into Facebook, so we're not sure if
-				// they are logged into this app or not.
-				document.getElementById('status').innerHTML = 'Please log ' +
-					'into Facebook.';
 			}
+			//  else if (response.status === 'not_authorized') {
+			// 	// The person is logged into Facebook, but not your app.
+			// 	// document.getElementById('status').innerHTML = 'Please log ' +
+			// 	// 	'into this app.';
+			// } else {
+			// 	// The person is not logged into Facebook, so we're not sure if
+			// 	// they are logged into this app or not.
+			// 	// document.getElementById('status').innerHTML = 'Please log ' +
+			// 	// 	'into Facebook.';
+			// }
 			callback(response);
 		};
 		_checkLoginSatus(cb);
-	}
+	};
+
 	self.authenticate = function(callback){
 		FB.login(function(response) {
 
@@ -235,10 +252,12 @@ app.service('User', function ($rootScope, $http, $cookies, $resource, FacebookUs
 	        	console.log('resouce user save error', err);
 	        })
 	        .$promise
-	        .then( function(a,b,c, d) {
-	        	console.log('user savee!!', a,b,c,d);
-
+	        .then( function(r) {
+	        	console.log('user savee!!', r);
 	          // TODO setar ID
+	          self._id = r._id;
+	          setTokenCookie(r._token);
+	          $rootScope.$apply();
 	        })
 	        .catch( function(err) {
 	        	err = err.data;

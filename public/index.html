@@ -118,9 +118,9 @@
                 <div id="navegator" class="well fixed">
                     <!-- /.input-group -->
                     <div id="videoUploader">
-                      <h4>{{ 'ADD_VIDEO_TITLE' | translate }}</h4>
+                      <h4 ng-cloak>{{ 'ADD_VIDEO_TITLE' | translate }}</h4>
                       <div class="input-group" ng-controller="VideoUploaderCtrl">
-                          <input value="" placeholder="Cole aqui a URL do vídeo" ng-model="url" type="text" class="form-control">
+                          <input ng-cloak value="" placeholder="{{'ADD_INPUT_PLACEHOLDER' | translate}}" ng-model="url" type="text" class="form-control">
                           <span class="input-group-btn">
                               <button ng-click="send()" class="btn btn-info" type="button">
                                   <span class="glyphicon glyphicon-plus"></span>
@@ -131,12 +131,12 @@
                       <div ng-cloak ng-if="User.isLogged" class="full playlist-nav-manage" ng-controller="PlaylistManagerCtrl">
                         <div class="btn-group right" dropdown>
                           <button  class="btn no-decoration btn-primary  btn-xs dropdown-toggle" dropdown-toggle ng-disabled="disabled" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Minhas Playlists ({{User.playlists.length}})
+                            {{ 'MYPLAYLIST_BUTTON' | translate}} ({{User.playlists.length}})
                             <span class="caret"></span>
                           </button>
                           <ul class="dropdown-menu">
                             <li ng-if="!User.playlists.length">
-                              <a href="#" ng-click="toggleShowCreateForm();">Criar nova Playlist</a>
+                              <a href="#" ng-click="toggleShowCreateForm();">{{ 'CREATE_NEW_PLAYLIST' | translate }}</a>
                             </li>
                             <li ng-class="{'active':currentPlaylist.title == p.title}" ng-repeat="p in User.playlists">
                               <a href="#" ng-click="setCurrentPlaylist(p);" >{{p.title}}</a>
@@ -160,30 +160,30 @@
                             <ul class="dropdown-menu">
                               <li>
                               <a ng-click="edit();" href="#"> 
-                                <span class="text-right">Renomear</span>
+                                <span class="text-right" ng-bind="'PLAYLIST_OPT_RENAME' | translate"></span>
                                 <i class="fa fa-pencil text-left"></i>
                               </a>
                               <div class="clearfix clear"></div>
                               </li>
                               <li>
                               <a ng-click="delete();" href="#"> 
-                                <span class="text-right">Deletar</span>
+                                <span class="text-right" ng-bind="'PLAYLIST_OPT_DELETE' | translate"></span>
                                 <i class="fa fa-trash-o text-left"></i>
                               </a>
                               <div class="clearfix clear"></div>
                               </li>
                             </ul>
                           </div>                     
-                          <button ng-if="showManagerButtons()" ng-click="save();" class="right btn no-decoration btn-success btn-xs dropdown-toggle">Salvar Playlist</button>
+                          <button ng-if="showManagerButtons()" ng-click="save();" class="right btn no-decoration btn-success btn-xs dropdown-toggle" ng-bind="'SAVE_PLAYLIST_BUTTON' | translate"></button>
                           <div class="clearfix clear"></div>
                       </div>
                       <hr>
                     </div>
                     <div id="VideoList" ng-controller="VideoListCtrl" >
                       <h5 class="playlist-title" ng-cloak> 
-                        Lista de reprodução ({{videoList.length}}):
+                        {{ 'PLAYLIST_TITLE' | translate }} ({{videoList.length}}):
                         <a ng-if="!!currentPlaylist._id"
-                        ng-click="clearVideoList()"  class="clean-playlist-button" href="javascript:void(0);">Limpar Playlist</a>
+                        ng-click="clearVideoList()"  class="clean-playlist-button" href="javascript:void(0);" ng-bind="'CLEAN_PLAYLIST_BUTTON' | translate"></a>
                       </h5>
                       <div id="playlist" ng-scrollbars ng-scrollbars-config="scrollbarConfig">
                         <ul data-as-sortable="board.dragControlListeners" ng-model="videoList" class="nav nav-pills nav-stacked">
@@ -208,7 +208,7 @@
                         </div>
                         <div class="col-md-10 text-right" ng-cloak>
                           <span>
-                            Tempo total: 
+                            {{ 'TOTAL_TIME' | translate }}: 
                             {{videoListDuration()}}
                           </span>
                         </div>
@@ -262,9 +262,9 @@
                     <div class="thumbnail">
                         <img ng-src="{{item.image}}" alt="">
                         <span ng-bind="item.origin"></span>
-                        <div class="caption">
+                        <div class="caption" ng-cloak>
                             <h4 ng-bind="item.title"></h4>
-                            <a ng-click="addToVideoList(item.url);" href="#" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-plus"></i> Adicionar a lista</a>
+                            <a ng-click="addToVideoList(item.url);" href="#" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-plus"></i>{{'SEARCH_ADD_BUTTON' | translate}}</a>
                             </p>
                         </div>
                     </div>

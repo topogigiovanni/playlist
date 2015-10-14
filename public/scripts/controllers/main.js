@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the playlistApp
  */
-app.controller('MainCtrl', ['$scope','$rootScope','CurrentVideo', 'Search', 'User', function ($scope, $rootScope, CurrentVideo, Search, User) {
+app.controller('MainCtrl', ['$scope','$rootScope', '$translate', 'CurrentVideo', 'Search', 'User', function ($scope, $rootScope, $translate, CurrentVideo, Search, User) {
   
   // CurrentVideo
   console.log('CurrentVideo', CurrentVideo);
@@ -61,4 +61,11 @@ app.controller('MainCtrl', ['$scope','$rootScope','CurrentVideo', 'Search', 'Use
     }
   });
   $scope.User = User;
+
+  $scope.currentLang = $translate.use();
+  $scope.changeLanguage = function (lang) {
+    $translate.use(lang);
+    $scope.currentLang = lang;
+  };
+
 }]);

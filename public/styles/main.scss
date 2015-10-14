@@ -23,6 +23,17 @@ body {
 .fixed {
   position: fixed;
 }
+.logged-info-box{
+  .lang-select{
+    bottom: 0;
+  }
+}
+.lang-select{
+  float: right;
+  position: relative;
+  left: 38px;
+  bottom: 19px;
+}
 .intro{
   .drop-place{
     border: 5px dotted #666;

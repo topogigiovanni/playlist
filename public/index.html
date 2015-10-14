@@ -37,8 +37,8 @@
                         <h1 id="logo" class="no-margin">Playlist</h1>
                       </div>
                       <div  class="col-md-5">
-                        <div id="search" class="input-group" >
-                          <input value="" ng-keyup="fakeSearchKeyUp()" ng-model="searchTerm" type="text" class="form-control" placeholder="Pesquisar vídeo no Youtube e Vimeo" />
+                        <div id="search" class="input-group" ng-cloak >
+                          <input value="" ng-keyup="fakeSearchKeyUp()" ng-model="searchTerm" type="text" class="form-control" placeholder="{{ 'SEARCH_INPUT_PLACEHOLDER' | translate}}" />
                           <span class="input-group-btn">
                             <button ng-click="fakeSearchKeyUp()" class="btn btn-info" type="button">
                             <span class="glyphicon glyphicon-search"></span>
@@ -51,10 +51,24 @@
                           <div ng-if="!User.isLogged">
                             <a href="#" ng-click="openLoginModal();" class="btn btn-primary btn">Login</a>
                             &nbsp;&nbsp;&nbsp;
-                            <a href="#" ng-click="openRegisterModal();" class="btn btn-info btn">Criar Conta</a>
+                            <a href="#" ng-click="openRegisterModal();" class="btn btn-info btn" ng-bind="'CREATE_ACCOUNT' | translate"></a>
+                            <div class="lang-select btn-group" dropdown>
+                              <button class="btn no-decoration btn-link btn-xs dropdown-toggle" dropdown-toggle ng-disabled="disabled" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{currentLang}}
+                                <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li>
+                                  <a ng-click="changeLanguage('en');" href="#">en</a>
+                                </li>
+                                <li>
+                                  <a ng-click="changeLanguage('pt-br');" href="#">pt-br</a>
+                                </li>
+                              </ul>
+                            </div>
                           </div>
                           <div class="logged-info-box" ng-if="User.isLogged">
-                            Olá {{User.name}}.
+                            {{'HELLO' | translate}} {{User.name}}.
                             &nbsp;&nbsp; 
                             <div class="btn-group" dropdown>
                               <button class="btn no-decoration btn-link btn-xs dropdown-toggle" dropdown-toggle ng-disabled="disabled" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -65,7 +79,22 @@
                                 <li><a ng-click="User.logout();" href="#">Sair</a></li>
                               </ul>
                             </div>
+                            <div class="lang-select btn-group" dropdown>
+                              <button class="btn no-decoration btn-link btn-xs dropdown-toggle" dropdown-toggle ng-disabled="disabled" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{currentLang}}
+                                <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li>
+                                  <a ng-click="changeLanguage('en');" href="#">en</a>
+                                </li>
+                                <li>
+                                  <a ng-click="changeLanguage('pt-br');" href="#">pt-br</a>
+                                </li>
+                              </ul>
+                            </div>
                           </div>
+                          
                         </nav>
                       </div>
                     </div>
@@ -73,12 +102,10 @@
                   <div class="clear clearfix"></div>
                   <pre class="hide">{{currentVideo.iframeSrc}}</pre>
                   <div class="intro" ng-class="{hide: videoList.length}">
-                    <p class="drop-place">
+                    <p class="drop-place" ng-cloak>
                       <i class="glyphicon glyphicon-download-alt"></i><br>
-                      Arraste aqui
-                      para adicionar a Playlist
+                      {{ 'DRAG_PLACE_TITLE' | translate}}
                     </p>
-                    
                   </div>
                   <div id="video" class="hide" ng-class="{hide: !videoList.length}">
                     <iframe id="player1" ng-src="{{currentVideo.iframeSrc}}" src=""  frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
@@ -91,7 +118,7 @@
                 <div id="navegator" class="well fixed">
                     <!-- /.input-group -->
                     <div id="videoUploader">
-                      <h4>Adicionar Vídeo</h4>
+                      <h4>{{ 'ADD_VIDEO_TITLE' | translate }}</h4>
                       <div class="input-group" ng-controller="VideoUploaderCtrl">
                           <input value="" placeholder="Cole aqui a URL do vídeo" ng-model="url" type="text" class="form-control">
                           <span class="input-group-btn">
@@ -310,6 +337,7 @@
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-translate/angular-translate.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -319,6 +347,7 @@
     <!-- build:js({.tmp,public}) scripts/scripts.js -->
     <script src="scripts/classes.js"></script>
     <script src="scripts/app.js"></script>
+    <script src="scripts/config.js"></script>
     <script src="scripts/onload.js"></script>
     <script src="scripts/services/player.js"></script>
     <script src="scripts/services/currentvideo.js"></script>

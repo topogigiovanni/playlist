@@ -19,7 +19,8 @@
     "angular-cookies": "~1.4.7",
     "angular-bootstrap": "~0.13.4",
     "angular-sanitize": "~1.4.7",
-    "font-awesome": "~4.4.0"
+    "font-awesome": "~4.4.0",
+    "angular-translate": "~2.8.1"
   },
   "overrides": {
     "masonry": {

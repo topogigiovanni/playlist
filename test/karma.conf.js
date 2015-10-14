@@ -50,6 +50,7 @@ module.exports = function(config) {
       'public/bower_components/angular-cookies/angular-cookies.js',
       'public/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'public/bower_components/angular-sanitize/angular-sanitize.js',
+      'public/bower_components/angular-translate/angular-translate.js',
       'public/bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "public/scripts/classes.js",

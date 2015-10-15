@@ -47,9 +47,10 @@ app.controller('PlaylistManagerCtrl', function ($scope, CurrentVideo, User) {
 	    	$scope.playlistTitle  = "";
 	    	$scope.User.playlists.push(playlist);
 	    	$scope.showCreateForm = false;
-	    	$scope.currentPlaylist = _.clone(playlist);
+	    	//$scope.currentPlaylist = _.clone(playlist);
+	    	angular.copy(playlist, $scope.currentPlaylist);
 
-	    	// TODO salvar no banco
+	    	// salva no banco
 	    	$scope.User.savePlaylist({playlist:playlist});
 
     	}else{

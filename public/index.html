@@ -182,7 +182,7 @@
                     <div id="VideoList" ng-controller="VideoListCtrl" >
                       <h5 class="playlist-title" ng-cloak> 
                         {{ 'PLAYLIST_TITLE' | translate }} ({{videoList.length}}):
-                        <a ng-if="!!currentPlaylist._id"
+                        <a ng-if="videoList.length > 0"
                         ng-click="clearVideoList()"  class="clean-playlist-button" href="javascript:void(0);" ng-bind="'CLEAN_PLAYLIST_BUTTON' | translate"></a>
                       </h5>
                       <div id="playlist" ng-scrollbars ng-scrollbars-config="scrollbarConfig">

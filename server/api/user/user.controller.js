@@ -28,7 +28,7 @@ exports.create = function (req, res, next) {
   // res.json({ req: 'req' });
   // return;
   var newUser = new User(req.body);
-  newUser.provider = 'local';
+  newUser.provider = newUser.provider || 'local';
   newUser.role = 'user';
   console.log('providerId', newUser.providerId);
   newUser.save(function(err, user) {

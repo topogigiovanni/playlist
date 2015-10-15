@@ -53,13 +53,17 @@ module.exports = function(config) {
       'public/bower_components/angular-translate/angular-translate.js',
       'public/bower_components/angular-mocks/angular-mocks.js',
       // endbower
+	  
+	  "https://f.vimeocdn.com/js/froogaloop2.min.js",
+      "https://www.youtube.com/iframe_api",
+	  "https://connect.facebook.net/en_US/sdk.js",
+	  
       "public/scripts/classes.js",
       "public/scripts/**/*.js",
       "public/scripts/*.js",
       "test/mock/**/*.js",
-      "test/spec/**/*.js",
-      "https://f.vimeocdn.com/js/froogaloop2.min.js",
-      "https://www.youtube.com/iframe_api"
+      "test/spec/**/*.js"
+      
     ],
 
     // list of files / patterns to exclude

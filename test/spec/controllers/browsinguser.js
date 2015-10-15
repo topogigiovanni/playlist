@@ -17,7 +17,5 @@ describe('Controller: BrowsinguserCtrl', function () {
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    //expect(BrowsinguserCtrl.awesomeThings.length).toBe(3);
-  });
+ 
 });

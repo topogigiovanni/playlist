@@ -24,23 +24,23 @@ app.service('FacebookUser', function ($rootScope, UserModel) {
 	var SCOPE = 'public_profile,email';
 	// autoload
 	self.init = function() {
-		//window.fbAsyncInit = function() {
-			// FB.init({
-			// 	appId: '1500768470237803',
-			// 	cookie: true, // enable cookies to allow the server to access 
-			// 	// the session
-			// 	xfbml: true, // parse social plugins on this page
-			// 	version: 'v2.4',
-			// 	oauth: true
-			// });
+		// window.fbAsyncInit = function() {
 		// 	FB.init({
-		//       appId      : '1500768470237803',
-		//       xfbml      : true,
-		//       version    : 'v2.5'
-		//     });
+		// 		appId: '1500768470237803',
+		// 		cookie: true, // enable cookies to allow the server to access 
+		// 		// the session
+		// 		xfbml: true, // parse social plugins on this page
+		// 		version: 'v2.4',
+		// 		oauth: true
+		// 	});
+		// 	// FB.init({
+		// 	//      appId      : '1500768470237803',
+		// 	//      xfbml      : true,
+		// 	//      version    : 'v2.5'
+		// 	//    });
 		// 	$rootScope.$broadcast('User.Provider.Facebook.Ready', {});
-		// 
-		//};
+		
+		// };
 
 		FB.init({
 			appId: '1500768470237803',
@@ -143,7 +143,8 @@ app.service('FacebookUser', function ($rootScope, UserModel) {
 	        }
 	        callback(response);
 	    }, {
-	        scope: SCOPE
+	        scope: SCOPE,
+	        return_scopes: true
 	    });
 	};
 });
@@ -217,7 +218,7 @@ app.service('User', function ($rootScope, $http, $cookies, $resource, FacebookUs
 	var setTokenCookie = function(token){
 		console.log('setTokenCookie',token);
 		var expireDate = new Date();
-  		expireDate.setDate(expireDate.getDate() + 1);
+  		expireDate.setDate(expireDate.getDate() + 20);
 		$cookies.put('token', token, {expires: expireDate});
 		// TODO
 		//helper.cookie.set('token', token, 20);
@@ -244,7 +245,7 @@ app.service('User', function ($rootScope, $http, $cookies, $resource, FacebookUs
 			resource.save({
 	          name: self.name,
 	          email: self.email,
-	          password: self.name+self.providerId,//'dsaddqwd',
+	          password: self.providerId,//'dsaddqwd',
 	          provider: self.provider,
 	          providerId: self.providerId
 	        },function(resp){
@@ -279,9 +280,25 @@ app.service('User', function ($rootScope, $http, $cookies, $resource, FacebookUs
 	          //   $scope.errors[field] = error.message;
 	          // });
 	        });
+    	}else{
+    		// se não for novo faz login.
+    		var user = {};
+    		user.email = self.email;
+    		user.password = self.providerId;
+    		var onCatch = function(err){
+    			// TODO
+    			// apresenta erro na UI
+    		};
+    		var onThen = function(r){
+    			if(r && r._id){
+    				//acerto
+    			}else{
+    				//error
+    				onCatch(r);
+    			}
+    		};
+    		self.auth(user, onThen, onCatch);
     	};
-    	// TODO
-    	// ELSE BUSCAR ID do USUARIO
 
     	// dispara evento de ajuste de tela;
     	$body.trigger('Screen.Resize');

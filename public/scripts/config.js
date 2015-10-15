@@ -19,7 +19,10 @@ app.config(function($httpProvider, $translateProvider,  ScrollBarsProvider) {
 
 	// Translations
 	$translateProvider.translations('en', {
+		'ERROR_LOGIN_INVALID_EMAIL_PASS': 'Please enter your email and password.',
+		'ERROR_LOGIN_INVALID_EMAIL': 'Please enter a valid email.',        
         'CREATE_ACCOUNT': 'Create Account',
+        'FORGOT_MY_PASS': 'I forgot my password',
         'HELLO': 'Hello',
         'ADD_VIDEO_TITLE': 'Add Video',
         'SEARCH_INPUT_PLACEHOLDER': 'Search on Youtube and Vimeo',
@@ -33,10 +36,15 @@ app.config(function($httpProvider, $translateProvider,  ScrollBarsProvider) {
         'PLAYLIST_TITLE': 'Video List',
         'TOTAL_TIME': 'Total time',
         'SEARCH_ADD_BUTTON': 'Add to list',
-        'ADD_INPUT_PLACEHOLDER': 'Url'
+        'ADD_INPUT_PLACEHOLDER': 'Url',
+        'LOGIN_WITH_FB': 'Login with Facebook',
+        'LOGIN_BUTTON': 'Go'
     });
     $translateProvider.translations('pt-br', {
+    	'ERROR_LOGIN_INVALID_EMAIL_PASS': 'Insira um email e uma senha válidos',
+        'ERROR_LOGIN_INVALID_EMAIL': 'Insira um email válido.',
         'CREATE_ACCOUNT': 'Criar Conta',
+        'FORGOT_MY_PASS': 'Esqueci minha senha',
         'HELLO': 'Olá',
         'ADD_VIDEO_TITLE': 'Adicionar Vídeo',
         'SEARCH_INPUT_PLACEHOLDER': 'Pesquisar vídeo no Youtube e Vimeo',
@@ -50,7 +58,9 @@ app.config(function($httpProvider, $translateProvider,  ScrollBarsProvider) {
         'PLAYLIST_TITLE': 'Lista de reprodução',
         'TOTAL_TIME': 'Tempo total',
         'SEARCH_ADD_BUTTON': 'Adicionar a lista',
-        'ADD_INPUT_PLACEHOLDER': 'Cole aqui a URL do vídeo'
+        'ADD_INPUT_PLACEHOLDER': 'Cole aqui a URL do vídeo',
+        'LOGIN_WITH_FB': 'Logar pelo Facebook',
+        'LOGIN_BUTTON': 'Ir'
     });  
     $translateProvider.preferredLanguage('pt-br');
     

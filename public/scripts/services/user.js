@@ -22,8 +22,29 @@ app.service('UserModel', function () {
 app.service('FacebookUser', function ($rootScope, UserModel) {
 	var self = this;
 	var SCOPE = 'public_profile,email';
+	//window.FB = window.FB || {};
+	
 	// autoload
 	self.init = function() {
+		var fbInit = function(){
+			FB.init({
+				appId: '1500768470237803',
+				cookie: true, // enable cookies to allow the server to access 
+				// the session
+				xfbml: true, // parse social plugins on this page
+				version: 'v2.4',
+				oauth: true
+			});
+			$rootScope.$broadcast('User.Provider.Facebook.Ready', {});
+		};
+		if(FB && FB.init){
+			fbInit();
+		}else{
+			window.fbAsyncInit = function() {
+				fbInit();
+			};
+		};
+
 		// window.fbAsyncInit = function() {
 		// 	FB.init({
 		// 		appId: '1500768470237803',
@@ -42,15 +63,15 @@ app.service('FacebookUser', function ($rootScope, UserModel) {
 		
 		// };
 
-		FB.init({
-			appId: '1500768470237803',
-			cookie: true, // enable cookies to allow the server to access 
-			// the session
-			xfbml: true, // parse social plugins on this page
-			version: 'v2.4',
-			oauth: true
-		});
-		$rootScope.$broadcast('User.Provider.Facebook.Ready', {});
+		// FB.init({
+		// 	appId: '1500768470237803',
+		// 	cookie: true, // enable cookies to allow the server to access 
+		// 	// the session
+		// 	xfbml: true, // parse social plugins on this page
+		// 	version: 'v2.4',
+		// 	oauth: true
+		// });
+		// $rootScope.$broadcast('User.Provider.Facebook.Ready', {});
 		
 
 	};

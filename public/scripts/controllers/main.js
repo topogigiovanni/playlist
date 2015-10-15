@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the playlistApp
  */
-app.controller('MainCtrl', ['$scope','$rootScope', '$translate', 'CurrentVideo', 'Search', 'User', function ($scope, $rootScope, $translate, CurrentVideo, Search, User) {
+app.controller('MainCtrl', ['$scope','$rootScope', '$translate', '$cookies', 'CurrentVideo', 'Search', 'User', function ($scope, $rootScope, $translate, $cookies, CurrentVideo, Search, User) {
   
   // CurrentVideo
   console.log('CurrentVideo', CurrentVideo);
@@ -63,9 +63,15 @@ app.controller('MainCtrl', ['$scope','$rootScope', '$translate', 'CurrentVideo',
   $scope.User = User;
 
   $scope.currentLang = $translate.use();
+  var expireDate = new Date();
+  expireDate.setDate(expireDate.getDate() + 20);
   $scope.changeLanguage = function (lang) {
     $translate.use(lang);
+    $cookies.put('lang', lang, {expires: expireDate});
     $scope.currentLang = lang;
+  };
+  if($cookies.get('lang')){
+    $scope.changeLanguage($cookies.get('lang'));
   };
 
 }]);

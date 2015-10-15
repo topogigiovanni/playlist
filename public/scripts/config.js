@@ -1,6 +1,6 @@
 'use stric'
 
-app.config(function($httpProvider, $translateProvider, ScrollBarsProvider) {
+app.config(function($httpProvider, $translateProvider,  ScrollBarsProvider) {
 	// Scrollbar defaults
 	ScrollBarsProvider.defaults = {
 		autoHideScrollbar: false,
@@ -53,6 +53,7 @@ app.config(function($httpProvider, $translateProvider, ScrollBarsProvider) {
         'ADD_INPUT_PLACEHOLDER': 'Cole aqui a URL do vídeo'
     });  
     $translateProvider.preferredLanguage('pt-br');
+    
     //$translateProvider.useLocalStorage();
 
     //console.log('$translateProvider', $translateProvider);

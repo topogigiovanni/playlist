@@ -18,6 +18,7 @@ app.config(function($httpProvider, $translateProvider,  ScrollBarsProvider) {
 	};
 
 	// Translations
+	// EN
 	$translateProvider.translations('en', {
 		'ERROR_LOGIN_INVALID_EMAIL_PASS': 'Please enter your email and password.',
 		'ERROR_LOGIN_INVALID_EMAIL': 'Please enter a valid email.',        
@@ -38,8 +39,11 @@ app.config(function($httpProvider, $translateProvider,  ScrollBarsProvider) {
         'SEARCH_ADD_BUTTON': 'Add to list',
         'ADD_INPUT_PLACEHOLDER': 'Url',
         'LOGIN_WITH_FB': 'Login with Facebook',
-        'LOGIN_BUTTON': 'Go'
+        'LOGIN_BUTTON': 'Go',
+        'USER_LOGIN_EMAIL_NOT_REGISTERED': 'This email is not registered.',
+    	'USER_LOGIN_PASS_WRONG': 'This password is not correct.'
     });
+    // PT_BR
     $translateProvider.translations('pt-br', {
     	'ERROR_LOGIN_INVALID_EMAIL_PASS': 'Insira um email e uma senha válidos',
         'ERROR_LOGIN_INVALID_EMAIL': 'Insira um email válido.',
@@ -60,7 +64,9 @@ app.config(function($httpProvider, $translateProvider,  ScrollBarsProvider) {
         'SEARCH_ADD_BUTTON': 'Adicionar a lista',
         'ADD_INPUT_PLACEHOLDER': 'Cole aqui a URL do vídeo',
         'LOGIN_WITH_FB': 'Logar pelo Facebook',
-        'LOGIN_BUTTON': 'Ir'
+        'LOGIN_BUTTON': 'Ir',
+        'USER_LOGIN_EMAIL_NOT_REGISTERED': 'Email não cadastrado.',
+        'USER_LOGIN_PASS_WRONG': 'Senha incorreta.'
     });  
     $translateProvider.preferredLanguage('pt-br');
     

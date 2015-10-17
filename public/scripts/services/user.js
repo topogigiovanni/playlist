@@ -37,7 +37,7 @@ app.service('FacebookUser', function ($rootScope, UserModel) {
 			});
 			$rootScope.$broadcast('User.Provider.Facebook.Ready', {});
 		};
-		if(FB && FB.init){
+		if(window['FB'] && FB.init){
 			fbInit();
 		}else{
 			window.fbAsyncInit = function() {

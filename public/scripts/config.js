@@ -39,9 +39,18 @@ app.config(function($httpProvider, $translateProvider,  ScrollBarsProvider) {
         'SEARCH_ADD_BUTTON': 'Add to list',
         'ADD_INPUT_PLACEHOLDER': 'Url',
         'LOGIN_WITH_FB': 'Login with Facebook',
+        'LOGIN_WITH_G': 'Login with Google+',
         'LOGIN_BUTTON': 'Go',
+        'REGISTER_WITH_FB': 'Register with Facebook',
+        'REGISTER_WITH_G': 'Register with Google+',
+        'REGISTER_BUTTON': 'Register',
+        'CREATE_ACCOUNT_MODAL_TITLE': 'Create Account',
         'USER_LOGIN_EMAIL_NOT_REGISTERED': 'This email is not registered.',
-    	'USER_LOGIN_PASS_WRONG': 'This password is not correct.'
+    	'USER_LOGIN_PASS_WRONG': 'This password is not correct.',
+    	'USER_REGISTER_MIN_CHAR_PASS': 'Your password must be at least 3 characters.',
+        'USER_REGISTER_NAME': 'Name is required.',
+        'USER_REGISTER_EMAIL_INVALID': 'Please enter a valid email.',
+        'USER_REGISTER_EMAIL': 'Enter your email.'
     });
     // PT_BR
     $translateProvider.translations('pt-br', {
@@ -64,9 +73,18 @@ app.config(function($httpProvider, $translateProvider,  ScrollBarsProvider) {
         'SEARCH_ADD_BUTTON': 'Adicionar a lista',
         'ADD_INPUT_PLACEHOLDER': 'Cole aqui a URL do vídeo',
         'LOGIN_WITH_FB': 'Logar pelo Facebook',
+        'LOGIN_WITH_G': 'Logar pelo Google+',
         'LOGIN_BUTTON': 'Ir',
+        'REGISTER_WITH_FB': 'Cadastre-se pelo Facebook',
+        'REGISTER_WITH_G': 'Cadastre-se pelo Google+',
+        'REGISTER_BUTTON': 'Cadastrar',
+        'CREATE_ACCOUNT_MODAL_TITLE': 'Criar conta',
         'USER_LOGIN_EMAIL_NOT_REGISTERED': 'Email não cadastrado.',
-        'USER_LOGIN_PASS_WRONG': 'Senha incorreta.'
+        'USER_LOGIN_PASS_WRONG': 'Senha incorreta.',
+        'USER_REGISTER_MIN_CHAR_PASS': 'Sua senha deve ter no mínimo 3 caracteres.',
+        'USER_REGISTER_NAME': 'Nome é obrigatório.',
+        'USER_REGISTER_EMAIL_INVALID': 'Digite um email válido.',
+        'USER_REGISTER_EMAIL': 'Digite seu email.'
     });  
     $translateProvider.preferredLanguage('pt-br');
     

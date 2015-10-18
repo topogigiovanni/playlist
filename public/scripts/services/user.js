@@ -15,7 +15,94 @@ app.service('UserModel', function () {
 	this.password = '';
 	this.provider = '';
 	this.providerId = '';
+	this.playlists = [];
 	this.__v = null;
+});
+
+
+// Google Provider
+app.service('GoogleUser', function ($rootScope, UserModel) {
+	var self = this;
+	var auth2;
+
+	// autoload
+	self.init = function(){
+		console.debug(' GoogleUser init');
+		
+		// var profile = googleUser.getBasicProfile();
+		// console.log('GoogleUser ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+		// console.log('GoogleUser Name: ' + profile.getName());
+		// console.log('GoogleUser Image URL: ' + profile.getImageUrl());
+		// console.log('GoogleUser  Email: ' + profile.getEmail());
+	
+
+		gapi.load('auth2', function(a,b,c){
+	      auth2 = gapi.auth2.init({
+	        client_id: '1043350298053-kf1ognrkdu8fh4n0se7bfi43fu2kh9iq.apps.googleusercontent.com',
+	        cookiepolicy: 'single_host_origin'
+	      });
+	      //attachSignin(document.getElementById('customBtn'));
+	      console.log('g auth2 ready',a,b,c);
+	    });
+
+
+	};
+	// commented in 17-10-15
+	//self.init();
+
+	self.authenticate = function(callback){
+		console.log('google service authenticate');
+		//attachSignin($('.google_provider_button')[0]);
+		
+		auth2.signIn().then(
+			function(obj){
+				console.log('onn then', obj);
+				var profile = obj.getBasicProfile();
+				var msg = {};
+				var response = _.extend(UserModel, {});
+				response.name = profile.getName();
+				response.email = profile.getEmail();
+				response.provider = 'google';
+				response.providerId = profile.getId();
+
+				var isNew = false;
+				var msg = {
+					isNew: isNew,
+					data: response
+				};
+				$rootScope.$broadcast('User.Provider.Ready', msg);
+				callback(response);
+			}
+		);
+
+	};
+
+	self.register = function(callback){
+		console.log('google service authenticate');
+		//attachSignin($('.google_provider_button')[0]);
+		
+		auth2.signIn().then(
+			function(obj){
+				console.log('onn then register', obj);
+				var profile = obj.getBasicProfile();
+				var msg = {};
+				var response = _.extend(UserModel, {});
+				response.name = profile.getName();
+				response.email = profile.getEmail();
+				response.provider = 'google';
+				response.providerId = profile.getId();
+
+				var isNew = true;
+				var msg = {
+					isNew: isNew,
+					data: response
+				};
+				$rootScope.$broadcast('User.Provider.Ready', msg);
+				callback(response);
+			}
+		);
+	};
+
 });
 
 // Facebook Provider
@@ -25,7 +112,7 @@ app.service('FacebookUser', function ($rootScope, UserModel) {
 	//window.FB = window.FB || {};
 	
 	// autoload
-	self.init = function() {
+	self.init = function(){
 		var fbInit = function(){
 			FB.init({
 				appId: '1500768470237803',
@@ -91,7 +178,8 @@ app.service('FacebookUser', function ($rootScope, UserModel) {
 			$rootScope.$broadcast('User.Provider.Ready', msg);
 		});
 	};
-	self.init();
+	// commented in 17-10-15
+	//self.init();
 
 	var _checkLoginSatus = function(callback){
 		callback = callback || angular.noop;
@@ -168,9 +256,10 @@ app.service('FacebookUser', function ($rootScope, UserModel) {
 	        return_scopes: true
 	    });
 	};
+
 });
 
-app.service('User', function ($rootScope, $http, $cookies, $resource, FacebookUser, UserModel) {
+app.service('User', function ($rootScope, $http, $cookies, $resource, FacebookUser, GoogleUser, UserModel) {
 	var self = this;
 	var resource = $resource('/api/users/:id/:controller', {
 						id: '@_id'
@@ -200,10 +289,15 @@ app.service('User', function ($rootScope, $http, $cookies, $resource, FacebookUs
 							}
 						}
 					});
+	var providers = [];
+	providers['facebook'] = FacebookUser;
+	providers['google'] = GoogleUser;
+
 	// autoload
 	var init = function() {
 		console.log('User service initialized', $cookies.get('token'));
-		FacebookUser.init();
+		providers['facebook'].init();
+		providers['google'].init();
 		var checkProviders = function(){
 			// TODO implementar
 			// $rootScope.$on('User.Provider.Facebook.Ready', function(){
@@ -245,30 +339,40 @@ app.service('User', function ($rootScope, $http, $cookies, $resource, FacebookUs
 		//helper.cookie.set('token', token, 20);
 	};
 
+	var setAuth = function(data){
+		console.debug('setAuth', data);
+		angular.extend(self, data);
+		self._id = data._id;
+		self.isLogged = true;
+	};
+
 	$rootScope.$on('User.Provider.Ready', function(e, args){
-		console.log('Listen User.Provider.Ready', e, args);
+		console.log('Listen User.Provider.Ready', args);
 		if(!args.data) return;
 		var data = args.data;
-		self.name = data.name;
-		self.email = data.email;
-		self.provider = data.provider;
-		self.providerId = data.providerId;
-		self.isLogged = true;
+
+		// self.name = data.name;
+		// self.email = data.email;
+		// self.provider = data.provider;
+		// self.providerId = data.providerId;
+		// self.isLogged = true;
 		// TODO ver como resgatar no token no exemplo do angualr
 
-		// TODO ver se angular.extend nao substitui apply
-		$rootScope.$apply();
+		// // TODO ver se angular.extend nao substitui apply
+		// $rootScope.$apply();
 
 		//_syncData({email: self.email});
 		console.debug('self',self);
+
+		// se for novo registro
 		if(args.isNew){
 			//self.register = function(user, onThen, onCatch){
 			resource.save({
-	          name: self.name,
-	          email: self.email,
-	          password: self.providerId,//'dsaddqwd',
-	          provider: self.provider,
-	          providerId: self.providerId
+	          name: data.name,
+	          email: data.email,
+	          password: data.providerId,
+	          provider: data.provider,
+	          providerId: data.providerId
 	        },function(resp){
 	        	console.log('resouce user save success', resp);
 	        },function(err){
@@ -278,20 +382,31 @@ app.service('User', function ($rootScope, $http, $cookies, $resource, FacebookUs
 	        .then( function(r) {
 	        	console.log('user savee!!', r);
 	          // TODO setar ID
-	          self._id = r._id;
+	          data._id = r._id;
+	          setAuth(data, self);
+
+	          // angular.copy(data, self);
+	          // self.isLogged = true;
+	          // self._id = r._id;
+
 	          setTokenCookie(r.token);
 	          //$rootScope.$apply();
+
+	          // TODO ver se angular.extend nao substitui apply
+			  //$rootScope.$apply();
 	        })
 	        .catch( function(err) {
+	        	console.log('resource save catch', err);
 	        	err = err.data;
 	        	// if(err.errors.length){
 	        	// 	alert(err.errors[0].message);
 	        	// }
-				angular.forEach(err.errors, function(error, field) {
-					console.log('save catch field=',field,'err=', error);
-					//$scope.errors[field] = error.message;
-					//alert(error.message);
-				});
+	        	if(err.errors)
+					angular.forEach(err.errors, function(error, field) {
+						console.log('save catch field=',field,'err=', error);
+						//$scope.errors[field] = error.message;
+						//alert(error.message);
+					});
 
 	          // exemplo !
 	          // $scope.errors = {};
@@ -304,15 +419,22 @@ app.service('User', function ($rootScope, $http, $cookies, $resource, FacebookUs
     	}else{
     		// se não for novo faz login.
     		var user = {};
-    		user.email = self.email;
-    		user.password = self.providerId;
+    		user.email = data.email;
+    		user.password = data.providerId;
     		var onCatch = function(err){
     			// TODO
     			// apresenta erro na UI
+    			console.log('erro ao logar com provider, self-',self, err);
     		};
     		var onThen = function(r){
+    			console.log('user provider onthen', r);
     			if(r && r._id){
     				//acerto
+
+    				setAuth(r, self);
+					// angular.copy(data, self);
+					// self.isLogged = true;
+
     			}else{
     				//error
     				onCatch(r);
@@ -340,9 +462,9 @@ app.service('User', function ($rootScope, $http, $cookies, $resource, FacebookUs
 						.$promise
 				        .then( function(r) {
 				        	if(r && r._id){
-				        		console.debug('entruu if auth')
-								self.isLogged = true;
-								angular.extend(self, r);
+				        		setAuth(r);
+								// self.isLogged = true;
+								// angular.extend(self, r);
 							}
 							console.log('User auth get currentUser', r, 'self', self, r._id);
 							onThen(r);
@@ -374,11 +496,8 @@ app.service('User', function ($rootScope, $http, $cookies, $resource, FacebookUs
 	self.authProvider = function(providerName, callback){
 		callback = callback || angular.noop;
 		console.log('User authProvider', providerName);
-		switch(providerName){
-			case 'facebook':
-				FacebookUser.authenticate(callback);
-				break;
-		}
+
+		providers[providerName].authenticate(callback);
 	};
 	self.register = function(user, onThen, onCatch){
 		console.log('User register', user);
@@ -429,11 +548,9 @@ app.service('User', function ($rootScope, $http, $cookies, $resource, FacebookUs
 	self.registerProvider = function(providerName, callback){
 		callback = callback || angular.noop;
 		console.log('User registerProvider providerName', providerName);
-		switch(providerName){
-			case 'facebook':
-				FacebookUser.register(callback);
-				break;
-		}
+		
+		providers[providerName].register(callback);
+
 	};
 	self.logout = function(){
 		$cookies.remove('token');

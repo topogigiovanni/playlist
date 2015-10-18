@@ -1,10 +1,12 @@
 <!doctype html>
-<html>
+<html ng-app="playlistApp" ng-controller="MainCtrl">
   <head>
     <meta charset="utf-8">
     <title>Playlist</title>
     <meta name="description" content="">
+
     <meta name="viewport" content="width=device-width">
+
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(public) styles/vendor.css -->
     <!-- bower:css -->
@@ -17,14 +19,15 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+    <script src="https://apis.google.com/js/api:client.js"></script>
   </head>
-  <body ng-app="playlistApp">
+  <body>
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Page Content -->
-    <div ng-controller="MainCtrl" class="container no-padding">
+    <div class="container no-padding">
         <div class="row">
             <!-- Blog Post Content Column -->
             <div class="col-lg-9">
@@ -343,6 +346,7 @@
 
     <script src="https://f.vimeocdn.com/js/froogaloop2.min.js"></script>
     <script onError="setProxyRestricted();" src="https://www.youtube.com/iframe_api"></script>
+    
 
     <!-- build:js({.tmp,public}) scripts/scripts.js -->
     <script src="scripts/classes.js"></script>

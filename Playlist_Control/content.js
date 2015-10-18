@@ -5,15 +5,23 @@
 //https://metabroadcast.com/blog/script-communication-in-a-chrome-extension
 //https://developer.chrome.com/extensions/tabs
 
-$jq = jQuery.noConflict();
+
+var app = {};
+app.debug = true;
+app.error = [];
+var cl = function(){return;};
+if(app.debug)
+	cl = function(){console.log.apply(console, arguments)};
+
+
 //var terms = ['bbb', 'Novela', 'praia', 'pessoas', 'pessoa'];
 var terms = '';
-var $player = $jq('#player');
+var $player = $('#player');
 var removeds = 0;
 var $host = window.location.host;
 var tagName = '';
-var _debug = true;
 var val = '';
+var $body;
 
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse){
     console.log('addListener', request);
@@ -27,10 +35,10 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse){
 if($player && $host.indexOf('playlist.ws') != -1){
 	chrome.storage.local.get('gControl', function(tags) {
 		//alert('enbtrou');
-		if(_debug == true)
+		if(app.debug == true)
 		console.log('gControl run..');
 		
-		if(_debug == true)		
+		if(app.debug == true)		
 		console.log('tags',tags);
 
 
@@ -43,12 +51,12 @@ if($player && $host.indexOf('playlist.ws') != -1){
 }
 function bindPlayerChanges(){
 	chrome.storage.onChanged.addListener(function(changes, namespace) {
-		if(_debug == true){
+		if(app.debug == true){
 			console.log('changes',changes,'namespace',namespace);
 			console.log('changes.gControl.newValue',changes.gControl.newValue,'namespace',namespace);
 		}
 		val = changes.gControl.newValue;
-		$jq('body').trigger('changeVal');
+		$('body').trigger('changeVal');
 	});
 
 	
@@ -77,8 +85,10 @@ function objBlock(num){
 }
 
 
-$jq(document).ready(function() {
-	$jq('body').on('changeVal', function() {
+$(document).ready(function() {
+	$body = $('body');
+
+	$('body').on('changeVal', function() {
 		switch (val) {
 			case 'prev':
 				document.getElementById('play-prev').click();
@@ -93,10 +103,11 @@ $jq(document).ready(function() {
 		syncPlayerStatus();
 	});
 	
-	console.log('ready');
+	cl('chrome extensions document.ready');
 
 	function startExtension() {
 		console.log('Starting Extension');
+		$body.trigger('Api.Set',{er:'teste'});
 	}
 
 	function stopExtension() {
@@ -113,5 +124,14 @@ $jq(document).ready(function() {
 
 	chrome.extension.onMessage.addListener(onRequest);
 
+
+	function injectScript(file, node) {
+    var th = document.getElementsByTagName(node)[0];
+    var s = document.createElement('script');
+    s.setAttribute('type', 'text/javascript');
+    s.setAttribute('src', file);
+    th.appendChild(s);
+}
+injectScript( chrome.extension.getURL('/connect.js'), 'body');
 })
 

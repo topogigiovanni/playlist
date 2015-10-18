@@ -1,5 +1,9 @@
 $(window).load(function() {
 	'use strict';
+	
+	// Inicia API
+	Api.init();
+
 	//$('.modal-btn').modal();
 	$searchModal = $body.find('.search-modal');
 	var $playlist = $('#playlist');

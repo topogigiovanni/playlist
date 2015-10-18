@@ -22,12 +22,14 @@ app.service('UserModel', function () {
 
 // Google Provider
 app.service('GoogleUser', function ($rootScope, UserModel) {
+// doc: https://developers.google.com/identity/sign-in/web/build-button
+
 	var self = this;
 	var auth2;
 
 	// autoload
 	self.init = function(){
-		console.debug(' GoogleUser init');
+		//console.debug(' GoogleUser init');
 		
 		// var profile = googleUser.getBasicProfile();
 		// console.log('GoogleUser ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
@@ -41,8 +43,7 @@ app.service('GoogleUser', function ($rootScope, UserModel) {
 	        client_id: '1043350298053-kf1ognrkdu8fh4n0se7bfi43fu2kh9iq.apps.googleusercontent.com',
 	        cookiepolicy: 'single_host_origin'
 	      });
-	      //attachSignin(document.getElementById('customBtn'));
-	      console.log('g auth2 ready',a,b,c);
+	      
 	    });
 
 
@@ -65,9 +66,8 @@ app.service('GoogleUser', function ($rootScope, UserModel) {
 				response.provider = 'google';
 				response.providerId = profile.getId();
 
-				var isNew = false;
 				var msg = {
-					isNew: isNew,
+					isNew: false,
 					data: response
 				};
 				$rootScope.$broadcast('User.Provider.Ready', msg);
@@ -92,9 +92,8 @@ app.service('GoogleUser', function ($rootScope, UserModel) {
 				response.provider = 'google';
 				response.providerId = profile.getId();
 
-				var isNew = true;
 				var msg = {
-					isNew: isNew,
+					isNew: true,
 					data: response
 				};
 				$rootScope.$broadcast('User.Provider.Ready', msg);

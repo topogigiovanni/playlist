@@ -7,17 +7,18 @@
   "icons": { "16": "icon16.png", "128": "icon128.png" },
   "content_scripts": [
     {
-      "matches": ["*://*.playlist.ws/*"],
+      "matches": ["*://*.playlist.ws/*", "http://localhost:9000/"],
       "js": ["jquery.js", "content.js"],
 	    "run_at" : "document_start"
     }
   ],
   "author": "GWeb TI",
   "permissions": [
-     "storage" , "tabs", "*://*.playlist.ws/*"
+     "storage" , "tabs", "*://*.playlist.ws/*", "http://localhost:9000/"
   ],
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "popup.html"
-  }
+  },
+  "web_accessible_resources": ["connect.js","content.js"]
 }

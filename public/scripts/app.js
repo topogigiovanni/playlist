@@ -173,6 +173,13 @@ Player.Youtube.OnPlayerStateChange = function(e){
 };
 Player.Vimeo = {};
 
+var Api = {};
+Api.init = function(){
+  $body.on('Api.Set', function(a,b,c){
+      console.log('on api set', a, b, c);
+  });
+};
+
 function onSignIn(googleUser) {
   var profile = googleUser.getBasicProfile();
   console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.

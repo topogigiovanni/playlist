@@ -81,7 +81,7 @@ $(document).ready(function(){
 
 // teste!!!!!!!
 var tabs = [];
-chrome.tabs.query({url:"*://*.playlist.ws/*"}, function (t){
+chrome.tabs.query({url:["*://*.playlist.ws/*","http://localhost:9000/"]}, function (t){
 	console.log('result query', t);
 	//tabs.push(tab);
 	tabs = t;

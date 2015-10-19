@@ -33,6 +33,7 @@
     "S": true,
     "YT": true,
 	"FB": true,
+	"gapi": true,
     "_": true
   }
 }

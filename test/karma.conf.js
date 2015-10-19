@@ -57,6 +57,7 @@ module.exports = function(config) {
 	  "https://f.vimeocdn.com/js/froogaloop2.min.js",
       "https://www.youtube.com/iframe_api",
 	  "https://connect.facebook.net/en_US/sdk.js",
+	  "https://apis.google.com/js/api:client.js",
 	  
       "public/scripts/classes.js",
       "public/scripts/**/*.js",

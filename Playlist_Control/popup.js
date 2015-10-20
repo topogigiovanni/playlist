@@ -95,13 +95,17 @@ function click(e) {
 
   //chrome.extension.sendRequest({ action: "WhatYouWant"});
 
+chrome.runtime.sendMessage({greeting: "popup.js click()"}, function(response) {
+		  console.log(response.farewell);
+		});
+
   tabs.forEach(function(t){
   		console.log('foreach', t,t.id)
-  		chrome.tabs.executeScript(t.id,{code: e});
+  		//chrome.tabs.executeScript(t.id,{code: e});
 
   		chrome.tabs.sendMessage(t.id, {action:'start'}, function(response) {
-	    console.log('Start action sent');
-	});
+	   		console.log('Start action sent');
+		});
   });
 }
 
@@ -115,3 +119,10 @@ document.addEventListener('DOMContentLoaded', function () {
 		click("console.log('rodoou')");
 	});
 });
+
+chrome.extension.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    console.log('extension onMessage popup.js',request, sender, sendResponse);
+    
+      //sendResponse({farewell: "goodbye"});
+  });

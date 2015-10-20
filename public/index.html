@@ -123,9 +123,9 @@
                     <div id="videoUploader">
                       <h4 ng-cloak>{{ 'ADD_VIDEO_TITLE' | translate }}</h4>
                       <div class="input-group" ng-controller="VideoUploaderCtrl">
-                          <input ng-cloak value="" placeholder="{{'ADD_INPUT_PLACEHOLDER' | translate}}" ng-model="url" type="text" class="form-control">
+                          <input id="newVideo" ng-cloak value="" placeholder="{{'ADD_INPUT_PLACEHOLDER' | translate}}" ng-model="url" type="text" class="form-control">
                           <span class="input-group-btn">
-                              <button ng-click="send()" class="btn btn-info" type="button">
+                              <button id="newVideoBtn" ng-click="send()" class="btn btn-info" type="button">
                                   <span class="glyphicon glyphicon-plus"></span>
                           </button>
                           </span>

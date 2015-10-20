@@ -12,11 +12,15 @@ app.controller('VideoUploaderCtrl', ['$scope', '$rootScope', 'CurrentVideo', fun
   $scope.url = "";
   // coloca na playlist
   $scope.send = function(){
-    if(!$scope.url){
+    console.debug('send()', $scope.url);
+    var url = $scope.url;
+    if(!url)
+      url = $scope.url = angular.element('#newVideo').val() || null;
+    if(!url){
       // TODO apresenta erro na UI
       return;
     };
-    var url = $scope.url;
+    // var url = $scope.url;
     //url = helper.Url.removeProtocol(url);
     // var video = new Video(url, callback);
     // dispara loader

@@ -13,6 +13,39 @@ var cl = function(){return;};
 if(app.debug)
 	cl = function(){console.log.apply(console, arguments)};
 
+var $body,
+	api,
+	controller;
+
+api = {};
+api.video = {};
+api.video.set = function(url){
+	$
+};
+
+controller = function(request){
+
+	if(!request || !request.action) return;
+	switch(request.action){
+		case 'set.video':
+			$('#newVideo').val(request.data).trigger('change');
+			$('#newVideoBtn').trigger('click');
+			break;
+	};
+};
+chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
+    console.log('extension onMessage content.js',request, sender, sendResponse);
+      //sendResponse({farewell: "goodbye"});
+    controller(request)
+});
+
+$(document).ready(function(){
+	$body = $('body');
+});
+
+/* ============================================================= */
+
+
 
 //var terms = ['bbb', 'Novela', 'praia', 'pessoas', 'pessoa'];
 var terms = '';
@@ -23,13 +56,14 @@ var tagName = '';
 var val = '';
 var $body;
 
-chrome.extension.onRequest.addListener(function(request, sender, sendResponse){
-    console.log('addListener', request);
-    if(request.action)
-{
-    alert('The response is : ' + request.action);
-}
-});
+// chrome.extension.onRequest.addListener(function(request, sender, sendResponse){
+//     console.log('addListener', request);
+//     if(request.action)
+// {
+//     alert('The response is : ' + request.action);
+// }
+// });
+
 
 
 if($player && $host.indexOf('playlist.ws') != -1){
@@ -88,26 +122,31 @@ function objBlock(num){
 $(document).ready(function() {
 	$body = $('body');
 
-	$('body').on('changeVal', function() {
-		switch (val) {
-			case 'prev':
-				document.getElementById('play-prev').click();
-				break;
-			case 'next':
-				document.getElementById('play-next').click();
-				break;
-			case 'play':
-				document.getElementById('play-pause').click();
-				break;
-		}
-		syncPlayerStatus();
-	});
+	// $('body').on('changeVal', function() {
+	// 	switch (val) {
+	// 		case 'prev':
+	// 			document.getElementById('play-prev').click();
+	// 			break;
+	// 		case 'next':
+	// 			document.getElementById('play-next').click();
+	// 			break;
+	// 		case 'play':
+	// 			document.getElementById('play-pause').click();
+	// 			break;
+	// 	}
+	// 	syncPlayerStatus();
+	// });
 	
-	cl('chrome extensions document.ready');
+	
 
 	function startExtension() {
 		console.log('Starting Extension');
 		$body.trigger('Api.Set',{er:'teste'});
+		//console.log('Conn',Conn);
+
+		chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
+		  console.log(response.farewell);
+		});
 	}
 
 	function stopExtension() {
@@ -115,6 +154,7 @@ $(document).ready(function() {
 	}
 
 	function onRequest(request, sender, sendResponse) {
+		console.log('content.js',request,sender,sendResponse);
 		if (request.action == 'start')
 			startExtension()
 		else if (request.action == 'stop')
@@ -125,13 +165,40 @@ $(document).ready(function() {
 	chrome.extension.onMessage.addListener(onRequest);
 
 
-	function injectScript(file, node) {
-    var th = document.getElementsByTagName(node)[0];
-    var s = document.createElement('script');
-    s.setAttribute('type', 'text/javascript');
-    s.setAttribute('src', file);
-    th.appendChild(s);
-}
-injectScript( chrome.extension.getURL('/connect.js'), 'body');
-})
+	$('body').on('ttt', function(){
+		alert('asasasasttt');
+	});
 
+	function injectScript(file, node) {
+	    var th = document.getElementsByTagName(node)[0];
+	    var s = document.createElement('script');
+	    s.setAttribute('type', 'text/javascript');
+	    s.setAttribute('src', file);
+	    s.onload = function(){
+	    	cl('s load');
+	    }
+	    th.appendChild(s);
+	}
+	injectScript( chrome.extension.getURL('/connect.js'), 'body');
+
+	chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
+	  console.log(response.farewell);
+	});
+
+});
+
+
+//funciona tb
+// chrome.runtime.onMessage.addListener(
+//   function(request, sender, sendResponse) {
+//     console.log('onMessage content.js',request, sender, sendResponse);
+    
+//       //sendResponse({farewell: "goodbye"});
+//   });
+
+chrome.extension.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    console.log('extension onMessage content.js',request, sender, sendResponse);
+    
+      //sendResponse({farewell: "goodbye"});
+  });

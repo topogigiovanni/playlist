@@ -1,52 +1,61 @@
 <!doctype html>
 <html>
-  <head>
-    <title>FeedBlock Configuração</title>
-    <style>
-      body {
-        min-width: 230px;
-        overflow-x: hidden;
-      }
+<head>
+  <title>Playlist</title>
 
-      img {
-        margin: 5px;
-        border: 2px solid black;
-        vertical-align: middle;
-        width: 75px;
-        height: 75px;
-      }
-    </style>
-	<link rel="stylesheet" href="foundation.min.css" />
-	<link rel="stylesheet" href="my.css" />
-    <!--
-      - JavaScript and HTML must be in separate files: see our Content Security
-      - Policy documentation[1] for details and explanation.
-      -
-      - [1]: http://developer.chrome.com/extensions/contentSecurityPolicy.html
-     -->
-	<script src="jquery.js"></script>
-	<script src="foundation.min.js"></script>
-    <script src="popup.js"></script>
-  </head>
-  <body>
-	<div class="row">
-		 <form  name="formulario" method="post" id="form">
-			 <div class="row">
-				<div class="small-12 columns">
-          <h4>Playlist Control</h4>
-				</div>
-				<div class="music small-12 columns">
-				</div>
-				<div class="clearfix"></div>
-				<br>
-				<div class="small-12 left columns">
-					<button id="prev" class="button radius tiny "><</button>
-					<button id="play" class="button radius tiny ">Play</button>
-					<button id="next" class="button radius tiny ">></button>
-				</div>		
-			</div>
-		 </form>
-	 </div>
-  </body>
+  <link rel="stylesheet" href="css/bootstrap.css" />
+  <link rel="stylesheet" href="popup.css" />
+
+  <script src="jquery.js"></script>
+  <script src="popup.js"></script>
+</head>
+<body>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="container">
+        <h4>Playlist</h4>
+        <form  id="addForm">
+          <div class="input-group" >
+            <input id="newVideo" value="" placeholder="Adicionar vídeo"type="text" class="form-control"> 
+            <span class="input-group-btn">
+              <button id="newVideoBtn" type="submit" class="btn btn-info" type="button">
+                <span class="glyphicon glyphicon-plus"></span>
+              </button>
+            </span>
+          </div>
+          </form>
+          <div ng-controller="VideoPlayerCtrl" class="" id="videoCtrl">
+            <ul  class="pagination pagination-sm">
+              <li>
+                <button id="playerPrev" class="btn btn-lg btn-default" ng-disabled="!Player.doRepeat && (!videoList.length || videoList[0].id == currentVideo.id)" ng-click="Player.prev();" href="javascript:void(0)"> <i class="glyphicon glyphicon-backward"></i>
+                </button>
+              </li>
+              <li>
+                <button id="playerPlay" class="btn btn-lg btn-default" ng-disabled="!videoList.length" ng-click="Player.play();" href="javascript:void(0)"> <i ng-class="Player.isPlaying ? 'glyphicon glyphicon-pause' : 'glyphicon glyphicon-play'" class="glyphicon glyphicon-play"></i>
+                </button>
+              </li>
+              <li>
+                <button id="playerNext" class="btn btn-lg btn-default" ng-disabled="!Player.doRepeat && (!videoList.length || videoList[videoList.length - 1].id == currentVideo.id)" ng-click="Player.next();" href="javascript:void(0)">
+                  <i class="glyphicon glyphicon-forward"></i>
+                </button>
+              </li>
+            </ul>
+            <ul  class="pagination  pagination-sm">
+              <li>
+                <button id="playerRepeat" ng-class="{active: Player.doRepeat}" data-toggle="tooltip" data-placement="top" title="Repetir lista" class="btn btn-xs btn-default" ng-disabled="!videoList.length" ng-click="Player.setRepeat()" href="javascript:void(0)">
+                  <i class="glyphicon glyphicon-repeat"></i>
+                </button>
+              </li>
+              <li>
+                <button id="playerRandom" ng-class="{active: Player.doRandom}" data-toggle="tooltip" data-placement="top" title="Ativar ordem aleatória" class="btn btn-xs btn-default" ng-disabled="!videoList.length" ng-click="Player.setRandom();" href="javascript:void(0)">
+                  <i class="glyphicon glyphicon-random"></i>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
 </html>
-

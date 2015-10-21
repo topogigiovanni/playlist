@@ -1,3 +1,100 @@
+var QUERY_URL = ["*://*.playlist.ws/*","http://localhost:9000/"];
+var tabs = [];
+var state = {};
+state['playerPlay'] = false;
+state['playerRepeat'] = false;
+state['playerRandom'] = false;
+
+var api = {};
+api.call = function(action, calback){
+	tabs.forEach(function(t){
+  		console.log('foreach', t,t.id)
+  		//chrome.tabs.executeScript(t.id,{code: e});
+
+  		chrome.tabs.sendMessage(t.id, action, calback);
+	});
+};
+api.player = {};
+api.player.adjust = function(o){
+	if(!o)	return;
+	if(o.playerPlay){
+		$('#playerPlay i').addClass('glyphicon-pause')
+						.removeClass('glyphicon-play');
+	}else{
+		$('#playerPlay i').removeClass('glyphicon-pause')
+						.addClass('glyphicon-play');
+	}
+	if(o.playerRepeat){
+		$('#playerRepeat').addClass('active');
+	}else{
+		$('#playerRepeat').removeClass('active');
+	}
+	if(o.playerRandom){
+		$('#playerRandom').addClass('active');
+	}else{
+		$('#playerRandom').removeClass('active');
+	}
+	return;
+};
+
+// Class
+function Action(action, data){
+	this.action = action;
+	this.data = data;
+};
+
+$(document).ready(function() {
+	console.log("onload" + Date());
+	bindPlayer();
+	bindForm();
+	chrome.tabs.query({url:QUERY_URL}, function (t){
+		console.log('result query', t);
+		//tabs.push(tab);
+		tabs = t;
+		var cb = function(response) {
+		   		console.log('Start action sent-- response',response);
+		   		if(response){
+		   			$.extend(state, response);
+		   			api.player.adjust(state);
+		   		}
+			};
+		api.call(new Action('get.player'), cb);
+	});
+});
+
+function bindPlayer(){
+	$('#playerPlay').click(function(){
+		var $this = $(this);
+		state.playerPlay = !$this.find('i').hasClass('glyphicon-pause');
+		api.player.adjust(state);
+		api.call(new Action('set.player', {button:'#playerPlay', action:'click'}));
+	});
+	$('#playerRandom').click(function(){
+		var $this = $(this);
+		state.playerRandom = !$this.hasClass('active');
+		api.player.adjust(state);
+		api.call(new Action('set.player', {button:'#playerRandom', action:'click'}));
+	});
+	$('#playerRepeat').click(function(){
+		var $this = $(this);
+		state.playerRepeat = !$this.hasClass('active');
+		api.player.adjust(state);
+		api.call(new Action('set.player', {button:'#playerRepeat', action:'click'}));
+	});
+};
+function bindForm(){
+	$('#addForm').submit(function(e){
+		e.preventDefault();
+		var url = $('#newVideo').val();
+		$('#newVideo').val('');
+		api.call(new Action('set.video', url));
+	});
+};
+
+
+/*=====================================================*/
+
+
 var RESULTS = '';
 document.addEventListener('DOMContentLoaded', function () {
   load();
@@ -80,12 +177,12 @@ $(document).ready(function(){
 //$(document).foundation();
 
 // teste!!!!!!!
-var tabs = [];
-chrome.tabs.query({url:["*://*.playlist.ws/*","http://localhost:9000/"]}, function (t){
-	console.log('result query', t);
-	//tabs.push(tab);
-	tabs = t;
-});
+// var tabs = [];
+// chrome.tabs.query({url:["*://*.playlist.ws/*","http://localhost:9000/"]}, function (t){
+// 	console.log('result query', t);
+// 	//tabs.push(tab);
+// 	tabs = t;
+// });
 
 function click(e) {
   // chrome.tabs.executeScript(null,
@@ -104,7 +201,7 @@ chrome.runtime.sendMessage({greeting: "popup.js click()"}, function(response) {
   		//chrome.tabs.executeScript(t.id,{code: e});
 
   		chrome.tabs.sendMessage(t.id, {action:'start'}, function(response) {
-	   		console.log('Start action sent');
+	   		console.log('Start action sent - response', response);
 		});
   });
 }
@@ -126,3 +223,7 @@ chrome.extension.onMessage.addListener(
     
       //sendResponse({farewell: "goodbye"});
   });
+
+window.onload = function() {
+  console.log("onload" + Date())
+}

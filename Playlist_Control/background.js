@@ -52,6 +52,7 @@ function onClickHandler(e, tab) {
 
 
   chrome.tabs.query({url:["*://*.playlist.ws/*","http://localhost:9000/"]}, function(tabs){
+     // TODO implementar busca por tab e fallback
      tabs.forEach(function(t){
         chrome.tabs.sendMessage(t.id, {action:'set.video',data:url}, function(response) {
         });

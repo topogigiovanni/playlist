@@ -20,10 +20,24 @@ var $body,
 api = {};
 api.video = {};
 api.video.set = function(url){
-	$
+	
+};
+api.player = {};
+api.player.get = function(){
+	var r = {};
+	r['playerPlay'] = $('#playerPlay i').hasClass('glyphicon-pause');
+	r['playerRepeat'] = $('#playerRepeat').hasClass('active');
+	r['playerRandom'] = $('#playerRandom').hasClass('active');
+	return r;
+};
+api.player.set = function(data){
+	if(!data) return;
+	var $el = $(data.button);
+	if($el.length && $el[data.action])
+		$el[data.action]();
 };
 
-controller = function(request){
+controller = function(request, sender, sendResponse){
 
 	if(!request || !request.action) return;
 	switch(request.action){
@@ -31,12 +45,18 @@ controller = function(request){
 			$('#newVideo').val(request.data).trigger('change');
 			$('#newVideoBtn').trigger('click');
 			break;
+		case 'get.player':
+			sendResponse(api.player.get());
+			break;
+		case 'set.player':
+			api.player.set(request.data);
+			break;
 	};
 };
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
     console.log('extension onMessage content.js',request, sender, sendResponse);
       //sendResponse({farewell: "goodbye"});
-    controller(request)
+    controller(request, sender, sendResponse);
 });
 
 $(document).ready(function(){
@@ -122,6 +142,10 @@ function objBlock(num){
 $(document).ready(function() {
 	$body = $('body');
 
+	$('#playerPlay').click(function(){
+		cl('clicooou');
+		//alert('ADSA');
+	});
 	// $('body').on('changeVal', function() {
 	// 	switch (val) {
 	// 		case 'prev':

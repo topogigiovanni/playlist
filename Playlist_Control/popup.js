@@ -81,7 +81,7 @@ $(document).ready(function() {
 	            	(function(){
 	            		api.call(new Action('get.player'), cb);
 	            	})
-	            , 1000);
+	            , 3000);
 	          }
 	        );
 		}

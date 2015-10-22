@@ -48,8 +48,8 @@ function onClickHandler(e, tab) {
         });
      }else{
         chrome.tabs.create(
-          //{url: 'http://playlist.ws', active: true}, 
-          {url: 'http://localhost:9000', active: true}, 
+          {url: 'http://playlist.ws', active: true}, 
+          //{url: 'http://localhost:9000', active: true}, 
           function(tab){
             console.log('tab created',tab);
             setTimeout((function(){setVideo(tab, url);}), 2000);

@@ -5,6 +5,7 @@ var QUERY_URL = ["*://*.playlist.ws/*","http://localhost:9000/"];
 var tabs = [];
 var state = {};
 var api = {};
+var debug = false;
 
 state['playerPlay'] = false;
 state['playerRepeat'] = false;
@@ -13,7 +14,8 @@ state['playerRandom'] = false;
 // API
 api.call = function(action, calback){
 	tabs.forEach(function(t){
-  		console.log('foreach', t,t.id)
+		if(debug)
+  			console.log('foreach', t,t.id)
   		//chrome.tabs.executeScript(t.id,{code: e});
 
   		chrome.tabs.sendMessage(t.id, action, calback);
@@ -50,15 +52,16 @@ function Action(action, data){
 
 // Init
 $(document).ready(function() {
-	console.log("onload" + Date());
 	bindPlayer();
 	bindForm();
 	chrome.tabs.query({url:QUERY_URL}, function (t){
-		console.log('result query', t);
+		if(debug)
+			console.log('result query', t);
 		//tabs.push(tab);
 		tabs = t;
 		var cb = function(response) {
-		   		console.log('Start action sent-- response',response);
+				if(debug)
+		   			console.log('Start action sent-- response',response);
 		   		if(response){
 		   			$.extend(state, response);
 		   			api.player.adjust(state);
@@ -68,11 +71,12 @@ $(document).ready(function() {
 			api.call(new Action('get.player'), cb);
 		}else{
 			chrome.tabs.create(
-	          //{url: 'http://playlist.ws', active: false}, 
-	          {url: 'http://localhost:9000', active: false}, 
+	          {url: 'http://playlist.ws', active: false}, 
+	          //{url: 'http://localhost:9000', active: false}, 
 	          function(tab){
 	          	tabs.push(tab);
-	            console.log('tab created',tab);
+	          	if(debug)
+	            	console.log('tab created',tab);
 	            setTimeout(
 	            	(function(){
 	            		api.call(new Action('get.player'), cb);

@@ -7,7 +7,7 @@
 
 
 var app = {};
-app.debug = true;
+app.debug = false;
 app.error = [];
 var cl = function(){return;};
 if(app.debug)

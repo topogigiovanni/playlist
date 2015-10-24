@@ -14,6 +14,13 @@ app.factory('CurrentVideo', function($rootScope, $sce) {
     };
     factory.setVideo = function(data, apply){
       var video = {};
+      console.log('CurrentVideo setVideo', factory, data, apply);
+      // Se for o mesmo video da replay
+      if(factory.id == data.id && 
+        factory.origin == data.origin){
+        $rootScope.$broadcast('Player.Replay', {});
+        return;
+      };
       angular.extend(factory, data);
       factory.iframeSrc = $sce.trustAsResourceUrl(data.iframeSrc);
       if(data.origin == 'youtube'){
@@ -35,7 +42,6 @@ app.factory('CurrentVideo', function($rootScope, $sce) {
       // });
       
       //factory.instance.addEventListener('onStateChange', Player.Youtube.OnPlayerStateChange);
-      console.log('setVideo',data);
       if(apply)
         $rootScope.$apply();
       //console.log('video getApiInterface', data.instance.B.videoData.title);

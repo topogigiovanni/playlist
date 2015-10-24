@@ -33,4 +33,10 @@ app.controller('VideoPlayerCtrl', ['$scope', '$rootScope', 'Player', 'CurrentVid
     $scope.Player.stop();
   });
 
+  $rootScope.$on('Player.Replay', function(ev, data){
+    console.log('escotou Player.Replay', ev, data, Player);
+    //$scope.Player.stop();
+    $scope.Player.play();
+  });
+  
 }]);

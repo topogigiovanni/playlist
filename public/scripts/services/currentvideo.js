@@ -8,11 +8,23 @@
  * Factory in the playlistApp.
  */
 app.factory('CurrentVideo', function($rootScope, $sce) {
+    /** Verifica se existe restrição de proxy para o youtube,
+      Caso exista, muda a url do iframe
+    */
+    var checkProxy = function(data){
+      if(!isProxyRestricted && data.origin == 'youtube')
+        data.iframeSrc = 'http://gwebti.com/tst_proxy/proxy.php?id='+data.id;
+      return data;
+    };
+
     var factory = {}; 
     factory.instance = {
       addEventListener: function(){}
     };
     factory.setVideo = function(data, apply){
+      if(data) data = checkProxy(data);
+      else return;
+      
       var video = {};
       console.log('CurrentVideo setVideo', factory, data, apply);
       // Se for o mesmo video da replay

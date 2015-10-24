@@ -21,10 +21,14 @@ app.controller('MainCtrl', ['$scope','$rootScope', '$translate', '$cookies', 'Cu
   // Search
   $scope.searchTerm = '';
   $scope.requestSearch = function(){
-    Search.doSearch($scope.searchTerm);
+    // faz busca direto no elemento devido a ações da extenção do chrome
+    Search.doSearch($scope.searchTerm || angular.element('#search-input').val());
   };
   $scope.fakeSearchKeyUp = function(){
-    if($scope.searchTerm)
+    var term = $scope.searchTerm;
+    if(!term)
+      term = angular.element('#search-input').val() || null;
+    if(term)
       Search.modal.open();
   };
   $scope.closeSearchModal = function(){

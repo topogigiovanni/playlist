@@ -12,7 +12,7 @@ app.factory('CurrentVideo', function($rootScope, $sce) {
       Caso exista, muda a url do iframe
     */
     var checkProxy = function(data){
-      if(!isProxyRestricted && data.origin == 'youtube')
+      if(isProxyRestricted && data.origin == 'youtube')
         data.iframeSrc = 'http://gwebti.com/tst_proxy/proxy.php?id='+data.id;
       return data;
     };

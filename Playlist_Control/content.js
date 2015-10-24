@@ -5,9 +5,12 @@
 //https://metabroadcast.com/blog/script-communication-in-a-chrome-extension
 //https://developer.chrome.com/extensions/tabs
 
+var KEYS = [];
+KEYS['youtube'] = 'AIzaSyDdNn7Fj9e0_gIURLfIDm9Cg8ubNzhmmQU%20';
+KEYS['vimeo'] = '2f0714bfa2df9de7e74703c0b8c7df1e';
 
 var app = {};
-app.debug = false;
+app.debug = true;
 app.error = [];
 var cl = function(){return;};
 if(app.debug)
@@ -40,6 +43,28 @@ api.player.set = function(data){
 	if($el.length && $el[data.action])
 		$el[data.action]();
 };
+api.search = {};
+api.search.get = function(term){
+	console.log('api.search.get', term);
+	
+	// var _callback = function(r){
+	// 	cl('callback get vimeo search, r',r);
+	// };
+	// $.getJSON('https://api.vimeo.com/videos?query='+term+'&sort=relevant&videoEmbeddable=true&part=snippet,contentDetails&access_token='+KEYS['vimeo'], _callback);
+
+	if(!term) return;
+	$search = $('#search');
+	$search.find('input').val(term).trigger('change');
+	$('#search-input').val(term).trigger('change');
+	$search.find('button').trigger('click');
+	$('#api-send-search').trigger('click');
+
+};
+api.search.response = null;
+api.search.requestCount = 0;
+api.search.checkResult = function(){
+
+};
 
 controller = function(request, sender, sendResponse){
 	console.log('extension onMessage content.js',request, sender, sendResponse);
@@ -53,6 +78,9 @@ controller = function(request, sender, sendResponse){
 			break;
 		case 'set.player':
 			api.player.set(request.data);
+			break;
+		case 'get.search':
+			api.search.get(request.data);
 			break;
 	};
 };

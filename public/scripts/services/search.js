@@ -115,7 +115,6 @@ app.factory('Search', function($rootScope, $http, YoutubeSearch, VimeoSearch) {
 
       $rootScope.$broadcast('Search.AddToVideoList', {url:url});
     };
-    //factory.doSearch =  _.throttle(doSearch, 5);
     factory.doSearch = doSearch;
     factory.addToVideoList = addToVideoList;
     factory.resultItems = [];

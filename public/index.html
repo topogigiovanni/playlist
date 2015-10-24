@@ -258,7 +258,8 @@
                <a title="Fechar" href="javascript:void(0)" ng-click="closeSearchModal();" class="search-modal-close">
                 <i class="glyphicon glyphicon-remove-circle"></i>
                </a>
-               <input value="" ng-keyup="requestSearch()" ng-model="searchTerm" type="text" class="form-control" placeholder="Pesquisar vídeo no Youtube e Vimeo" />
+               <button id="api-send-search" class="hide" ng-click="requestSearch()"></button>
+               <input id="search-input" value="" ng-keyup="requestSearch()" ng-model="searchTerm" type="text" class="form-control" placeholder="Pesquisar vídeo no Youtube e Vimeo" />
                <div ng-controller="SearchCtrl" class="row content text-center">
                  <div masonry load-images="true" data-reload-on-show masonry-options="{isFitWidth: false, percentPosition: true, columnWidth: '.col-md-3',transitionDuration: '0.35s' }" class="result-wrapper">
                    <div ng-repeat="item in resultItems" class="col-md-3 col-sm-6 hero-feature masonry-brick hide" images-loaded="imgLoadedEvents">

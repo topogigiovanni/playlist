@@ -5,14 +5,18 @@ var QUERY_URL = ["*://*.playlist.ws/*","http://localhost:9000/"];
 var tabs = [];
 var state = {};
 var api = {};
-var debug = false;
+var debug = true;
 
 state['playerPlay'] = false;
 state['playerRepeat'] = false;
 state['playerRandom'] = false;
 
 // API
-api.call = function(action, calback){
+api.call = function(action, calback, singleCall){
+	if(singleCall && tabs[0]){
+		chrome.tabs.sendMessage(tabs[0].id, action, calback);
+		return true;
+	};
 	tabs.forEach(function(t){
 		if(debug)
   			console.log('foreach', t,t.id)
@@ -20,6 +24,7 @@ api.call = function(action, calback){
 
   		chrome.tabs.sendMessage(t.id, action, calback);
 	});
+	return true;
 };
 api.player = {};
 api.player.adjust = function(o){
@@ -70,8 +75,9 @@ $(document).ready(function() {
 		if(tabs.length){
 			api.call(new Action('get.player'), cb);
 		}else{
+			var url = debug ? 'http://localhost:9000' : 'http://playlist.ws';
 			chrome.tabs.create(
-	          {url: 'http://playlist.ws', active: false}, 
+	          {url: url, active: false}, 
 	          //{url: 'http://localhost:9000', active: false}, 
 	          function(tab){
 	          	tabs.push(tab);
@@ -111,10 +117,22 @@ function bindPlayer(){
 	});
 };
 function bindForm(){
+	// $('#addForm').submit(function(e){
+	// 	e.preventDefault();
+	// 	var url = $('#newVideo').val();
+	// 	$('#newVideo').val('');
+	// 	api.call(new Action('set.video', url));
+	// });
+
 	$('#addForm').submit(function(e){
 		e.preventDefault();
-		var url = $('#newVideo').val();
-		$('#newVideo').val('');
-		api.call(new Action('set.video', url));
+		var term = $('#input').val();
+		//$('#input').val('');
+		api.call(new Action('get.search', term), null, true);
+		highlightTab();
 	});
 };
+function highlightTab(){
+	chrome.windows.update(tabs[0].windowId, {focused: true});
+	chrome.tabs.update(tabs[0].id, {highlighted: true});
+}

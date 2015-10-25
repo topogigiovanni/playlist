@@ -87,9 +87,11 @@ helper.Url.removeProtocol = function(url){
   return url;
 };
 helper.Url.isYoutube = function(url){
+  if(!url) return;
   return  !!~url.indexOf("youtu.be") || !!~url.indexOf("youtube");
 };
 helper.Url.isVimeo = function(url){
+  if(!url) return;
   return  (!!~url.indexOf("vimeo"));
 };
 helper.Url.getOrigin = function(url){
@@ -100,11 +102,6 @@ helper.Url.getOrigin = function(url){
     return '';
 };
 helper.Url.getID = function(url){
-  // url = helper.Url.removeProtocol(url);
-  // // split querystring
-  // url = url.split('?')[0];
-  // split / 
-
   var link = document.createElement('a');
   link.href = url;
   var path = link.pathname;
@@ -118,6 +115,15 @@ helper.Url.getParameterByName = function(url, name){
   var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
       results = regex.exec(url);
   return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+};
+helper.Url.isValid = function(term){
+  var length = term.length
+  var MATCH = 'http';
+  if(!length) return false;
+  if(length > 4)
+    length = 4;
+  term = term.toLowerCase();
+  return MATCH.substring(0, length) === term.substring(0, length);
 };
 
 var Player = {};

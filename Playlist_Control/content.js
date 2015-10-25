@@ -25,8 +25,8 @@ api.video = {};
 api.video.set = function(url){
 	if(app.debug) console.log('api.video.set', url);
 	if(!url) return;
-	$('#newVideo').val(url).trigger('change');
-	$('#newVideoBtn').trigger('click');
+	$('#mainInput').val(url).trigger('change');
+	$('#mainInputBtn').trigger('click');
 	return true;
 };
 api.player = {};
@@ -46,18 +46,15 @@ api.player.set = function(data){
 api.search = {};
 api.search.get = function(term){
 	console.log('api.search.get', term);
-	
-	// var _callback = function(r){
-	// 	cl('callback get vimeo search, r',r);
-	// };
-	// $.getJSON('https://api.vimeo.com/videos?query='+term+'&sort=relevant&videoEmbeddable=true&part=snippet,contentDetails&access_token='+KEYS['vimeo'], _callback);
 
 	if(!term) return;
 	$search = $('#search');
 	$search.find('input').val(term).trigger('change');
+	$('#mainInput').val(term).trigger('change');
 	$('#search-input').val(term).trigger('change');
-	$search.find('button').trigger('click');
-	$('#api-send-search').trigger('click');
+	//$search.find('button').trigger('click');
+	$('#mainInputBtn').trigger('click');
+	//$('#api-send-search').trigger('click');
 
 };
 api.search.response = null;

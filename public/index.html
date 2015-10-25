@@ -40,14 +40,16 @@
                         <h1 id="logo" class="no-margin">Playlist</h1>
                       </div>
                       <div  class="col-md-5">
-                        <div id="search" class="input-group" ng-cloak >
-                          <input value="" ng-keyup="fakeSearchKeyUp()" ng-model="searchTerm" type="text" class="form-control" placeholder="{{ 'SEARCH_INPUT_PLACEHOLDER' | translate}}" />
-                          <span class="input-group-btn">
-                            <button ng-click="fakeSearchKeyUp()" class="btn btn-info" type="button">
-                            <span class="glyphicon glyphicon-search"></span>
-                            </button>
-                          </span>
-                        </div>
+                        <form no-validate ng-submit="inputSubmit(true)" name="inputForm">
+                          <div id="search" class="input-group" ng-cloak >
+                            <input value="" ng-keyup="inputSubmit()" ng-model="searchTerm" type="text" class="form-control" placeholder="{{ 'SEARCH_INPUT_PLACEHOLDER' | translate}}" />
+                            <span class="input-group-btn">
+                              <button type="submit" class="btn btn-info" type="button">
+                              <span class="glyphicon glyphicon-search"></span>
+                              </button>
+                            </span>
+                          </div>
+                        </form>
                       </div>
                       <div ng-controller="BrowsingUserCtrl" class="col-md-3 auth-box">
                         <nav class="right" ng-cloak>
@@ -122,14 +124,16 @@
                     <!-- /.input-group -->
                     <div id="videoUploader">
                       <h4 ng-cloak>{{ 'ADD_VIDEO_TITLE' | translate }}</h4>
-                      <div class="input-group" ng-controller="VideoUploaderCtrl">
-                          <input id="newVideo" ng-cloak value="" placeholder="{{'ADD_INPUT_PLACEHOLDER' | translate}}" ng-model="url" type="text" class="form-control">
+                      <form no-validate ng-submit="inputSubmit(true)" name="inputForm">
+                        <div class="input-group">
+                          <input id="mainInput" ng-cloak value="" placeholder="{{'ADD_INPUT_PLACEHOLDER' | translate}}" ng-keyup="inputSubmit()" ng-model="searchTerm" type="text" class="form-control">
                           <span class="input-group-btn">
-                              <button id="newVideoBtn" ng-click="send()" class="btn btn-info" type="button">
+                              <button id="mainInputBtn" type="submit" class="btn btn-info" type="button">
                                   <span class="glyphicon glyphicon-plus"></span>
-                          </button>
+                              </button>
                           </span>
-                      </div>
+                        </div>
+                      </form>
                       <br>
                       <div ng-cloak ng-if="User.isLogged" class="full playlist-nav-manage" ng-controller="PlaylistManagerCtrl">
                         <div class="btn-group right" dropdown>
@@ -258,8 +262,8 @@
                <a title="Fechar" href="javascript:void(0)" ng-click="closeSearchModal();" class="search-modal-close">
                 <i class="glyphicon glyphicon-remove-circle"></i>
                </a>
-               <button id="api-send-search" class="hide" ng-click="requestSearch()"></button>
-               <input id="search-input" value="" ng-keyup="requestSearch()" ng-model="searchTerm" type="text" class="form-control" placeholder="Pesquisar vídeo no Youtube e Vimeo" />
+               <button id="api-send-search" class="hide" ng-click="inputSubmit()"></button>
+               <input id="search-input" value="" ng-keyup="inputSubmit()" ng-model="searchTerm" type="text" class="form-control" placeholder="Pesquisar vídeo no Youtube e Vimeo" />
                <div ng-controller="SearchCtrl" class="row content text-center">
                  <div masonry load-images="true" data-reload-on-show masonry-options="{isFitWidth: false, percentPosition: true, columnWidth: '.col-md-3',transitionDuration: '0.35s' }" class="result-wrapper">
                    <div ng-repeat="item in resultItems" class="col-md-3 col-sm-6 hero-feature masonry-brick hide" images-loaded="imgLoadedEvents">
@@ -361,7 +365,6 @@
     <script src="scripts/components/modal/modal.service.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/videolist.js"></script>
-    <script src="scripts/controllers/videouploader.js"></script>
     <script src="scripts/controllers/videoplayer.js"></script>
     <script src="scripts/controllers/search.js"></script>
     <script src="scripts/controllers/browsinguser.js"></script>

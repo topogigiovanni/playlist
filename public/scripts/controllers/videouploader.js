@@ -1,5 +1,7 @@
 'use strict';
 
+// NÂO USADO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 /**
  * @ngdoc function
  * @name playlistApp.controller:VideouploaderCtrl
@@ -15,7 +17,7 @@ app.controller('VideoUploaderCtrl', ['$scope', '$rootScope', 'CurrentVideo', fun
     console.debug('send()', $scope.url);
     var url = $scope.url;
     if(!url)
-      url = $scope.url = angular.element('#newVideo').val() || null;
+      url = $scope.url = angular.element('#mainInput').val() || null;
     if(!url){
       // TODO apresenta erro na UI
       return;
@@ -47,6 +49,7 @@ app.controller('VideoUploaderCtrl', ['$scope', '$rootScope', 'CurrentVideo', fun
     
     var video = new Video(url, callback);
   };
+
   //console.log('videoList',  $scope.videoList);
   var addToVideoList = function(data){
     $scope.url = (data && data.url) ? data.url : '';
@@ -55,12 +58,6 @@ app.controller('VideoUploaderCtrl', ['$scope', '$rootScope', 'CurrentVideo', fun
   };
   $rootScope.$on('Search.AddToVideoList', function(ev, data){
     console.log('on Search.AddToVideoList', data);
-    // V1
-    // $scope.videoList.push(data.video);
-    // $scope.$apply();
-   
-    // $scope.url = data.url;
-    // $scope.send();
     addToVideoList(data);
   });
 

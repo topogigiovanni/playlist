@@ -26,7 +26,7 @@ app.controller('MainCtrl', ['$scope','$rootScope', '$translate', '$cookies', 'Cu
     if(!term) return;
     if(helper.Url.isValid(term)){
       if(allowAddVideo)
-        addToVideoList(term);
+        addToVideoList({url:term});
     }else{
       Search.doSearch(term);
       Search.modal.open();
@@ -41,8 +41,8 @@ app.controller('MainCtrl', ['$scope','$rootScope', '$translate', '$cookies', 'Cu
   };
 
   // VideoUploader
-  var addToVideoList = function(url){
-    url = url || '';
+  var addToVideoList = function(data){
+    var url = (data && data.url) ? data.url : '';
     console.debug('addToVideoList', url);
     // if(!url)
     //   url = $scope.url = angular.element('#newVideo').val() || null;
@@ -53,9 +53,19 @@ app.controller('MainCtrl', ['$scope','$rootScope', '$translate', '$cookies', 'Cu
     var callback = function(r){
       console.log('on callback', r, video);
       if(video.isValid){
-        //video.title = r.items[0].snippet.title;
+        // atualiza vídeo
         video = video;
         videoList = videoList || [];
+        console.log('indexxx', _.findIndex(videoList, {id: video.id}));
+        // procura pela existência de outro vídeo de mesmo ID
+        if(_.findIndex(videoList, {id: video.id}) !== -1){
+          // zera valor do input
+          $scope.searchTerm = "";
+          $scope.$apply();
+          // apresenta erro de video já inserido na UI
+          alert('este vídeo já está na lista'); 
+          return;
+        }
         videoList.push(video);
         $scope.videoList = videoList;
         // zera valor do input

@@ -22,6 +22,7 @@ var $body,
 
 api = {};
 api.video = {};
+// não usado
 api.video.set = function(url){
 	if(app.debug) console.log('api.video.set', url);
 	if(!url) return;

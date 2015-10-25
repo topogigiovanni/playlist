@@ -20,9 +20,10 @@ function VimeoVideo(url, callback){
   this.instance = {};
   $.ajax({
       type:'GET',
-      url: 'http://vimeo.com/api/v2/video/' + id + '.json',
+      url: 'http://vimeo.com/api/v2/video/'+id+'.json',
       jsonp: 'callback',
-      dataType: 'jsonp',
+      // comentado em 25-10-15
+      //dataType: 'jsonp',
       success: callback
   });
 };
@@ -85,7 +86,7 @@ function Video(url, callback){
         };
         self.duration = new VideoDuration(v.duration);
       }else{
-        self.isValid= false;
+        self.isValid = false;
       }
       callback(data);
     };

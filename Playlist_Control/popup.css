@@ -4,3 +4,6 @@ body{
 .block{
 	display: block;
 }
+#addForm input{
+	font-size: 9pt;
+}

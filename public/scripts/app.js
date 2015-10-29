@@ -144,14 +144,35 @@ Player.Youtube.call = function(frame_id, func, args){
       }), "*");
   }
 };
+Player.Youtube.lastId = null;
 Player.Youtube.instance = null;
 Player.Youtube.newInstance = function(id){
+  Player.Youtube.lastId = id;
   return new YT.Player(PLAYER, {
           videoId: id,
+          playerVars: { 'autoplay': 1},
           events: {
-            'onStateChange': Player.Youtube.OnPlayerStateChange
+            'onReady': Player.Youtube.OnPlayerReady
+            ,'onStateChange': Player.Youtube.OnPlayerStateChange
           }
         });
+};
+Player.Youtube.OnPlayerReady = function(e){
+  console.log('youtube play onPlayerReady', e, Player.Youtube.instance);
+  //console.log('getPlayerState()-----', Player.Youtube.instance.getPlayerState()).
+  e.target.playVideo();
+  Player.Youtube.instance = Player.Youtube.newInstance(Player.Youtube.lastId);
+  //Player.Youtube.instance.playVideo();
+
+  //e.target.onStateChange = Player.Youtube.OnPlayerStateChange;
+  // setTimeout((function(){
+  //  Player.Youtube.instance.addEventListener('onStateChange', function(e) {
+  //       // TODO transformar e 1 unica função
+  //       console.log('State is:', e.data);
+  //       Player.Youtube.OnPlayerStateChange(e);
+  //   });
+  // }),30);
+  
 };
 Player.Youtube.OnPlayerStateChange = function(e){
   console.log('youtube play onPlayerStateChange', e);

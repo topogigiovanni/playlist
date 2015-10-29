@@ -11,7 +11,7 @@ app.controller('VideoPlayerCtrl', ['$scope', '$rootScope', 'Player', 'CurrentVid
   
  // angular.extend($scope, Player);
   $scope.Player = Player;
-  $scope.isPlaying  = true;
+  $scope.isPlaying = true;
 
   $rootScope.$on('Player.Pause', function(ev, data){
     console.log('escotou Player.Pause', ev, data, Player);

@@ -83,7 +83,7 @@ app.factory('Player', function($rootScope, CurrentVideo, YoutubeCommand, VimeoCo
       }
       else
         if(videoList[0])
-          CurrentVideo.setVideo(videoList[0], false);
+          CurrentVideo.setVideo(videoList[0], true);
     };
     factory.isPlaying = false;
     factory.doRandom = false;

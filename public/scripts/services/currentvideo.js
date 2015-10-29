@@ -46,16 +46,10 @@ app.factory('CurrentVideo', function($rootScope, $sce) {
         Player.Youtube.instance = Player.Youtube.newInstance(data.id);
       };
 
-      // factory.instance = new YT.Player('player1', {
-      //   videoId: data.id,
-      //   events: {
-      //     'onStateChange': Player.Youtube.OnPlayerStateChange
-      //   }
-      // });
-      
-      //factory.instance.addEventListener('onStateChange', Player.Youtube.OnPlayerStateChange);
       if(apply)
         $rootScope.$apply();
+      //$rootScope.$broadcast('Player.Play', {isPlaying: true});
+      //$rootScope.$broadcast('Player.Replay', {});
       //console.log('video getApiInterface', data.instance.B.videoData.title);
 
       $playlist.mCustomScrollbar('scrollTo','.vid-'+factory.id);

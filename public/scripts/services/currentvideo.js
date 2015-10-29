@@ -36,24 +36,14 @@ app.factory('CurrentVideo', function($rootScope, $sce) {
       angular.extend(factory, data);
       factory.iframeSrc = $sce.trustAsResourceUrl(data.iframeSrc);
       if(data.origin == 'youtube'){
-        //   video = new YT.Player('player1', {
-        //     events: {
-        //       'onStateChange': onPlayerStateChange
-        //     }
-        //   });
-        //factory.instance = Player.Youtube.newInstance(data.id);
-       
+        // re-instancia caso tenha vindo de outro player provider
         Player.Youtube.instance = Player.Youtube.newInstance(data.id);
       };
 
       if(apply)
         $rootScope.$apply();
-      //$rootScope.$broadcast('Player.Play', {isPlaying: true});
-      //$rootScope.$broadcast('Player.Replay', {});
-      //console.log('video getApiInterface', data.instance.B.videoData.title);
 
       $playlist.mCustomScrollbar('scrollTo','.vid-'+factory.id);
-      //$rootScope.$broadcast('CurrentVideo.Changed', {data: factory});
   
     };
     function reSetVideo(data){

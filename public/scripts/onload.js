@@ -81,9 +81,4 @@ $(window).load(function() {
 	};
 	bindDropVideo();
 
-	$player[0].addEventListener('onStateChange', function(e) {
-        // TODO transformar e 1 unica função
-        console.log('State is in hjquery iframeee:', e.data);
-        Player.Youtube.OnPlayerStateChange(e);
-    });
 });

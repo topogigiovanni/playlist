@@ -57,10 +57,9 @@
                     }
                     .btn {
                         padding: 15px 26px;
-                        color: #eae8e9;
                         font: 400 14pt Arial;
-                        background: #cd0f37;
-                        border-color: #cd0f37;
+                        
+                        @extend .btn-featured;
                     }
                 }
             } // end form

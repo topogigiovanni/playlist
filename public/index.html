@@ -11,10 +11,10 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(public) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootswatch-dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css" />
-    <link rel="stylesheet" href="bower_components/ng-sortable/dist/ng-sortable.css" />
-    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+    <link rel='stylesheet' href='bower_components/bootswatch-dist/css/bootstrap.css' />
+    <link rel='stylesheet' href='bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css' />
+    <link rel='stylesheet' href='bower_components/ng-sortable/dist/ng-sortable.css' />
+    <link rel='stylesheet' href='bower_components/font-awesome/css/font-awesome.css' />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -31,25 +31,22 @@
     <![endif]-->
 
     <!-- Page Content -->
-    <div class="container no-padding">
-        <div class="row">
+    <div class="full">
+        <div class="">
 
             <!-- Blog Sidebar Column -->
             <div class="sidebar-custom">
-                <h1 id="logo" class="sprite">Playlist.ws</h1>
+                <h1 id="logo" class="sprite">
+                    Playlist.ws
+                </h1>
                 <div id="navegator" class="">
                     <!-- /.input-group -->
                     <div id="videoUploader">
-                        <h4 ng-cloak>{{ 'ADD_VIDEO_TITLE' | translate }}</h4>
+                        
                         <form no-validate ng-submit="inputSubmit(true)" name="inputForm">
-                            <div class="input-group">
-                                <input id="mainInput" ng-cloak value="" placeholder="{{'ADD_INPUT_PLACEHOLDER' | translate}}" ng-keyup="inputSubmit()" ng-model="searchTerm" type="text" class="form-control">
-                                <span class="input-group-btn">
-                              <button id="mainInputBtn" type="submit" class="btn btn-info" type="button">
-                                  <span class="glyphicon glyphicon-plus"></span>
-                                </button>
-                                </span>
-                            </div>
+                            
+                            <input id="mainInput" ng-cloak value="" placeholder="{{'SEARCH_INPUT_PLACEHOLDER' | translate}}" ng-keyup="inputSubmit()" ng-model="searchTerm" type="text" class="form-control">
+                            <i class="sprite icon-search"></i>
                         </form>
                         <br>
                         <div ng-cloak ng-if="User.isLogged" class="full playlist-nav-manage" ng-controller="PlaylistManagerCtrl">

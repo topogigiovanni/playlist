@@ -1,13 +1,53 @@
 .sidebar-custom {
     width: 342px; /*344px;*/
     float: left;
-    background: #1e1b1c;
+    background: $sidebarBG;
     color: #fff;
+    padding: 0 23px;
     
     #logo{
         background: url(../images/logo.png);
         width: 241px;
         height: 48px;
-        margin: 35px 50px;
-    }
+        margin: 35px auto;
+    }//end #logo
+    
+    #videoUploader{
+        position: relative;
+        
+        .icon-search{
+            position: absolute;
+            right: 11px;
+            background: url("../images/sprite.png") no-repeat -2px -3px;
+            width: 22px;
+            height: 21px;
+            top: 10px;
+        }
+        input{
+            background-color: rgba(88, 88, 88, 0.12);
+            border-color: #4a4848;
+            color: #eae6e7;
+            font: 400 10.77pt Arial;
+            width: 100%;
+            padding-right: 12%;
+        }
+        ::-webkit-input-placeholder {
+            /* WebKit, Blink, Edge */
+            color: #eae6e7;
+        }
+        :-moz-placeholder {
+            /* Mozilla Firefox 4 to 18 */
+            color: #eae6e7;
+            opacity: 1;
+        }
+        ::-moz-placeholder {
+            /* Mozilla Firefox 19+ */
+            color: #eae6e7;
+            opacity: 1;
+        }
+        :-ms-input-placeholder {
+            /* Internet Explorer 10-11 */
+            color: #eae6e7;
+        }
+    }//end #videoUploader
 }

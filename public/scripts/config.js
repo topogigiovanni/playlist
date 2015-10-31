@@ -61,7 +61,7 @@ app.config(function($httpProvider, $translateProvider,  ScrollBarsProvider) {
         'FORGOT_MY_PASS': 'Esqueci minha senha',
         'HELLO': 'Olá',
         'ADD_VIDEO_TITLE': 'Adicionar Vídeo',
-        'SEARCH_INPUT_PLACEHOLDER': 'Pesquise ou cole a URL aqui',
+        'SEARCH_INPUT_PLACEHOLDER': 'Pesquise ou cole a URL',
         'DRAG_PLACE_TITLE':'Arraste aqui para adicionar a Playlist',
         'MYPLAYLIST_BUTTON': 'Minhas Playlists',
         'CREATE_NEW_PLAYLIST': 'Criar nova Playlist',

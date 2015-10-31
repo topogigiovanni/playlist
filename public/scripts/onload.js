@@ -39,7 +39,7 @@ $(window).load(function() {
         $('.main-container').width(w);
     };
 	var onResize = function() {
-        adjustMainContainerWidth();
+        //adjustMainContainerWidth();
 		adjustPlayerHeight();
 		adjustPlaylistHeight();
 	};

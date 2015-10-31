@@ -2,15 +2,76 @@
 .main-container {
     width: 75.1%;
     float: right;
-    
-    .intro{
+    .intro {
         width: 100%;
         position: relative;
-        .form-wrapper{
+        .form-wrapper {
             z-index: 3;
-            
+            width: 100%;
+            position: absolute;
+            margin: 15% 0;
         }
-    }// end .intro
+        .form-content {
+            text-align: center;
+            h2 {
+                color: rgba(234, 232, 233, 0.5);
+                font: 300 56px Rubik;
+                margin-bottom: 22px;
+            }
+            p {
+                color: rgba(234, 232, 233, 0.5);
+                font: 400 24px Rubik;
+                margin-bottom: 36px;
+            }
+            form {
+                margin-bottom: 34px;
+                
+                .input-group {
+                    width: 800px;
+                    margin: 0 auto;
+                    input {
+                        background-color: rgba(30, 27, 28, 0.26);
+                        font: 400 13.5pt Rubik;
+                        border-color: #5f3e49;
+                        color: #eae6e7;
+                        height: 54px;
+                        text-indent: 15px;
+                    }
+                    ::-webkit-input-placeholder {
+                        /* WebKit, Blink, Edge */
+                        color: #eae6e7;
+                    }
+                    :-moz-placeholder {
+                        /* Mozilla Firefox 4 to 18 */
+                        color: #eae6e7;
+                        opacity: 1;
+                    }
+                    ::-moz-placeholder {
+                        /* Mozilla Firefox 19+ */
+                        color: #eae6e7;
+                        opacity: 1;
+                    }
+                    :-ms-input-placeholder {
+                        /* Internet Explorer 10-11 */
+                        color: #eae6e7;
+                    }
+                    .btn {
+                        padding: 15px 26px;
+                        color: #eae8e9;
+                        font: 400 14pt Arial;
+                        background: #cd0f37;
+                        border-color: #cd0f37;
+                    }
+                }
+            } // end form
+            .video-providers {
+                background: url('../images/sprite.png') no-repeat -59px -171px;
+                width: 329px;
+                height: 53px;
+                margin: 0 auto;
+            }
+        } // end .form-content
+    } // end .intro
 }
 //end .main-container
 // .intro-slider

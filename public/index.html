@@ -20,6 +20,8 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+    <link href='https://fonts.googleapis.com/css?family=Rubik:400,300' rel='stylesheet' type='text/css'>
+    
     <script src="https://apis.google.com/js/api:client.js"></script>
 </head>
 
@@ -223,19 +225,20 @@
                 <div class="intro" ng-class="{hide: videoList.length}">
                     <!-- Search and Add video input -->
 
-                    <div class="absolute form-wrapper">
+                    <div class="form-wrapper">
 
-                        <div class="col-md-5">
+                        <div class="form-content">
+                            <h2>Toque playlists de um jeito fácil!</h2>
+                            <p>Sem propagandas, tudo grátis e rápido.</p>
                             <form no-validate ng-submit="inputSubmit(true)" name="inputForm">
                                 <div id="search" class="input-group" ng-cloak>
                                     <input value="" ng-keyup="inputSubmit()" ng-model="searchTerm" type="text" class="form-control" placeholder="{{ 'SEARCH_INPUT_PLACEHOLDER' | translate}}" />
                                     <span class="input-group-btn">
-                              <button type="submit" class="btn btn-info" type="button">
-                              <span class="glyphicon glyphicon-search"></span>
-                                    </button>
+                              <button type="submit" class="btn btn-info" type="button">Play!</button>
                                     </span>
                                 </div>
                             </form>
+                            <div class="sprite video-providers"></div>
                         </div>
 
                     </div>

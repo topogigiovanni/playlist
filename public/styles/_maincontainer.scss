@@ -1,0 +1,43 @@
+//.main-container
+.main-container {
+    width: 75.1%;
+    float: right;
+    
+    .intro{
+        width: 100%;
+        position: relative;
+        .form-wrapper{
+            z-index: 3;
+            
+        }
+    }// end .intro
+}
+//end .main-container
+// .intro-slider
+.intro-slider {
+    width: 100%;
+    display: block;
+    margin: 0;
+    padding: 0;
+    li {
+        -webkit-backface-visibility: hidden;
+        position: absolute;
+        display: none;
+        width: 100%;
+        left: 0;
+        top: 0;
+    }
+    li:first-child {
+        position: relative;
+        display: block;
+        float: left;
+    }
+    img {
+        display: block;
+        height: auto;
+        float: left;
+        width: 100%;
+        border: 0;
+    }
+}
+//end .intro-slider

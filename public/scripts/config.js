@@ -50,7 +50,8 @@ app.config(function($httpProvider, $translateProvider,  ScrollBarsProvider) {
     	'USER_REGISTER_MIN_CHAR_PASS': 'Your password must be at least 3 characters.',
         'USER_REGISTER_NAME': 'Name is required.',
         'USER_REGISTER_EMAIL_INVALID': 'Please enter a valid email.',
-        'USER_REGISTER_EMAIL': 'Enter your email.'
+        'USER_REGISTER_EMAIL': 'Enter your email.',
+        'SITE_DESCRIPTION': 'ECreate your playlists fast, free and easy'
     });
     // PT_BR
     $translateProvider.translations('pt-br', {
@@ -84,10 +85,13 @@ app.config(function($httpProvider, $translateProvider,  ScrollBarsProvider) {
         'USER_REGISTER_MIN_CHAR_PASS': 'Sua senha deve ter no mínimo 3 caracteres.',
         'USER_REGISTER_NAME': 'Nome é obrigatório.',
         'USER_REGISTER_EMAIL_INVALID': 'Digite um email válido.',
-        'USER_REGISTER_EMAIL': 'Digite seu email.'
+        'USER_REGISTER_EMAIL': 'Digite seu email.',
+        'SITE_DESCRIPTION': 'Experimente criar suas playlists de forma rápida, grátis e descomplicada'
+
     });  
-    $translateProvider.preferredLanguage('pt-br');
-    
+    //$translateProvider.preferredLanguage('pt-br');
+    $translateProvider.preferredLanguage('en');
+
     //$translateProvider.useLocalStorage();
 
     //console.log('$translateProvider', $translateProvider);

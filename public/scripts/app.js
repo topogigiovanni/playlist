@@ -29,7 +29,7 @@ var $searchModal = $body.find('.search-modal');
 var currentPlaylist = new Playlist();
 // TODO resgatar lista do Storage
 var originalVideoList = [];
-var videoList = []; //originalVideoList; 
+var videoList = []; 
 var currentVideo = {};
 
 // Constants
@@ -189,13 +189,6 @@ Player.Youtube.OnPlayerStateChange = function(e){
   
 };
 Player.Vimeo = {};
-
-var Api = {};
-Api.init = function(){
-  $body.on('Api.Set', function(a,b,c){
-      console.log('on api set', a, b, c);
-  });
-};
 
 function onSignIn(googleUser) {
   var profile = googleUser.getBasicProfile();

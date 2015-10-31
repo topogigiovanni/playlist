@@ -1,14 +1,28 @@
 $(window).load(function() {
 	'use strict';
-	
-	// Inicia API
-	Api.init();
-
+    
+    //Inicia sliders(intro)
+    $('.intro-slider').responsiveSlides({
+        auto: true, // Boolean: Animate automatically, true or false
+        speed: 500, // Integer: Speed of the transition, in milliseconds
+        timeout: 8000, // Integer: Time between slide transitions, in milliseconds
+        pager: false, // Boolean: Show pager, true or false
+        nav: false, // Boolean: Show navigation, true or false
+        random: true, // Boolean: Randomize the order of the slides, true or false
+        pause: false, // Boolean: Pause on hover, true or false
+        pauseControls: false, // Boolean: Pause when hovering controls, true or false
+        maxwidth: "", // Integer: Max-width of the slideshow, in pixels
+        namespace: "introSlider", // String: Change the default namespace used
+        before: function () {}, // Function: Before callback
+        after: function () {} // Function: After callback
+    });
+    
 	//$('.modal-btn').modal();
 	$searchModal = $body.find('.search-modal');
 	var $playlist = $('#playlist');
 	var $player = $('#' + PLAYER);
 	var availHeight = screen.availHeight;
+    var availWidth = screen.availWidth;
 	var adjustPlayerHeight = function() {
 		var h = availHeight - $('#header').height() - 100;
 		$player.height(h);
@@ -19,7 +33,13 @@ $(window).load(function() {
 		$playlist.height(h);
 		//$('#VideoList').height(h);
 	};
+    var adjustMainContainerWidth = function(){
+        var w = availWidth - $('.sidebar-custom').width();
+        console.log('adjustMainContainerWidth', availWidth, w);
+        $('.main-container').width(w);
+    };
 	var onResize = function() {
+        adjustMainContainerWidth();
 		adjustPlayerHeight();
 		adjustPlaylistHeight();
 	};

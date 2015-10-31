@@ -20,7 +20,8 @@
     "angular-bootstrap": "~0.13.4",
     "angular-sanitize": "~1.4.7",
     "font-awesome": "~4.4.0",
-    "angular-translate": "~2.8.1"
+    "angular-translate": "~2.8.1",
+    "ResponsiveSlides": "*"
   },
   "overrides": {
     "masonry": {

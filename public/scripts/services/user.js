@@ -15,6 +15,7 @@ app.service('UserModel', function () {
 	this.password = '';
 	this.provider = '';
 	this.providerId = '';
+	this.avatar = '';
 	this.playlists = [];
 	this.__v = null;
 });
@@ -91,7 +92,7 @@ app.service('GoogleUser', function ($rootScope, UserModel) {
 				response.email = profile.getEmail();
 				response.provider = 'google';
 				response.providerId = profile.getId();
-
+				response.avatar = profile.getImageUrl() || '';
 				var msg = {
 					isNew: true,
 					data: response
@@ -170,6 +171,7 @@ app.service('FacebookUser', function ($rootScope, UserModel) {
 			response = _.extend(UserModel, response);
 			response.provider = 'facebook';
 			response.providerId = response.id;
+			response.avatar = 'http://graph.facebook.com/v2.5/'+response.id+'/picture';
 			var msg = {
 				isNew: isNew,
 				data: response
@@ -350,13 +352,6 @@ app.service('User', function ($rootScope, $http, $cookies, $resource, FacebookUs
 		if(!args.data) return;
 		var data = args.data;
 
-		// self.name = data.name;
-		// self.email = data.email;
-		// self.provider = data.provider;
-		// self.providerId = data.providerId;
-		// self.isLogged = true;
-		// TODO ver como resgatar no token no exemplo do angualr
-
 		// // TODO ver se angular.extend nao substitui apply
 		// $rootScope.$apply();
 
@@ -371,7 +366,8 @@ app.service('User', function ($rootScope, $http, $cookies, $resource, FacebookUs
 	          email: data.email,
 	          password: data.providerId,
 	          provider: data.provider,
-	          providerId: data.providerId
+	          providerId: data.providerId,
+	          avatar: data.avatar
 	        },function(resp){
 	        	console.log('resouce user save success', resp);
 	        },function(err){
@@ -380,7 +376,6 @@ app.service('User', function ($rootScope, $http, $cookies, $resource, FacebookUs
 	        .$promise
 	        .then( function(r) {
 	        	console.log('user savee!!', r);
-	          // TODO setar ID
 	          data._id = r._id;
 	          setAuth(data, self);
 
@@ -389,7 +384,6 @@ app.service('User', function ($rootScope, $http, $cookies, $resource, FacebookUs
 	          // self._id = r._id;
 
 	          setTokenCookie(r.token);
-	          //$rootScope.$apply();
 
 	          // TODO ver se angular.extend nao substitui apply
 			  //$rootScope.$apply();

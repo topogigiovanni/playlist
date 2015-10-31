@@ -14,8 +14,10 @@ var UserSchema = new Schema({
   hashedPassword: String,
   provider: String,
   providerId: String,
+  avatar: String,
   salt: String,
-  playlists: [Schema.Types.Mixed]});
+  playlists: [Schema.Types.Mixed]
+});
 
 
 

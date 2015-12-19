@@ -36,147 +36,141 @@
 
             <!-- Blog Sidebar Column -->
             <div class="sidebar-custom">
+                <div class="lang-select btn-group" dropdown>
+                    <button class="btn no-decoration btn-link btn-xs dropdown-toggle" dropdown-toggle ng-disabled="disabled" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{currentLang}}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a ng-click="changeLanguage('en');" href="#">en</a>
+                        </li>
+                        <li>
+                            <a ng-click="changeLanguage('pt-br');" href="#">pt-br</a>
+                        </li>
+                    </ul>
+                </div>
                 <h1 id="logo" class="sprite">
                     Playlist.ws
                 </h1>
                 <div id="navegator" class="">
                     <!-- /.input-group -->
-                    <div id="videoUploader">
-                        
-                        <form no-validate ng-submit="inputSubmit(true)" name="inputForm">
+                    <div class="sidebar-wrapper">
+                        <div id="videoUploader">
                             
-                            <input id="mainInput" ng-cloak value="" placeholder="{{'SEARCH_INPUT_PLACEHOLDER' | translate}}" ng-keyup="inputSubmit()" ng-model="searchTerm" type="text" class="form-control">
-                            <i class="sprite icon-search"></i>
-                        </form>
-                        <br>
-                        <div ng-cloak ng-if="User.isLogged" class="full playlist-nav-manage" ng-controller="PlaylistManagerCtrl">
-                            <div class="btn-group right" dropdown>
-                                <button class="btn no-decoration btn-primary  btn-xs dropdown-toggle" dropdown-toggle ng-disabled="disabled" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{ 'MYPLAYLIST_BUTTON' | translate}} ({{User.playlists.length}})
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li ng-if="!User.playlists.length">
-                                        <a href="#" ng-click="toggleShowCreateForm();">{{ 'CREATE_NEW_PLAYLIST' | translate }}</a>
-                                    </li>
-                                    <li ng-class="{'active':currentPlaylist.title == p.title}" ng-repeat="p in User.playlists">
-                                        <a href="#" ng-click="setCurrentPlaylist(p);">{{p.title}}</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <button class="left btn no-decoration btn-info btn-xs dropdown-toggle" ng-click="toggleShowCreateForm()"><i class="fa fa-plus"></i> Playlist</button>
-                            <div class="clearfix clear"></div>
-                            <br>
-                            <form name="form" ng-submit="save(form);" ng-hide="!showCreateForm" class="create-user" novalidate>
-                                <div class="input-group">
-                                    <input ng-model="playlistTitle" class="form-control title" name="playlistTitle" placeholder="Título da Playlist" type="text" />
-                                </div>
+                            <form no-validate ng-submit="inputSubmit(true)" name="inputForm">
+                                
+                                <input id="mainInput" ng-cloak value="" placeholder="{{'SEARCH_INPUT_PLACEHOLDER' | translate}}" ng-keyup="inputSubmit()" ng-model="searchTerm" type="text" class="form-control">
+                                <i class="sprite icon-search"></i>
                             </form>
-                            <div ng-if="showManagerButtons() && !showCreateForm" class="playlist-name btn-group left" dropdown>
-                                <a class="btn no-decoration btn-link-classic  btn-xs dropdown-toggle" dropdown-toggle ng-disabled="disabled" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <em ng-bind="currentPlaylist.title"></em>
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a ng-click="edit();" href="#">
-                                            <span class="text-right" ng-bind="'PLAYLIST_OPT_RENAME' | translate"></span>
-                                            <i class="fa fa-pencil text-left"></i>
-                                        </a>
-                                        <div class="clearfix clear"></div>
-                                    </li>
-                                    <li>
-                                        <a ng-click="delete();" href="#">
-                                            <span class="text-right" ng-bind="'PLAYLIST_OPT_DELETE' | translate"></span>
-                                            <i class="fa fa-trash-o text-left"></i>
-                                        </a>
-                                        <div class="clearfix clear"></div>
-                                    </li>
-                                </ul>
+                            <br>
+                            <div ng-cloak ng-if="User.isLogged" class="full playlist-nav-manage" ng-controller="PlaylistManagerCtrl">
+                                <div class="btn-group right" dropdown>
+                                    <button class="btn no-decoration btn-primary  btn-xs dropdown-toggle" dropdown-toggle ng-disabled="disabled" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {{ 'MYPLAYLIST_BUTTON' | translate}} ({{User.playlists.length}})
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li ng-if="!User.playlists.length">
+                                            <a href="#" ng-click="toggleShowCreateForm();">{{ 'CREATE_NEW_PLAYLIST' | translate }}</a>
+                                        </li>
+                                        <li ng-class="{'active':currentPlaylist.title == p.title}" ng-repeat="p in User.playlists">
+                                            <a href="#" ng-click="setCurrentPlaylist(p);">{{p.title}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <button class="left btn no-decoration btn-info btn-xs dropdown-toggle" ng-click="toggleShowCreateForm()"><i class="fa fa-plus"></i> Playlist</button>
+                                <div class="clearfix clear"></div>
+                                <br>
+                                <form name="form" ng-submit="save(form);" ng-hide="!showCreateForm" class="create-user" novalidate>
+                                    <div class="input-group">
+                                        <input ng-model="playlistTitle" class="form-control title" name="playlistTitle" placeholder="Título da Playlist" type="text" />
+                                    </div>
+                                </form>
+                                <div ng-if="showManagerButtons() && !showCreateForm" class="playlist-name btn-group left" dropdown>
+                                    <a class="btn no-decoration btn-link-classic  btn-xs dropdown-toggle" dropdown-toggle ng-disabled="disabled" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <em ng-bind="currentPlaylist.title"></em>
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a ng-click="edit();" href="#">
+                                                <span class="text-right" ng-bind="'PLAYLIST_OPT_RENAME' | translate"></span>
+                                                <i class="fa fa-pencil text-left"></i>
+                                            </a>
+                                            <div class="clearfix clear"></div>
+                                        </li>
+                                        <li>
+                                            <a ng-click="delete();" href="#">
+                                                <span class="text-right" ng-bind="'PLAYLIST_OPT_DELETE' | translate"></span>
+                                                <i class="fa fa-trash-o text-left"></i>
+                                            </a>
+                                            <div class="clearfix clear"></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <button ng-if="showManagerButtons()" ng-click="save();" class="right btn no-decoration btn-success btn-xs dropdown-toggle" ng-bind="'SAVE_PLAYLIST_BUTTON' | translate"></button>
+                                <div class="clearfix clear"></div>
                             </div>
-                            <button ng-if="showManagerButtons()" ng-click="save();" class="right btn no-decoration btn-success btn-xs dropdown-toggle" ng-bind="'SAVE_PLAYLIST_BUTTON' | translate"></button>
-                            <div class="clearfix clear"></div>
                         </div>
-                    </div>
-                    <div ng-controller="VideoPlayerCtrl" class="" id="videoCtrl">
-                        <ul class="pagination block pagination-sm">
-                            <li>
-                                <button id="playerPrev" class="btn btn-lg btn-default" ng-disabled="!Player.doRepeat && (!videoList.length || videoList[0].id == currentVideo.id)" ng-click="Player.prev();" href="javascript:void(0)">
-                                    <i class="glyphicon glyphicon-backward"></i>
-                                </button>
-                            </li>
-                            <li>
-                                <button id="playerPlay" class="btn btn-lg btn-default" ng-disabled="!videoList.length" ng-click="Player.play();" href="javascript:void(0)">
-                                    <i ng-class="Player.isPlaying ? 'glyphicon glyphicon-pause' : 'glyphicon glyphicon-play'" class="glyphicon glyphicon-play"></i>
-                                </button>
-                            </li>
-                            <li>
-                                <button id="playerNext" class="btn btn-lg btn-default" ng-disabled="!Player.doRepeat && (!videoList.length || videoList[videoList.length - 1].id == currentVideo.id)" ng-click="Player.next();" href="javascript:void(0)">
-                                    <i class="glyphicon glyphicon-forward"></i>
-                                </button>
-                            </li>
-                        </ul>
-                        <ul class="pagination block pagination-sm">
-                            <li>
-                                <button id="playerRepeat" ng-class="{active: Player.doRepeat}" data-toggle="tooltip" data-placement="top" title="Repetir lista" class="btn btn-xs btn-default" ng-disabled="!videoList.length" ng-click="Player.setRepeat()" href="javascript:void(0)">
-                                    <i class="glyphicon glyphicon-repeat"></i>
-                                </button>
-                            </li>
-                            <li>
-                                <button id="playerRandom" ng-class="{active: Player.doRandom}" data-toggle="tooltip" data-placement="top" title="Ativar ordem aleatória" class="btn btn-xs btn-default" ng-disabled="!videoList.length" ng-click="Player.setRandom();" href="javascript:void(0)">
-                                    <i class="glyphicon glyphicon-random"></i>
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-                    <div ng-controller="BrowsingUserCtrl" class="col-md-3 auth-box">
-                        <nav class="right" ng-cloak>
-                            <div ng-if="!User.isLogged">
-                                <a href="#" ng-click="openLoginModal();" class="btn btn-primary btn">Login</a> &nbsp;&nbsp;&nbsp;
-                                <a href="#" ng-click="openRegisterModal();" class="btn btn-info btn" ng-bind="'CREATE_ACCOUNT' | translate"></a>
-                                <div class="lang-select btn-group" dropdown>
-                                    <button class="btn no-decoration btn-link btn-xs dropdown-toggle" dropdown-toggle ng-disabled="disabled" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        {{currentLang}}
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a ng-click="changeLanguage('en');" href="#">en</a>
-                                        </li>
-                                        <li>
-                                            <a ng-click="changeLanguage('pt-br');" href="#">pt-br</a>
-                                        </li>
-                                    </ul>
+                        <div ng-controller="VideoPlayerCtrl" class="" id="videoCtrl">
+                            <ul class="flow-ctrl left">
+                                <li>
+                                    <a id="playerPrev" class="" ng-disabled="!Player.doRepeat && (!videoList.length || videoList[0].id == currentVideo.id)" ng-click="Player.prev();" href="javascript:void(0)">
+                                        <i class="step-backward"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a id="playerPlay" class="" ng-disabled="!videoList.length" ng-click="Player.play();" href="javascript:void(0)">
+                                        <i ng-class="Player.isPlaying ? 'fa fa-pause' : 'play'" class="play"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a id="playerNext" class="" ng-disabled="!Player.doRepeat && (!videoList.length || videoList[videoList.length - 1].id == currentVideo.id)" ng-click="Player.next();" href="javascript:void(0)">
+                                        <i class="
+    step-forward"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="state-ctrl right">
+                                <li>
+                                    <a>
+                                        <i style="visibility:hidden; width:0.5px;" class="gap-marker"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a id="playerRepeat" ng-class="{active: Player.doRepeat}" data-toggle="tooltip" data-placement="top" title="Repetir lista" class="" ng-disabled="!videoList.length" ng-click="Player.setRepeat()" href="javascript:void(0)">
+                                        <i class="refresh"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a id="playerRandom" ng-class="{active: Player.doRandom}" data-toggle="tooltip" data-placement="top" title="Ativar ordem aleatória" class="" ng-disabled="!videoList.length" ng-click="Player.setRandom();" href="javascript:void(0)">
+                                        <i class="random"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="browsingUserCtrl" ng-controller="BrowsingUserCtrl" class="auth-box">
+                            <nav class="" ng-cloak>
+                                <div class="not-logged-buttons" ng-if="!User.isLogged">
+                                    <a href="#" ng-click="openLoginModal();" class="btn btn-featured btn">Login</a>
+                                    <span ng-bind="'OR' | translate"></span>
+                                    <a href="#" ng-click="openRegisterModal();" class="btn btn-featured btn" ng-bind="'CREATE_ACCOUNT' | translate"></a>
                                 </div>
-                            </div>
-                            <div class="logged-info-box" ng-if="User.isLogged">
-                                {{'HELLO' | translate}} {{User.name}}. &nbsp;&nbsp;
-                                <div class="btn-group" dropdown>
-                                    <button class="btn no-decoration btn-link btn-xs dropdown-toggle" dropdown-toggle ng-disabled="disabled" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fa fa-gear"></i>
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a ng-click="User.logout();" href="#">Sair</a></li>
-                                    </ul>
+                                <div class="logged-info-box" ng-if="User.isLogged">
+                                    {{'HELLO' | translate}} {{User.name}}. &nbsp;&nbsp;
+                                    <div class="btn-group" dropdown>
+                                        <button class="btn no-decoration btn-link btn-xs dropdown-toggle" dropdown-toggle ng-disabled="disabled" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-gear"></i>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a ng-click="User.logout();" href="#">Sair</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="lang-select btn-group" dropdown>
-                                    <button class="btn no-decoration btn-link btn-xs dropdown-toggle" dropdown-toggle ng-disabled="disabled" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        {{currentLang}}
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a ng-click="changeLanguage('en');" href="#">en</a>
-                                        </li>
-                                        <li>
-                                            <a ng-click="changeLanguage('pt-br');" href="#">pt-br</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                        </nav>
+                            </nav>
+                        </div>
                     </div>
                     <div id="VideoList" ng-controller="VideoListCtrl">
                         <h5 class="playlist-title" ng-cloak> 
@@ -184,19 +178,23 @@
                         <a ng-if="videoList.length > 0"
                         ng-click="clearVideoList()"  class="clean-playlist-button" href="javascript:void(0);" ng-bind="'CLEAN_PLAYLIST_BUTTON' | translate"></a>
                       </h5>
+                        <div class="drag-video-area" ng-if="videoList.length == 0">
+                            Arraste aqui seu videos
+                        </div>
                         <div id="playlist" ng-scrollbars ng-scrollbars-config="scrollbarConfig">
                             <ul data-as-sortable="board.dragControlListeners" ng-model="videoList" class="nav nav-pills nav-stacked">
                                 <li ng-class="{'active':item.id == currentVideo.id}" ng-repeat="item in videoList" ng-click="currentVideo.setVideo(item);" class="playlist-item vid-{{item.id}}" data-as-sortable-item>
-                                    <a href="#">
-                                        <img title="Arraste para reordenar" data-as-sortable-item-handle ng-src="{{item.media.small}}" />
+                                    <hr class="separator" />
+                                    <div>
+                                        <img title="Arraste para reordenar" data-as-sortable-item-handle ng-src="{{item.media.small}}" />                                    
                                         <small ng-cloak>
-                                {{item.title}}
-                                <span>
-                                <i class="glyphicon glyphicon-time"></i>&nbsp; {{item.duration.formatted}}
-                                </span>
-                              </small>
+                                            {{item.title}}
+                                            <span> <i class="glyphicon glyphicon-time"></i>
+                                                &nbsp; {{item.duration.formatted}}
+                                            </span>
+                                        </small>
                                         <div class="clear clearfix"></div>
-                                    </a>
+                                    </div>
                                     <i ng-cloak ng-click="removeFromList($index);$event.stopPropagation();" title="Remover da lista" class="remove glyphicon glyphicon-remove"></i>
                                 </li>
                             </ul>
@@ -229,7 +227,7 @@
                             <p>Sem propagandas, tudo grátis e rápido.</p>
                             <form no-validate ng-submit="inputSubmit(true)" name="inputForm">
                                 <div id="search" class="input-group" ng-cloak>
-                                    <input value="" ng-keyup="inputSubmit()" ng-model="searchTerm" type="text" class="form-control" placeholder="{{ 'SEARCH_INPUT_PLACEHOLDER' | translate}}" />
+                                    <input value="" ng-keyup="inputSubmit()" ng-model="searchTerm" type="text" class="form-control" placeholder="{{ 'SEARCH_INPUT_PLACEHOLDER_CONTAINER' | translate}}" />
                                     <span class="input-group-btn">
                               <button type="submit" class="btn btn-info" type="button">Play!</button>
                                     </span>

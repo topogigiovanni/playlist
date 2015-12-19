@@ -26,7 +26,8 @@ app.config(function($httpProvider, $translateProvider,  ScrollBarsProvider) {
         'FORGOT_MY_PASS': 'I forgot my password',
         'HELLO': 'Hello',
         'ADD_VIDEO_TITLE': 'Add Video',
-        'SEARCH_INPUT_PLACEHOLDER': 'Search or paste URL',
+        'SEARCH_INPUT_PLACEHOLDER': 'Search or paste a video URL',
+        'SEARCH_INPUT_PLACEHOLDER_CONTAINER': 'Search or paste a video URL',
         'DRAG_PLACE_TITLE':'Drag here to add to Playlist',
         'MYPLAYLIST_BUTTON': 'My Playlists',
         'CREATE_NEW_PLAYLIST': 'Create new Playlist',
@@ -51,7 +52,8 @@ app.config(function($httpProvider, $translateProvider,  ScrollBarsProvider) {
         'USER_REGISTER_NAME': 'Name is required.',
         'USER_REGISTER_EMAIL_INVALID': 'Please enter a valid email.',
         'USER_REGISTER_EMAIL': 'Enter your email.',
-        'SITE_DESCRIPTION': 'ECreate your playlists fast, free and easy'
+        'SITE_DESCRIPTION': 'Create your playlists fast, free and easy',
+        'OR': 'or'
     });
     // PT_BR
     $translateProvider.translations('pt-br', {
@@ -61,7 +63,8 @@ app.config(function($httpProvider, $translateProvider,  ScrollBarsProvider) {
         'FORGOT_MY_PASS': 'Esqueci minha senha',
         'HELLO': 'Olá',
         'ADD_VIDEO_TITLE': 'Adicionar Vídeo',
-        'SEARCH_INPUT_PLACEHOLDER': 'Pesquise ou cole a URL',
+        'SEARCH_INPUT_PLACEHOLDER': 'Pesquise ou cole a URL do vídeo',
+        'SEARCH_INPUT_PLACEHOLDER_CONTAINER': 'Pesquise ou cole a URL do vídeo aqui',
         'DRAG_PLACE_TITLE':'Arraste aqui para adicionar a Playlist',
         'MYPLAYLIST_BUTTON': 'Minhas Playlists',
         'CREATE_NEW_PLAYLIST': 'Criar nova Playlist',
@@ -86,7 +89,8 @@ app.config(function($httpProvider, $translateProvider,  ScrollBarsProvider) {
         'USER_REGISTER_NAME': 'Nome é obrigatório.',
         'USER_REGISTER_EMAIL_INVALID': 'Digite um email válido.',
         'USER_REGISTER_EMAIL': 'Digite seu email.',
-        'SITE_DESCRIPTION': 'Experimente criar suas playlists de forma rápida, grátis e descomplicada'
+        'SITE_DESCRIPTION': 'Experimente criar suas playlists de forma rápida, grátis e descomplicada',
+        'OR': 'ou'
 
     });  
     //$translateProvider.preferredLanguage('pt-br');

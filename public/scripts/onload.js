@@ -1,8 +1,57 @@
 $(window).load(function() {
 	'use strict';
     
-    //Inicia sliders(intro)
-    $('.intro-slider').responsiveSlides({
+    
+	//$('.modal-btn').modal();
+	$searchModal = $body.find('.search-modal');
+	var $playlist = $('#playlist');
+	var $player = $('#' + PLAYER);
+	var $introSlide = $('.intro-slider');
+	var availHeight = screen.availHeight;
+    var availWidth = screen.availWidth;
+	var adjustPlayerHeight = function(){
+		var h = availHeight - $('#header').height() - 100;
+		$player.height(h);
+	};
+	var adjustPlaylistHeight = function(){
+		//var h = availHeight - $('#videoUploader').height() - 110 - $('#videoCtrl').height() - 100;
+		var h = availHeight - ($('#logo').outerHeight(true) + $('#videoUploader').outerHeight(true) + $('#videoCtrl').outerHeight(true) + $('#browsingUserCtrl').outerHeight(true) + 92);
+		console.log(
+			'h', h,
+			'availHeight', availHeight,
+			'#logo', $('#logo').outerHeight(true),
+			'#videoUploader', $('#videoUploader').outerHeight(true),
+			'#videoCtrl', $('#videoCtrl').outerHeight(true),
+			'#browsingUserCtrl', $('#browsingUserCtrl').outerHeight(true)
+		);
+
+		$playlist.height(h);
+		//$('#VideoList').height(h);
+	};
+    var adjustMainContainerWidth = function(){
+        var w = availWidth - $('.sidebar-custom').width();
+        console.log('adjustMainContainerWidth', availWidth, w);
+        $('.main-container').width(w);
+    };
+    var adjustIntroSlider = function (){
+    	$introSlide.height(availHeight);
+    };
+	var onResize = function() {
+        //adjustMainContainerWidth();
+		adjustPlayerHeight();
+		adjustPlaylistHeight();
+		adjustIntroSlider();
+	};
+	//adjustIframeHeight();
+	onResize();
+	$(window).on('resize', onResize);
+	$body.on('Screen.Resize', function(){
+		setTimeout(onResize, 140);
+	});
+
+
+	//Inicia sliders(intro)
+    $introSlide.responsiveSlides({
         auto: true, // Boolean: Animate automatically, true or false
         speed: 500, // Integer: Speed of the transition, in milliseconds
         timeout: 8000, // Integer: Time between slide transitions, in milliseconds
@@ -16,39 +65,6 @@ $(window).load(function() {
         before: function () {}, // Function: Before callback
         after: function () {} // Function: After callback
     });
-    
-	//$('.modal-btn').modal();
-	$searchModal = $body.find('.search-modal');
-	var $playlist = $('#playlist');
-	var $player = $('#' + PLAYER);
-	var availHeight = screen.availHeight;
-    var availWidth = screen.availWidth;
-	var adjustPlayerHeight = function() {
-		var h = availHeight - $('#header').height() - 100;
-		$player.height(h);
-	};
-	var adjustPlaylistHeight = function() {
-		//console.debug('adjustPlaylistHeight availHeight',availHeight, 'videoUploader videoCtrl', $('#videoUploader').height() , $('#videoCtrl').height() )
-		var h = availHeight - $('#videoUploader').height() - 110 - $('#videoCtrl').height() - 100;
-		$playlist.height(h);
-		//$('#VideoList').height(h);
-	};
-    var adjustMainContainerWidth = function(){
-        var w = availWidth - $('.sidebar-custom').width();
-        console.log('adjustMainContainerWidth', availWidth, w);
-        $('.main-container').width(w);
-    };
-	var onResize = function() {
-        //adjustMainContainerWidth();
-		adjustPlayerHeight();
-		adjustPlaylistHeight();
-	};
-	//adjustIframeHeight();
-	onResize();
-	$(window).on('resize', onResize);
-	$body.on('Screen.Resize', function(){
-		setTimeout(onResize, 140);
-	});
 
 	//$('[data-toggle="tooltip"]').tooltip();
 

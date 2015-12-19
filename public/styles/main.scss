@@ -8,6 +8,7 @@
 
 body{
     background: $sidebarBG;
+    overflow: hidden;
 }
 #player1 {
   width: 99%; //100%;
@@ -16,7 +17,7 @@ body{
 
 @import "maincontainer";
 @import "sidebar";
-
+@import "modal";
 
 
 /////////////////////////////////////////////////////////////////////
@@ -25,7 +26,7 @@ body{
 $color_alabaster_approx: #f9f9f9;
 
 body {
-  overflow-x: hidden;
+  //overflow-x: hidden;
   &.dragging{
     background: blue;
   }
@@ -157,12 +158,7 @@ li.playlist-item{
     top: auto;
   }
 }
-#videoCtrl {
-//  position: absolute;
-  bottom: 0;
-  width: 88%;
-  text-align: center;
-}
+
 .main-nav {
   margin: 17px 0;
 }

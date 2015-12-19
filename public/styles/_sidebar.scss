@@ -95,6 +95,10 @@
             list-style: none;
             display: inline-block;
             vertical-align: middle;
+            
+            #playerPlay{
+                text-decoration: none;
+            }
 
             a{
                 color: #fff;
@@ -110,15 +114,19 @@
                     background: url("../images/sprite.png") no-repeat -83px -2px;
                 }
                 .play,
-                .gap-marker{
+                .gap-marker,
+                .fa-pause{
                     height: 42px;
                 }
-                .play{
+                .play,
+                .fa-pause{
                     background-position: -83px -2px;
                     width: 34px;
                 }
-                .pause{
-
+                .fa-pause{
+                    font-size: 30pt;
+                    background: none;
+                    opacity: 0.9;
                 }
 
                 .step-backward{
@@ -208,47 +216,203 @@
             margin-right: $videolist-scroll-width;
         }
 
-        .playlist-item {
+        // .playlist-item {
                
-            background-color: #1e1b1c;
-            padding: 18px 7px 18px 20px; //padding: 0 7px 0 20px;
-            margin: 0;
+        //     background-color: #1e1b1c;
+        //     padding: 18px 7px 18px 20px; //padding: 0 7px 0 20px;
+        //     margin: 0;
 
-            &.active{
+        //     &.active{
                 
-                background-color: $videolist-selectedBG;
-               + li{
-                    .separator{
-                        display: none;
-                    }
-               }
-            }
+        //         background-color: $videolist-selectedBG;
+        //        + li{
+        //             .separator{
+        //                 display: none;
+        //             }
+        //        }
 
-            &:first-child{
-                .separator{
-                    display: none;
-                }
-            }
+        //        img{
+        //         border: 2.4px solid $featured-color;
+        //        }
+        //     }
+
+        //     &:hover{
+        //         .remove{
+        //             display: block;
+        //         }
+
+        //         img{
+        //             opacity: 0.45;
+        //         }
+        //         .arrow{
+        //             display: block;
+        //         }
+        //     }
+
+        //     &:first-child{
+        //         .separator{
+        //             display: none;
+        //         }
+        //     }
             
-            .separator{
-                margin: 0;
-                width: 90%;
-                border: 1px solid #373334;
-                position: absolute;
-                top: 0;
-            }
+        //     .separator{
+        //         margin: 0;
+        //         width: 90%;
+        //         border: 1px solid #373334;
+        //         position: absolute;
+        //         top: 0;
+        //     }
 
-            img{
-                width: 86px;
-            }
+        //     img{
+        //         width: 86px;
+        //         float: left;
+        //         border-radius: 4px;
+        //     }
 
-            .small{
-                float: right;
-                width: 66%;
-                font-weight: bold;
-                margin-top: 0px;
-            }
-        }
+        //     .arrow{
+        //         position: absolute;
+        //         left: 54px;
+        //         top: 42px;
+        //         font-size: 18pt;
+        //         font-weight: normal;
+        //         opacity: 0.86;
+        //         display: none;
+        //     }
+
+        //     small{
+        //         color: #eae8e9;
+        //         float: left;
+        //         width: 60%;
+        //         margin-top: 0px;
+        //         margin-left: 9pt;
+
+        //         .info{
+        //             display: block;
+        //             color: $featured-color;
+        //             margin-top: 2px;
+        //         }
+        //     }
+
+        //     .remove{
+        //         background: url("../images/sprite.png") no-repeat -305px -3px;
+        //         width: 14px;
+        //         height: 10px;
+        //         position: absolute;
+        //         right: 10px;
+        //         top: 19px;
+        //         cursor: pointer;
+        //         bottom: auto;
+        //         display: none;
+        //     }
+        // }
 
     }//end #VideoList
+
+
+}//end .sidebar-custom
+
+
+// opção de video em dragging
+// .as-sortable-dragging{
+//     .playlist-item {
+//         img{
+//             display: none;
+//         }
+//     }
+// }
+
+body .playlist-item {
+    
+
+    background-color: #1e1b1c;
+    padding: 18px 7px 18px 20px; //padding: 0 7px 0 20px;
+    margin: 0!important;
+
+    &.active{
+        background-color: $videolist-selectedBG;
+        
+       + li{
+            .separator{
+                display: none;
+            }
+       }
+
+       img{
+        border: 2.4px solid $featured-color;
+       }
+
+       &:hover{
+            background-color: $videolist-selectedBG;
+        }
+    }
+
+    &:hover{
+        background-color: #282425;
+        .remove{
+            display: block;
+        }
+
+        img{
+            opacity: 0.45;
+        }
+        .arrow{
+            display: block;
+        }
+    }
+
+    &:first-child{
+        .separator{
+            display: none;
+        }
+    }
+    
+    .separator{
+        margin: 0;
+        width: 90%;
+        border: 1px solid #373334;
+        position: absolute;
+        top: 0;
+    }
+
+    img{
+        width: 86px;
+        float: left;
+        border-radius: 4px;
+    }
+
+    .arrow{
+        position: absolute;
+        left: 54px;
+        top: 42px;
+        font-size: 18pt;
+        font-weight: normal;
+        opacity: 0.86;
+        display: none;
+    }
+
+    small{
+        color: #eae8e9;
+        float: left;
+        width: 60%;
+        margin-top: 0px;
+        margin-left: 9pt;
+
+        .info{
+            display: block;
+            color: $featured-color;
+            margin-top: 2px;
+        }
+    }
+
+    .remove{
+        background: url("../images/sprite.png") no-repeat -305px -3px;
+        width: 14px;
+        height: 10px;
+        position: absolute;
+        right: 10px;
+        top: 19px;
+        cursor: pointer;
+        bottom: auto;
+        display: none;
+    }
 }

@@ -133,30 +133,22 @@ body {
   }
 }
 li.playlist-item{
-  img {
-    width: 110px; /*120px;*/
-  }
-  small {
-    float: right;
-    width: 46%;
-    font-weight: bold;
-    margin-top: 0px;
-    span {
-      font-weight: normal;
-      display: block;
-      margin-top: 3px;
-    }
-  }
+  // img {
+  //   width: 110px; /*120px;*/
+  // }
+  // small {
+  //   float: right;
+  //   width: 46%;
+  //   font-weight: bold;
+  //   margin-top: 0px;
+  //   span {
+  //     font-weight: normal;
+  //     display: block;
+  //     margin-top: 3px;
+  //   }
+  // }
   
-  .remove {
-    position: absolute;
-    right: 10px;
-    bottom: 5px;
-    color: rgba(216, 0, 0, 0.63);
-    font-size: 14pt;
-    cursor: pointer;
-    top: auto;
-  }
+  
 }
 
 .main-nav {

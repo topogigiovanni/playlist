@@ -31,7 +31,7 @@
     <![endif]-->
 
     <!-- Page Content -->
-    <div class="full">
+    <div class="full inline-block">
         <div class="">
 
             <!-- Blog Sidebar Column -->
@@ -185,17 +185,17 @@
                             <ul data-as-sortable="board.dragControlListeners" ng-model="videoList" class="nav nav-pills nav-stacked">
                                 <li ng-class="{'active':item.id == currentVideo.id}" ng-repeat="item in videoList" ng-click="currentVideo.setVideo(item);" class="playlist-item vid-{{item.id}}" data-as-sortable-item>
                                     <hr class="separator" />
+                                    <i ng-cloak ng-click="removeFromList($index);$event.stopPropagation();" title="Remover da lista" class="remove"></i>
                                     <div>
-                                        <img title="Arraste para reordenar" data-as-sortable-item-handle ng-src="{{item.media.small}}" />                                    
+                                        <img title="Arraste para reordenar"  ng-src="{{item.media.small}}" />
+                                        <i data-as-sortable-item-handle class="arrow fa fa-arrows"></i>       
                                         <small ng-cloak>
-                                            {{item.title}}
-                                            <span> <i class="glyphicon glyphicon-time"></i>
-                                                &nbsp; {{item.duration.formatted}}
+                                            <span ng-bind="item.title"></span>
+                                            <span class="info" ng-bind="item.duration.formatted+' - '+item.origin"> 
                                             </span>
                                         </small>
                                         <div class="clear clearfix"></div>
                                     </div>
-                                    <i ng-cloak ng-click="removeFromList($index);$event.stopPropagation();" title="Remover da lista" class="remove glyphicon glyphicon-remove"></i>
                                 </li>
                             </ul>
                         </div>

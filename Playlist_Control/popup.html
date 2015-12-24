@@ -13,26 +13,57 @@
   <div class="row">
     <div class="col-lg-12">
       <div class="container">
-        <h4>Playlist</h4>
+        <h4 id="logo" class="sprite" >Playlist</h4>
         <form  id="addForm">
-          <!--div class="input-group" >
-            <input id="newVideo" value="" placeholder="Adicionar vídeo"type="text" class="form-control"> 
-            <span class="input-group-btn">
-              <button id="newVideoBtn" type="submit" class="btn btn-info" type="button">
-                <span class="glyphicon glyphicon-plus"></span>
-              </button>
-            </span>
-          </div-->
-          <div class="input-group" >
-            <input id="input" value="" placeholder="Pesquise ou adicione vídeo" type="text" class="form-control"> 
-            <span class="input-group-btn">
-              <button id="inputBtn" type="submit" class="btn btn-info" type="button">
-                <span class="glyphicon glyphicon-search"></span>
-              </button>
-            </span>
-          </div>
+            <!--div class="input-group" >
+              <input id="newVideo" value="" placeholder="Adicionar vídeo"type="text" class="form-control"> 
+              <span class="input-group-btn">
+                <button id="newVideoBtn" type="submit" class="btn btn-info" type="button">
+                  <span class="glyphicon glyphicon-plus"></span>
+                </button>
+              </span>
+            </div-->
+            <div class="input-group full-w" >
+              <input id="input" value="" placeholder="Pesquise ou cole a URL do vídeo" type="text" class="form-control videoUploader"> 
+              <i class="sprite icon-search"></i>
+            </div>
           </form>
-          <div ng-controller="VideoPlayerCtrl" class="" id="videoCtrl">
+          <div class="" id="videoCtrl">
+            <ul class="flow-ctrl left">
+              <li>
+                <a id="playerPrev" class="" ng-disabled="!Player.doRepeat &amp;&amp; (!videoList.length || videoList[0].id == currentVideo.id)" ng-click="Player.prev();" href="javascript:void(0)"> <i class="step-backward"></i>
+                </a>
+              </li>
+              <li>
+                <a id="playerPlay" class="" ng-disabled="!videoList.length" ng-click="Player.play();" href="javascript:void(0)"> <i ng-class="Player.isPlaying ? 'glyphicon glyphicon-pause' : 'play'" class="play"></i>
+                </a>
+              </li>
+              <li>
+                <a id="playerNext" class="" ng-disabled="!Player.doRepeat &amp;&amp; (!videoList.length || videoList[videoList.length - 1].id == currentVideo.id)" ng-click="Player.next();" href="javascript:void(0)">
+                  <i class="
+    step-forward"></i>
+                </a>
+              </li>
+            </ul>
+            <ul class="state-ctrl right">
+              <li>
+                <a>
+                  <i style="visibility:hidden; width:0.5px;" class="gap-marker"></i>
+                </a>
+              </li>
+              <li>
+                <a id="playerRepeat" ng-class="{active: Player.doRepeat}" data-toggle="tooltip" data-placement="top" title="Repetir lista" class="active" ng-disabled="!videoList.length" ng-click="Player.setRepeat()" href="javascript:void(0)">
+                  <i class="refresh"></i>
+                </a>
+              </li>
+              <li>
+                <a id="playerRandom" ng-class="{active: Player.doRandom}" data-toggle="tooltip" data-placement="top" title="Ativar ordem aleatória" class="" ng-disabled="!videoList.length" ng-click="Player.setRandom();" href="javascript:void(0)">
+                  <i class="random"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <!-- <div class="" id="videoCtrl">
             <ul  class="pagination pagination-sm">
               <li>
                 <button id="playerPrev" class="btn btn-lg btn-default" ng-disabled="!Player.doRepeat && (!videoList.length || videoList[0].id == currentVideo.id)" ng-click="Player.prev();" href="javascript:void(0)"> <i class="glyphicon glyphicon-backward"></i>
@@ -61,7 +92,7 @@
               </li>
             </ul>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

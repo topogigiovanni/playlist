@@ -30,11 +30,11 @@ api.player = {};
 api.player.adjust = function(o){
 	if(!o)	return;
 	if(o.playerPlay){
-		$('#playerPlay i').addClass('glyphicon-pause')
-						.removeClass('glyphicon-play');
+		$('#playerPlay i').addClass('glyphicon glyphicon-pause')
+						.removeClass('play');
 	}else{
-		$('#playerPlay i').removeClass('glyphicon-pause')
-						.addClass('glyphicon-play');
+		$('#playerPlay i').removeClass('glyphicon glyphicon-pause')
+						.addClass('play');
 	}
 	if(o.playerRepeat){
 		$('#playerRepeat').addClass('active');

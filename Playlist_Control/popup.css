@@ -1,6 +1,106 @@
 body{
-	min-width: 250px; 
+	min-width: 320px;/*250px;*/ 
+	background: #0C090A;
 }
+.sprite{
+	display:block;
+	text-indent: -999999px;
+}
+#logo {
+    background: url("imgs/logo.png");
+    width: 241px;
+    height: 48px;
+    margin: 26px auto;
+}
+
+.videoUploader{
+    background-color: rgba(88, 88, 88, 0.12);
+    border-color: #4a4848;
+    color: rgba(234, 230, 231, 0.82);
+    font: 400 10.77pt Arial;
+    width: 100%;
+    padding-right: 12%;
+    height: 40px;
+    padding-left: 17px;
+}
+.icon-search{
+    position: absolute;
+    right: 11px;
+    background: url("imgs/sprite.png") no-repeat -2px -3px;
+    width: 22px;
+    height: 21px;
+    top: 10px;
+}
+.input-group.full-w{
+	margin-bottom: 16px;
+}
+#videoCtrl {
+    display: inline-block;
+    width: 100%;
+    margin-top: 8px; }
+    #videoCtrl ul {
+      padding: 0; }
+      #videoCtrl ul.flow-ctrl {
+        margin-left: 19px; }
+      #videoCtrl ul.state-ctrl {
+        margin-right: 12px;
+        height: 42px; }
+    #videoCtrl li {
+      list-style: none;
+      display: inline-block;
+      vertical-align: middle; }
+      #videoCtrl li #playerPlay {
+        text-decoration: none; }
+      #videoCtrl li a {
+        color: #fff;
+        font-size: 20pt; }
+        #videoCtrl li a[disabled] i {
+          opacity: 0.3; }
+        #videoCtrl li a i {
+          display: block;
+          background: url("imgs/sprite.png") no-repeat -83px -2px; }
+        #videoCtrl li a .play,
+        #videoCtrl li a .gap-marker,
+        #videoCtrl li a .fa-pause {
+          height: 42px; }
+        #videoCtrl li a .play,
+        #videoCtrl li a .fa-pause {
+          background-position: -83px -2px;
+          width: 34px; }
+        #videoCtrl li a .fa-pause {
+          font-size: 30pt;
+          background: none;
+          opacity: 0.9; }
+        #videoCtrl li a .step-backward {
+          background-position: -32px -12px;
+          width: 20px;
+          height: 21px;
+          margin-right: 31px; }
+        #videoCtrl li a .step-forward {
+          background-position: -148px -12px;
+          width: 20px;
+          height: 21px;
+          margin-left: 31px; }
+        #videoCtrl li a .refresh {
+          background-position: -216px -12px;
+          width: 22px;
+          height: 22px; }
+        #videoCtrl li a .random {
+          background-position: -273px -13px;
+          width: 24px;
+          height: 20px;
+          margin-left: 31px; }
+.right {
+    float: right;
+}
+.left {
+    float: left;
+}
+.full-w{
+	width:100%;
+}
+
+/* ************************* */
 .block{
 	display: block;
 }

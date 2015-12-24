@@ -1,10 +1,10 @@
 ﻿{
   "manifest_version": 2,
-  "name": "Playlist",
-  "description": "Controle suas playlists de qualquer lugar",
-  "version": "0.1",
+  "name": "Playlist.ws",
+  "description": "Controle suas playlists de qualquer lugar.",
+  "version": "0.1.2",
 
-  "icons": { "16": "icon16.png", "128": "icon128.png" },
+  "icons": { "16": "icon16.png", "18": "icon.png", "19": "icon.png", "128": "icon128.png" },
   "content_scripts": [
     {
       "matches": ["*://*.playlist.ws/*", "http://localhost:9000/"],

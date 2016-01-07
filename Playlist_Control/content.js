@@ -33,7 +33,7 @@ api.video.set = function(url){
 api.player = {};
 api.player.get = function(){
 	var r = {};
-	r['playerPlay'] = $('#playerPlay i').hasClass('glyphicon-pause');
+	r['playerPlay'] = $('#playerPlay i').hasClass('fa-pause');
 	r['playerRepeat'] = $('#playerRepeat').hasClass('active');
 	r['playerRandom'] = $('#playerRandom').hasClass('active');
 	return r;

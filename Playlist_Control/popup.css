@@ -61,13 +61,13 @@ body{
           background: url("imgs/sprite.png") no-repeat -83px -2px; }
         #videoCtrl li a .play,
         #videoCtrl li a .gap-marker,
-        #videoCtrl li a .fa-pause {
+        #videoCtrl li a .glyphicon-pause {
           height: 42px; }
         #videoCtrl li a .play,
-        #videoCtrl li a .fa-pause {
+        #videoCtrl li a .glyphicon-pause{
           background-position: -83px -2px;
           width: 34px; }
-        #videoCtrl li a .fa-pause {
+        body #videoCtrl li a .glyphicon-pause{
           font-size: 30pt;
           background: none;
           opacity: 0.9; }

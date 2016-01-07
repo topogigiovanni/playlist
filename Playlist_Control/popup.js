@@ -66,7 +66,7 @@ $(document).ready(function() {
 		tabs = t;
 		var cb = function(response) {
 				if(debug)
-		   			console.log('Start action sent-- response',response);
+		   			console.log('Start get.player callback', response);
 		   		if(response){
 		   			$.extend(state, response);
 		   			api.player.adjust(state);
@@ -93,7 +93,8 @@ $(document).ready(function() {
 		}
 		api.call(new Action('get.player'), cb);
 	});
-});
+	$('.videoUploader').focus();
+});// end document.ready
 
 // Methods
 function bindPlayer(){

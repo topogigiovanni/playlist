@@ -7,14 +7,14 @@
   "icons": { "16": "icon16.png", "18": "icon.png", "19": "icon.png", "128": "icon128.png" },
   "content_scripts": [
     {
-      "matches": ["*://*.playlist.ws/*", "http://localhost:9000/"],
+      "matches": ["*://*.playlist.ws/*", "http://localhost:9000/*"],
       "js": ["jquery.js", "content.js"],
 	    "run_at" : "document_start"
     }
   ],
   "author": "GWeb TI",
   "permissions": [
-     "storage" ,"contextMenus", "tabs", "*://*.playlist.ws/*", "http://localhost:9000/"
+     "storage" ,"contextMenus", "tabs", "*://*.playlist.ws/*", "http://localhost:9000/*"
   ],
   "background": {
     "persistent": false,
